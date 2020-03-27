@@ -3,7 +3,7 @@ import { Button, Container, Grid } from "@material-ui/core";
 import { get } from "lodash";
 
 import { getPatient, getAllPatients, patchPatientByDoc } from "app/libs/apis";
-
+import Patient from "./Patient";
 import ClaimDialog from "./components/claim-dialog";
 
 import "./dashboard.scss";
@@ -43,10 +43,7 @@ const Dashboard = () => {
 
   const renderPatients = patients => {
     return patients.map(({ first_name, last_name, phone_number }, key) => (
-      <div className="single-patient" key={key}>
-        <h4>{first_name + " " + last_name}</h4>
-        <span> {phone_number}</span>
-      </div>
+      <Patient text={phone_number} title={first_name + " " + last_name} />
     ));
   };
 

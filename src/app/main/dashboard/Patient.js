@@ -1,18 +1,19 @@
-import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Skeleton from "@material-ui/lab/Skeleton";
 import React from "react";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 300,
-    minWidth: 300,
-    textAlign: "center"
+    maxWidth: 200,
+    minWidth: 100,
+    textAlign: "center",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: "5px",
+    marginBottom: "5px"
   },
   iconContainer: {
     display: "flex",
@@ -23,11 +24,10 @@ const useStyles = makeStyles({
   },
 
   text: {
-    textAlign: "center",
-    height: 130
+    textAlign: "center"
   },
   title: {
-    paddingTop: "2rem",
+    textAlign: "left",
     textTransform: "uppercase",
     fontSize: "16px",
     fontWeight: "bold",
@@ -38,31 +38,13 @@ const useStyles = makeStyles({
   button: {}
 });
 
-export default function WelcomeCard({
-  title,
-  text,
-  icon,
-  disabled,
-  handleClick,
-  buttonContent,
-  src
-}) {
+export default function Patient({ title, text, handleClick }) {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardContent className={classes.cardContent}>
-          <Skeleton
-            animation={false}
-            variant="circle"
-            width={90}
-            height={90}
-            className={classes.iconContainer}
-          >
-            <img src={src} className={classes.icon} />
-          </Skeleton>
-
+        <CardContent className={classes.cardContent} onClick={handleClick}>
           <Typography
             gutterBottom
             variant="h5"
@@ -81,17 +63,6 @@ export default function WelcomeCard({
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button
-          size="small"
-          color="primary"
-          onClick={handleClick}
-          className={classes.button}
-          disabled={disabled}
-        >
-          {buttonContent}
-        </Button>
-      </CardActions>
     </Card>
   );
 }
