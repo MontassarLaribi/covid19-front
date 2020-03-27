@@ -1,0 +1,76 @@
+/*imports*/
+@import "variables";
+
+/*Style*/
+.login-page {
+  .main-navbar {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .logo-container {
+      .logo {
+        max-width: 80px;
+        height: auto;
+        width: 100%;
+      }
+    }
+    .go-home {
+      display: flex;
+      .homepage {
+        align-self: center;
+        border: 1px solid #cdd0d5;
+        padding: 16px 36px;
+        border-radius: 50px;
+        display: block;
+        color: #757e8f;
+      }
+    }
+  }
+  .login-text {
+    text-align: center;
+    color: #596377;
+    font-family: Manrope, sans-serif;
+    margin: 50px 0;
+    h1 {
+      font-size: 30px;
+      line-height: 50px;
+      font-weight: bold;
+    }
+    h4 {
+      font-size: 16px;
+      line-height: 27px;
+      font-weight: normal;
+    }
+  }
+  .login-form {
+    text-align: center;
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    .email-container {
+      margin-bottom: 20px;
+      .email-field {
+        width: 100%;
+      }
+    }
+    .password-container {
+      margin-bottom: 20px;
+      .password-field {
+        width: 100%;
+      }
+    }
+    .login-button {
+      background-color: #11b69a;
+      color: #fff;
+      border-radius: 50px;
+      padding: 20px 36px;
+      text-transform: uppercase;
+      font-family: Manrope, sans-serif;
+      font-size: 14px;
+      max-width: 285px;
+      width: 100%;
+    }
+  }
+}

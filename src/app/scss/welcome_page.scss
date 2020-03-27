@@ -1,0 +1,333 @@
+/*imports*/
+@import "variables";
+/*import arabic Google Font*/
+@import url("https://fonts.googleapis.com/css?family=Tajawal&display=swap");
+
+/*Style*/
+.welcome-page {
+  /*TOP NAVBAR*/
+  .main-navbar {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .logo-container {
+      .logo {
+        max-width: 80px;
+        height: auto;
+        width: 100%;
+      }
+    }
+    .social-container {
+      display: flex;
+      .social-list {
+        align-self: center;
+        padding: 0;
+        list-style: none;
+        li {
+          display: inline-block;
+          margin: 5px;
+          a {
+            display: block;
+            border: 1px solid $gray_border;
+            padding: 12px;
+            line-height: 100%;
+            border-radius: 50%;
+            img {
+              display: block;
+              vertical-align: middle;
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .welcome-title {
+    text-align: center;
+    color: white;
+    background-color: red;
+    width: 62%;
+    left: 19%;
+    right: 15%;
+    position: relative;
+    justify-content: center;
+    font-size: 30px;
+    margin-bottom: 15px;
+  }
+  .welcome-title :nth-child(1) {
+    text-align: center;
+    font: Bold 49px/48px Tajawal;
+    letter-spacing: 0;
+    color: #ffffff;
+    opacity: 1;
+    padding-top: 10px;
+  }
+  .welcome-title :nth-child(2) {
+    text-align: center;
+    font: Bold 24px/23px Tajawal;
+    letter-spacing: 2.4px;
+    color: #ffffff;
+    opacity: 1;
+    padding: 10px 0;
+  }
+  .welcome-subtitle {
+    text-align: center;
+    color: $gray_font;
+    font-size: 16px;
+  }
+  .partenariat {
+    text-align: center;
+    font: Bold 12px/21px Manrope;
+    letter-spacing: 1.2px;
+    color: #acacac;
+    text-transform: uppercase;
+    opacity: 1;
+    margin-top: 30px;
+  }
+  .logos {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .associaMed {
+    width: 56px;
+    height: 56px;
+    margin: 20px;
+  }
+  .ministere {
+    width: 147px;
+    height: 56px;
+    margin: 20px;
+  }
+  .tunisieTelecom {
+    width: 100px;
+    height: 66px;
+    margin: 20px;
+  }
+
+  /*Cards*/
+  .card-wrapper {
+    .MuiGrid-container {
+      .MuiGrid-item {
+        .MuiPaper-root {
+          border-top: 6px solid #707070;
+          .MuiCardContent-root {
+            padding-top: 25px;
+            span.MuiSkeleton-circle {
+              background-color: #11b69a45;
+            }
+            p {
+              font-family: "Manrope", sans-serif;
+              font-size: 14px;
+              line-height: 23px;
+              letter-spacing: 0.245px;
+            }
+          }
+          .MuiCardActions-root {
+            button {
+              display: block;
+              width: 100%;
+              border: 1px solid #11b69a;
+              padding: 12px 15px;
+              border-radius: 50px;
+              margin: 10px;
+              color: #11b69a;
+              &:hover {
+                background-color: #11b69a;
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+      & > .MuiGrid-item:nth-child(2) {
+        .MuiPaper-root {
+          span.MuiSkeleton-circle {
+            background-color: #e2833b3b;
+          }
+          .MuiCardActions-root {
+            button {
+              display: block;
+              width: 100%;
+              border: 1px solid #e2833b;
+              padding: 12px 15px;
+              border-radius: 50px;
+              margin: 10px;
+              color: #e2833b;
+              &:hover {
+                background-color: #e2833b;
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+      & > .MuiGrid-item:nth-child(3) {
+        .MuiPaper-root {
+          span.MuiSkeleton-circle {
+            background-color: #d1e8ff;
+          }
+          .MuiCardActions-root {
+            button {
+              display: block;
+              width: 100%;
+              border: 1px solid #367ee0;
+              padding: 12px 15px;
+              border-radius: 50px;
+              margin: 10px;
+              color: #367ee0;
+              &:hover {
+                background-color: #367ee0;
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/*PATIENT POPUP*/
+.patientForm,
+.informer {
+  .MuiBackdrop-root {
+    background-color: rgba(0, 0, 0, 0.27);
+  }
+  .MuiDialog-container {
+    .MuiPaper-root {
+      -webkit-box-shadow: 0 0 35px 1px rgba(0, 0, 0, 0.1);
+      -moz-box-shadow: 0 0 35px 1px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 35px 1px rgba(0, 0, 0, 0.1);
+      .modal-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px;
+        border-bottom: 1px solid #cecece;
+        h4 {
+          color: #93a2a8;
+          font-size: 14px;
+          align-self: center;
+          text-transform: uppercase;
+        }
+        button {
+          color: #93a2a8;
+          font-size: 16px;
+          line-height: 19px;
+          border: 1px solid #cecece;
+          border-radius: 50px;
+          height: 35px;
+          width: 35px;
+          font-family: "Manrope", sans-serif;
+          align-self: center;
+        }
+      }
+      .modal-content {
+        padding: 20px;
+        .personnal-question-title {
+          color: #596377;
+          font-size: 22px;
+          font-family: "Manrope", sans-serif;
+          font-weight: bold;
+          margin: 28px 0;
+        }
+        
+        .tim{
+          font-size: 18px;
+          border: 2px solid #ffffff;
+          border-radius: 100px;
+          width: 80px;
+          background-size:100% 100%;
+          height: 80px; background-image: url(https://www.shareicon.net/data/128x128/2015/09/25/107222_multimedia_504x512.png);
+          }
+          .tim2{
+            font-size: 18px;
+            border: 2px solid #ffffff;
+            border-radius: 100px;
+            width: 80px;
+            background-size:100% 100%;
+            height: 80px; background-image: url(https://cdn1.iconfinder.com/data/icons/jetflat-devices-vol-5/90/0094_015_audio_mic_microphone_record_broadcast_mute-512.png);
+            }
+            .tim3{
+              width:100px;right:0px; top:100px; height:200px;background-color:#ffffff;margin-left:200px;
+            }
+            .tim4{
+              width:100px;right:0px; top:100px; height:30px;background-color:#ffffff;margin-left:-110px;
+            }
+        .form-title {
+          color: #596377;
+          font-size: 22px;
+          font-family: "Manrope", sans-serif;
+          font-weight: bold;
+          margin: 28px 0;
+        }
+        .question-list {
+          h4 {
+            color: #596377;
+            font-size: 22px;
+            font-family: "Manrope", sans-serif;
+            font-weight: bold;
+            margin: 28px 0;
+          }
+          .question-item {
+            margin: 10px 0;
+            border-bottom: 1px solid rgba(206, 206, 206, 0.2);
+            h5 {
+              font-family: "Manrope", sans-serif;
+              font-size: 16px;
+              color: #596377;
+              font-weight: normal;
+              margin-bottom: 6px;
+            }
+            .arabic-question {
+              font-family: "Tajawal", sans-serif;
+              font-size: 18px;
+              text-align: right;
+              margin-bottom: 6px;
+              color: #596377;
+            }
+          }
+        }
+
+        .action-buttons {
+          text-align: center;
+          button {
+            border-radius: 50px;
+            padding: 10px 30px;
+            margin: 12px;
+          }
+          .cancel {
+          }
+          .submit {
+            background-color: #11b683;
+            box-shadow: none;
+          }
+        }
+      }
+    }
+  }
+}
+/*INFORMANT POPUP*/
+.d-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.browse-wrapper {
+  width: 100%;
+  display: block;
+  .browse-file {
+    border-radius: 50px;
+    padding: 16px 35px;
+    background-color: #fff;
+    box-shadow: none;
+    border: 1px solid #5c616e;
+    img {
+      padding-right: 10px;
+    }
+  }
+}
