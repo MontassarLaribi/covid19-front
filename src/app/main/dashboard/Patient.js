@@ -44,11 +44,11 @@ function renderFlag(flag) {
   if (flag) {
     switch (flag.toLowerCase()) {
       case "suspect":
-        return <Chip color="primary" label={flag} />;
+        return <Chip style={{ backgroundColor: "orange" }} label={flag} />;
       case "stable":
         return <Chip color="secondary" label={flag} />;
       case "urgent":
-        return <Chip style={{ backgroundColor: "darkred" }} label={flag} />;
+        return <Chip style={{ backgroundColor: "#e23b42" }} label={flag} />;
       default:
         break;
     }
