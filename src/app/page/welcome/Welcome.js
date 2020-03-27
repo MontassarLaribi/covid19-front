@@ -1,28 +1,20 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { withStyles } from "@material-ui/core/styles";
+import { InformModal, PatientFormModal, WelcomeCard } from "@fuse";
 import history from "@history";
-import { GroupedWelcomeCards } from "@fuse";
 import Grid from "@material-ui/core/Grid";
-import { WelcomeCard, PatientFormModal, InformModal } from "@fuse";
-import { connect } from "react-redux";
-import { ModalAction, addInformer } from "app/store/actions";
 import { makeStyles } from "@material-ui/core/styles";
+import { addInformer, ModalAction } from "app/store/actions";
+import axios from "axios";
 import { DOMAINE } from "config";
-
-import Sms from "./sms";
-
-import "../../scss/welcome_page.scss";
-import navbar from "../../store/reducers/fuse/navbar.reducer";
-// import logo from "../../img/logo.svg";
-import logo from "../../img/logo.png";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import associaMed from "../../img/associaMed.png";
 import ministere from "../../img/ministere.png";
-import tunisieTelecom from "../../img/tunisieTelecom.png";
-
 import facebook from "../../img/social/facebook-icon.svg";
 import instagram from "../../img/social/instagram-icon.svg";
 import twitter from "../../img/social/twitter-icon.svg";
+import tunisieTelecom from "../../img/tunisieTelecom.png";
+import "../../scss/welcome_page.scss";
+import Sms from "./sms";
 
 const styles = theme => ({
   layoutRoot: {
@@ -175,6 +167,7 @@ const Welcome = props => {
     console.log("newResponse", newResponse);
     setReponse(newResponse);
   };
+
   const submitForm = data => {
     const newData = { ...responses, ...data };
     console.log(JSON.stringify(newData));
@@ -183,6 +176,7 @@ const Welcome = props => {
       props.ModalAction("sms");
     });
   };
+
   return (
     <div className="welcome-page">
       <div className={classes.samu}>
