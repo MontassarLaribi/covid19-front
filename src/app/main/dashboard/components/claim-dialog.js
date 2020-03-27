@@ -97,9 +97,9 @@ const ClaimDialog = ({
   };
 
   const renderQuestions = cat => {
-    return responses[cat].map(q => {
+    return responses[cat].map((q, key) => {
       return (
-        <div className="single-question">
+        <div key={key} className="single-question">
           <p> {q.question.fr_value}</p>
           {q.question.type === 1 && (
             <Button
@@ -107,12 +107,12 @@ const ClaimDialog = ({
               disabled
               className={renderClassName(q.response.value)}
             >
-              {renderValue(q.response.value, q.question.type)}
+              {renderValue(q.response.value, q.question.type) | ""}
             </Button>
           )}
           {q.question.type === 2 && (
             <TextField
-              id={q.question.id}
+              id={String(q.question.id)}
               className="question-textfield"
               label=""
               disabled
@@ -132,21 +132,21 @@ const ClaimDialog = ({
         switch (cat) {
           case "CATEGORY_GENERAL":
             return (
-              <div>
+              <div key={index}>
                 <h3>{index + 1}.Questions générales</h3>
                 {renderQuestions(cat)}
               </div>
             );
           case "CATEGORY_ANTECEDENT":
             return (
-              <div>
+              <div key={index}>
                 <h3>{index + 1}.Questions médicales</h3>
                 {renderQuestions(cat)}
               </div>
             );
           case "CATEGORY_SYMPTOMS":
             return (
-              <div>
+              <div key={index}>
                 <h3>{index + 1}.Les symptômes</h3>
                 {renderQuestions(cat)}
               </div>
@@ -195,7 +195,7 @@ const ClaimDialog = ({
                   utilisez une réponse rapide
                 </InputLabel>
                 <Select
-                  labelId="select-response-label"
+                  labelid="select-response-label"
                   id="select-response"
                   className="select-response"
                   label="utilisez une réponse rapide"
@@ -205,8 +205,8 @@ const ClaimDialog = ({
                   value={response}
                   onChange={handleChange}
                 >
-                  {predefinedResponses.map(response => (
-                    <MenuItem value={response}>
+                  {predefinedResponses.map((response, key) => (
+                    <MenuItem key={key} value={response}>
                       <h5>{response.title}</h5>
                       <div>{response.text}</div>
                     </MenuItem>
@@ -227,7 +227,7 @@ const ClaimDialog = ({
               <div className="conditions">
                 <Button
                   variant="outlined"
-                  className={condition === "stable" && "stable-active"}
+                  className={condition === "stable" ? "stable-active" : ""}
                   onClick={() =>
                     condition === "stable"
                       ? setCondition(null)
@@ -238,7 +238,7 @@ const ClaimDialog = ({
                 </Button>
                 <Button
                   variant="outlined"
-                  className={condition === "urgent" && "urgent-active"}
+                  className={condition === "urgent" ? "urgent-active" : ""}
                   onClick={() =>
                     condition === "urgent"
                       ? setCondition(null)
@@ -249,7 +249,7 @@ const ClaimDialog = ({
                 </Button>
                 <Button
                   variant="outlined"
-                  className={condition === "critique" && "critique-active"}
+                  className={condition === "critique" ? "critique-active" : ""}
                   onClick={() =>
                     condition === "critique"
                       ? setCondition(null)
@@ -260,26 +260,22 @@ const ClaimDialog = ({
                 </Button>
               </div>
               <div className="sms">
-                <row>
-                  <Button
-                    variant="outlined"
-                    size="large"
-                    // style="align:right"
-                    onClick={() => {
-                      onSendSMS(condition);
-                      setCondition(null);
-                      setResponse("");
-                    }}
-                    disabled={!condition || !response}
-                  >
-                    envoyer sms
-                  </Button>
-                </row>
-                <row>
-                  <Button variant="outlined" size="large" onClick={() => {}}>
-                    Dénoncier du patinet
-                  </Button>
-                </row>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  // style="align:right"
+                  onClick={() => {
+                    onSendSMS(condition);
+                    setCondition(null);
+                    setResponse("");
+                  }}
+                  disabled={!condition || !response}
+                >
+                  envoyer sms
+                </Button>
+                <Button variant="outlined" size="large" onClick={() => {}}>
+                  Dénoncier du patinet
+                </Button>
               </div>
             </div>
           </Grid>
