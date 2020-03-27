@@ -167,7 +167,7 @@ const ClaimDialog = ({
   return (
     <Dialog
       className="claim-dialog"
-      onClose={onClose}
+      // onClose={onClose}
       aria-labelledby="Claim Dialog"
       open={visible}
       fullWidth={true}
@@ -297,8 +297,8 @@ const ClaimDialog = ({
       {isSent && (
         <div className="issent">
           <div className="issent-content">
-            <img alt="" class="Ellipse" src={ellipse} />
-            <button class="send">
+            <img alt="" className="Ellipse" src={ellipse} />
+            <button className="send">
               <img alt="" src={group} />
             </button>
             <h2> Merci Beaucoup docteur!</h2>
