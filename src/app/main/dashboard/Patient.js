@@ -1,9 +1,11 @@
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
+import Chip from "@material-ui/core/Chip";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
+import { CardActions } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -38,13 +40,31 @@ const useStyles = makeStyles({
   button: {}
 });
 
-export default function Patient({ title, text, handleClick }) {
-  const classes = useStyles();
+function renderFlag(flag) {
+  if (flag) {
+    switch (flag.toLowerCase()) {
+      case "urgent":
+        return <Chip color="primary" label={flag} />;
+        break;
+      case "stable":
+        return <Chip color="secondary" label={flag} />;
+        break;
+      case "critique":
+        return <Chip style={{ backgroundColor: "darkred" }} label={flag} />;
+        break;
 
+      default:
+        break;
+    }
+  }
+}
+
+export default function Patient({ title, text, flag, handleClick }) {
+  const classes = useStyles();
   return (
     <Card className={classes.root}>
-      <CardActionArea>
-        <CardContent className={classes.cardContent} onClick={handleClick}>
+      <CardActionArea onClick={handleClick}>
+        <CardContent className={classes.cardContent}>
           <Typography
             gutterBottom
             variant="h5"
@@ -61,7 +81,9 @@ export default function Patient({ title, text, handleClick }) {
           >
             {text}
           </Typography>
+          {flag && renderFlag(flag)}
         </CardContent>
+        <CardActions></CardActions>
       </CardActionArea>
     </Card>
   );

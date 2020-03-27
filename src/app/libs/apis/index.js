@@ -1,9 +1,19 @@
 import axios from "axios";
-import {DOMAINE} from "config"
+import { DOMAINE } from "config";
 
 export const getPatient = async () => {
   const response = await axios
     .get(`${DOMAINE}/api/v1/secured/treat-patient`)
+    .catch(err => {
+      throw new Error(err);
+    });
+
+  return response;
+};
+
+export const getPatientSingle = async guid => {
+  const response = await axios
+    .get(`${DOMAINE}/api/v1/secured/patient/${guid}`)
     .catch(err => {
       throw new Error(err);
     });
@@ -24,12 +34,9 @@ export const getAllPatients = async () => {
 export const patchPatientByDoc = async (status, guid) => {
   if (guid) {
     const response = await axios
-      .patch(
-        `${DOMAINE}/api/v1/secured/patient/${guid}`,
-        {
-          flag: status
-        }
-      )
+      .patch(`${DOMAINE}/api/v1/secured/patient/${guid}`, {
+        flag: status
+      })
       .catch(err => {
         //alert(err)
         throw new Error(err);
@@ -41,12 +48,9 @@ export const patchPatientByDoc = async (status, guid) => {
 export const patchPatientBySAMU = async guid => {
   if (guid) {
     const response = await axios
-      .patch(
-        `${DOMAINE}/api/v1/secured/patient/${guid}`,
-        {
-          emergencyStatus: "CLOSED"
-        }
-      )
+      .patch(`${DOMAINE}/api/v1/secured/patient/${guid}`, {
+        emergencyStatus: "CLOSED"
+      })
       .catch(err => {
         //alert(err)
         throw new Error(err);

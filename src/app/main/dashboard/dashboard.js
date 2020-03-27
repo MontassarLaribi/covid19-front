@@ -2,9 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Button, Container, Grid } from "@material-ui/core";
 import { get } from "lodash";
 
-import { getPatient, getAllPatients, patchPatientByDoc } from "app/libs/apis";
+import {
+  getPatient,
+  getPatientSingle,
+  getAllPatients,
+  patchPatientByDoc
+} from "app/libs/apis";
 import Patient from "./Patient";
 import ClaimDialog from "./components/claim-dialog";
+import PatientModal from "./components/PatientModal";
 
 import "./dashboard.scss";
 
@@ -12,6 +18,7 @@ const listOfStatus = ["non-traité", "en cours de traitement", "traité"];
 
 const Dashboard = () => {
   const [visible, setVisible] = useState(false);
+  const [show, setShow] = useState(false);
   const [isSent, setIsSent] = useState(false);
   const [patient, setPatient] = useState({});
   const [allPatients, setAllPatients] = useState();
@@ -42,8 +49,22 @@ const Dashboard = () => {
   }
 
   const renderPatients = patients => {
-    return patients.map(({ first_name, last_name, phone_number }, key) => (
-      <Patient text={phone_number} title={first_name + " " + last_name} />
+    return patients.map((patient, key) => (
+      <Patient
+        key={key}
+        text={patient.phone_number}
+        title={patient.first_name + " " + patient.last_name}
+        flag={patient.flag}
+        handleClick={() => {
+          if (patient.status === "CLOSED") {
+            setShow(true);
+            getPatientSingle(patient.guid).then(res => {
+              setPatient(get(res, "data.payload.patient", {}));
+            });
+            setPatient(patient);
+          }
+        }}
+      />
     ));
   };
 
@@ -123,6 +144,15 @@ const Dashboard = () => {
               allPatients ? allPatients["ON_HOLD"].patients.length : 0
             }
           />
+        )}
+        {show && (
+          <PatientModal
+            visible={show}
+            patient={patient}
+            onClose={() => {
+              setShow(false);
+            }}
+          ></PatientModal>
         )}
       </Container>
     </div>
