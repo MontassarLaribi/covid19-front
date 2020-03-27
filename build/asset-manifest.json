@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.b675c0b3.chunk.css",
-    "main.js": "/static/js/main.f6a9bcc3.chunk.js",
+    "main.js": "/static/js/main.96807243.chunk.js",
     "runtime~main.js": "/static/js/runtime~main.5983a3dc.js",
     "static/css/2.eb777b3d.chunk.css": "/static/css/2.eb777b3d.chunk.css",
     "static/js/2.9ad72f7b.chunk.js": "/static/js/2.9ad72f7b.chunk.js",
@@ -10,7 +10,7 @@
     "static/css/4.14bce991.chunk.css": "/static/css/4.14bce991.chunk.css",
     "static/js/4.a9ce480f.chunk.js": "/static/js/4.a9ce480f.chunk.js",
     "index.html": "/index.html",
-    "precache-manifest.c7eb6c04b87ad58ae0dc09d59dc9f7c3.js": "/precache-manifest.c7eb6c04b87ad58ae0dc09d59dc9f7c3.js",
+    "precache-manifest.b63d535833bdb0fb15b0ff624e4d18b5.js": "/precache-manifest.b63d535833bdb0fb15b0ff624e4d18b5.js",
     "service-worker.js": "/service-worker.js",
     "static/media/Ellipse33.svg": "/static/media/Ellipse33.c1d6ac05.svg",
     "static/media/Group40.svg": "/static/media/Group40.558e2845.svg",
