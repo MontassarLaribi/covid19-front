@@ -55,6 +55,8 @@ const ClaimDialog = ({
     address,
     zip_code,
     phone_number,
+    gender,
+    audio,
     responses
   } = patient;
 
@@ -159,6 +161,11 @@ const ClaimDialog = ({
     );
   };
 
+  const renderAudio = audio => {
+    if (!audio) return "Pas d'enregistrement";
+    return <audio controls src={"data:audio/mp3;base64," + audio} />;
+  };
+
   return (
     <Dialog
       className="claim-dialog"
@@ -188,6 +195,7 @@ const ClaimDialog = ({
                 <p>
                   numéro de téléphone: <span>{phone_number}</span>
                 </p>
+                <p>{renderAudio(audio)}</p>
               </div>
               <Divider />
               <div className="claim-dialog-message">
