@@ -49,7 +49,6 @@ const ClaimDialog = ({
   console.log("patient", patient);
 
   const {
-    guid,
     first_name,
     last_name,
     address,
@@ -114,7 +113,6 @@ const ClaimDialog = ({
           )}
           {q.question.type === 2 && (
             <TextField
-              id={String(q.question.id)}
               className="question-textfield"
               label=""
               disabled
@@ -155,7 +153,7 @@ const ClaimDialog = ({
             );
 
           default:
-            break;
+            return <></>;
         }
       })
     );
@@ -185,6 +183,9 @@ const ClaimDialog = ({
                 </p>
                 <p>
                   prénom: <span>{first_name}</span>
+                </p>
+                <p>
+                  sexe : <span>{gender === "H" ? "Homme" : "Femme"}</span>
                 </p>
                 <p>
                   adresse: <span>{address}</span>

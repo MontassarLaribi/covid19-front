@@ -1,12 +1,8 @@
 import { Button, Dialog, Divider, Grid, TextField } from "@material-ui/core";
-import React, { useState } from "react";
+import React from "react";
 
 const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
-  const [response, setResponse] = useState("");
-  const [open, setOpen] = useState(false);
-
   const {
-    guid,
     first_name,
     last_name,
     address,
@@ -17,18 +13,6 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
     responses,
     flag
   } = patient;
-
-  const handleChange = event => {
-    setResponse(event.target.value);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   const renderClassName = value => {
     const test = value === "false" || value === false || value === "0";
@@ -75,7 +59,6 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
           )}
           {q.question.type === 2 && (
             <TextField
-              id={String(q.question.id)}
               className="question-textfield"
               label=""
               disabled
@@ -116,7 +99,7 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
             );
 
           default:
-            break;
+            return <></>;
         }
       })
     );
@@ -146,6 +129,9 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
                 </p>
                 <p>
                   prénom: <span>{first_name}</span>
+                </p>
+                <p>
+                  sexe : <span>{gender === "H" ? "Homme" : "Femme"}</span>
                 </p>
                 <p>
                   adresse: <span>{address}</span>
