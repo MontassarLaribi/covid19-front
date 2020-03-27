@@ -22,13 +22,13 @@ const Dashboard = () => {
     });
   }, []);
 
-  const filterPatients = status => {
+  function matchStatus(status) {
     let currentStatus = "ON_HOLD";
     switch (status) {
       case "non-traité":
         currentStatus = "ON_HOLD";
         break;
-      case "en cours de traitment":
+      case "en cours de traitement":
         currentStatus = "IN_PROGRESS";
         break;
       case "traité":
@@ -38,33 +38,37 @@ const Dashboard = () => {
       default:
         break;
     }
+    return currentStatus;
+  }
 
-    return allPatients ? allPatients[currentStatus].patients : [];
-  };
-
-  const renderPatients = status => {
-    return filterPatients(status).map(
-      ({ first_name, last_name, phone_number }) => (
-        <div className="single-patient">
-          <h4>{first_name + " " + last_name}</h4>
-          <span> {phone_number}</span>
-        </div>
-      )
-    );
+  const renderPatients = patients => {
+    return patients.map(({ first_name, last_name, phone_number }, key) => (
+      <div className="single-patient" key={key}>
+        <h4>{first_name + " " + last_name}</h4>
+        <span> {phone_number}</span>
+      </div>
+    ));
   };
 
   const renderColumns = () => {
-    return listOfStatus.map(elem => (
-      <Grid item md={4} xs={12}>
-        <div className={`single-column ${elem.replace(/ /g, "-")}`}>
-          <div className="column-title">
-            {elem} <span>({filterPatients(elem).length})</span>
+    return listOfStatus.map((status, key) => {
+      const filtredByStatus = allPatients[matchStatus(status)];
+      return (
+        <Grid key={key} item md={4} xs={12}>
+          <div className={`single-column ${status.replace(/ /g, "-")}`}>
+            <div className="column-title">
+              {status} <span>({filtredByStatus.count})</span>
+            </div>
+            <div className="patients">
+              {renderPatients(filtredByStatus.patients)}
+            </div>
           </div>
-          <div className="patients">{renderPatients(elem)}</div>
-        </div>
-      </Grid>
-    ));
+        </Grid>
+      );
+    });
   };
+
+  if (!allPatients) return <></>;
 
   return (
     <div className="dashboard">
@@ -82,10 +86,6 @@ const Dashboard = () => {
               setVisible(true);
               getPatient().then(res => {
                 setPatient(get(res, "data.payload.patient", {}));
-                /* patchPatientByDoc(
-                  "IN_PROGRESS",
-                  get(res, "data.payload.patient.guid")
-                );  */
               });
             }}
           >

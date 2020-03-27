@@ -210,11 +210,6 @@ const Welcome = props => {
             </li>
           </ul>
         </div>
-        {/*<div className="homepage">*/}
-        {/*    <button className="btn">*/}
-        {/*        go back*/}
-        {/*    </button>*/}
-        {/*</div>*/}
       </div>
       <div className="welcome-title">
         <h1>مع بعضنا</h1>

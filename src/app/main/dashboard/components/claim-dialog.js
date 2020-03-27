@@ -46,7 +46,7 @@ const ClaimDialog = ({
   const [open, setOpen] = useState(false);
   const [condition, setCondition] = useState(null);
 
-  console.log("patient", patient);
+  // console.log("patient", patient);
 
   const {
     guid,
@@ -253,7 +253,7 @@ const ClaimDialog = ({
                   onClick={() =>
                     condition === "critique"
                       ? setCondition(null)
-                      : setCondition("SUSPECT")
+                      : setCondition("critique")
                   }
                 >
                   critique
@@ -261,29 +261,24 @@ const ClaimDialog = ({
               </div>
               <div className="sms">
                 <row>
-                <Button
-                  variant="outlined"
-                  size="large"
-                  // style="align:right"
-                  onClick={() => {
-                    onSendSMS(condition);
-                    setCondition(null);
-                    setResponse("");
-                  }}
-                  disabled={!condition || !response}
-                >
-                  envoyer sms
-                </Button>
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    // style="align:right"
+                    onClick={() => {
+                      onSendSMS(condition);
+                      setCondition(null);
+                      setResponse("");
+                    }}
+                    disabled={!condition || !response}
+                  >
+                    envoyer sms
+                  </Button>
                 </row>
                 <row>
-                <Button
-                  variant="outlined"
-                  size="large"
-                  onClick={() => {
-                  }}
-                >
-                  Dénoncier du patinet 
-                </Button>
+                  <Button variant="outlined" size="large" onClick={() => {}}>
+                    Dénoncier du patinet
+                  </Button>
                 </row>
               </div>
             </div>
