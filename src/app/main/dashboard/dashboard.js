@@ -51,6 +51,7 @@ const Dashboard = () => {
   };
 
   const renderColumns = () => {
+    // console.log(allPatients);
     return listOfStatus.map((status, key) => {
       const filtredByStatus = allPatients[matchStatus(status)];
       return (

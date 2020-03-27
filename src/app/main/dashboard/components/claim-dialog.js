@@ -46,7 +46,7 @@ const ClaimDialog = ({
   const [open, setOpen] = useState(false);
   const [condition, setCondition] = useState(null);
 
-  // console.log("patient", patient);
+  console.log("patient", patient);
 
   const {
     guid,
@@ -71,11 +71,12 @@ const ClaimDialog = ({
   };
 
   const renderClassName = value => {
-    switch (value) {
-      case "0":
+    const test = value === "false" || value === false || value === "0";
+    switch (test) {
+      case false:
         return "critique-active";
 
-      case "1":
+      case true:
         return "stable-active";
 
       default:
@@ -84,13 +85,12 @@ const ClaimDialog = ({
   };
 
   const renderValue = (value, type) => {
-    switch (value) {
-      case "0":
+    const test = value === "false" || value === false || value === "0";
+    switch (test) {
+      case false:
         return "non";
-
-      case "1":
+      case true:
         return "oui";
-
       default:
         break;
     }
@@ -107,7 +107,7 @@ const ClaimDialog = ({
               disabled
               className={renderClassName(q.response.value)}
             >
-              {renderValue(q.response.value, q.question.type) | ""}
+              {renderValue(q.response.value, q.question.type)}
             </Button>
           )}
           {q.question.type === 2 && (
