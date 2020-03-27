@@ -247,7 +247,18 @@ const ClaimDialog = ({
                 </Button>
                 <Button
                   variant="outlined"
-                  className={condition === "urgent" ? "urgent-active" : ""}
+                  className={condition === "suspect" ? "urgent-active" : ""}
+                  onClick={() =>
+                    condition === "suspect"
+                      ? setCondition(null)
+                      : setCondition("suspect")
+                  }
+                >
+                  suspect
+                </Button>
+                <Button
+                  variant="outlined"
+                  className={condition === "urgent" ? "critique-active" : ""}
                   onClick={() =>
                     condition === "urgent"
                       ? setCondition(null)
@@ -255,17 +266,6 @@ const ClaimDialog = ({
                   }
                 >
                   urgent
-                </Button>
-                <Button
-                  variant="outlined"
-                  className={condition === "critique" ? "critique-active" : ""}
-                  onClick={() =>
-                    condition === "critique"
-                      ? setCondition(null)
-                      : setCondition("critique")
-                  }
-                >
-                  critique
                 </Button>
               </div>
               <div className="sms">
@@ -280,10 +280,10 @@ const ClaimDialog = ({
                   }}
                   disabled={!condition || !response}
                 >
-                  envoyer sms
+                  Envoyer SMS Et Valider
                 </Button>
                 <Button variant="outlined" size="large" onClick={() => {}}>
-                  Dénoncier du patinet
+                  Dénoncer patient
                 </Button>
               </div>
             </div>

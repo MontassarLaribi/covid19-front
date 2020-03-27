@@ -157,18 +157,18 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
                 <Button
                   variant="outlined"
                   className={
-                    flag.toLowerCase() === "urgent" ? "urgent-active" : ""
+                    flag.toLowerCase() === "suspect" ? "urgent-active" : ""
                   }
                 >
-                  urgent
+                  suspect
                 </Button>
                 <Button
                   variant="outlined"
                   className={
-                    flag.toLowerCase() === "critique" ? "critique-active" : ""
+                    flag.toLowerCase() === "urgent" ? "critique-active" : ""
                   }
                 >
-                  critique
+                  urgent
                 </Button>
               </div>
               <Button variant="outlined" size="small" onClick={onClose}>

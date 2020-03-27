@@ -43,16 +43,12 @@ const useStyles = makeStyles({
 function renderFlag(flag) {
   if (flag) {
     switch (flag.toLowerCase()) {
-      case "urgent":
+      case "suspect":
         return <Chip color="primary" label={flag} />;
-        break;
       case "stable":
         return <Chip color="secondary" label={flag} />;
-        break;
-      case "critique":
+      case "urgent":
         return <Chip style={{ backgroundColor: "darkred" }} label={flag} />;
-        break;
-
       default:
         break;
     }
