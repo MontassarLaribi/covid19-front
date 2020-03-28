@@ -30,7 +30,8 @@ import DateFnsUtils from "@date-io/date-fns";
 import { submitLogin } from "../../auth/store/actions/login.actions";
 import { connect } from "react-redux";
 import "../../scss/login_page.scss";
-import logo from "../../img/logo.svg";
+import logo from "../../img/Logo-plain.png";
+
 function UpperCasingTextField(props) {
   const {
     form: { setFieldValue },
@@ -63,7 +64,9 @@ const Login = props => {
     <div className="login-page">
       <div className="main-navbar">
         <div className="logo-container">
-          <img className="logo" src={logo} alt="logo" />
+          <a href="/">
+            <img className="logo" src={logo} alt="logo" />
+          </a>
         </div>
         <div className="go-home">
           <button

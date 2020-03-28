@@ -182,18 +182,7 @@ const Welcome = props => {
 
   return (
     <div className="welcome-page">
-      {/* <div className={classes.samu}>
-        <button
-          onClick={() => props.history.push("/login", { type: "samu" })}
-          className={classes.subsamu}
-        >
-          Samu
-        </button>
-      </div> */}
       <div className="main-navbar">
-        {/*<div className="logo-container">*/}
-        {/*   <img className="logo" src={logo} alt="logo" /> */}
-        {/*</div>*/}
         <div className="language-selection-container">
           <ul className="language-list">
             <li>
@@ -233,14 +222,19 @@ const Welcome = props => {
           </ul>
         </div>
       </div>
-      <div className="welcome-title">
-        <h1>مع بعضنا</h1>
-        <h1> Ensemble</h1>
-      </div>
-      <div className="welcome-subtitle">
-        {t("TEXT_WELCOME")} <br />
-        {t("TEXT_24H")}
-      </div>
+      <Grid container style={{ placeContent: "center" }}>
+        <Grid item xs={9}>
+          <div className="welcome-title">
+            <h1>مع بعضنا</h1>
+            <h1> Ensemble</h1>
+          </div>
+          <div className="welcome-subtitle">
+            {t("TEXT_WELCOME")} <br />
+            {t("TEXT_24H")}
+          </div>
+        </Grid>
+      </Grid>
+
       {/*  <GroupedWelcomeCards/> */}
       <div className="card-wrapper">
         <Grid container className={classes.root} spacing={2}>

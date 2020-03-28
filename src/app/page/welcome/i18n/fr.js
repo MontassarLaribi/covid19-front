@@ -13,7 +13,7 @@ const locale = {
   CARD_INFORMER_BTN: "Choisissez d'informer",
   ESPACE_SHOC_ROOM: "Espace Shoc Room",
   TEXT_WELCOME:
-    "Mabaadhna est une platforme permettant la mise en relation rapide \ndes porteurs des symptômes du COVID-19 et l’accélération de leur prise en charge par le corps médical.",
+    "“Mabaadhna” est une platforme permettant la mise en relation rapide des porteurs des symptômes du COVID-19 et l’accélération de leur prise en charge par le corps médical.",
   TEXT_24H: "À votre service 24h/24 7j/7."
 };
 

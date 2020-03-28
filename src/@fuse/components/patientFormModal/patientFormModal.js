@@ -112,6 +112,7 @@ const PatientFormModal = ({
 
   function toggle() {
     setIsActive(!isActive);
+    setMSeconds(0);
   }
 
   function reset() {
@@ -148,7 +149,7 @@ const PatientFormModal = ({
     <Modal className="patientForm" id="PatientForm" ModalAction={modalAction}>
       <LoiSnack />
       <div className="modal-header">
-        <h4>FORMULAIRE DE MALADIE</h4>
+        <h4>FORMULAIRE DE MALADE</h4>
         <button onClick={() => handleClose("PatientForm")}>x</button>
       </div>
       <div className="modal-content">
@@ -175,6 +176,11 @@ const PatientFormModal = ({
           Vous avez 30 secondes pour décrire votre état et pour qu'on puisse
           mieux vous diagnostiquer
         </label>
+        <br></br>
+        <label className="small" style={{ float: "right" }}>
+          عندك 30 ثانية بش توصف حالتك و تعاوننا في عملية التشخيص
+        </label>
+        <br />
         <div className="tim3">
           <div style={{ textAlign: "center" }}>
             {play ? "Cliquez ICI" : mSeconds + "/30"}
@@ -200,7 +206,9 @@ const PatientFormModal = ({
           </div>
         </div>
 
-        <h4 className="personnal-question-title">Données Personnelles</h4>
+        <h4 className="personnal-question-title">
+          Données Personnelles معطيات شخصية
+        </h4>
         <Formik
           initialValues={{
             email: "",
@@ -269,7 +277,7 @@ const PatientFormModal = ({
                   <Field
                     component={TextField}
                     type="text"
-                    label="Adress"
+                    label="Adresse"
                     name="adresse"
                     value={values.adresse}
                     variant="outlined"
@@ -302,7 +310,7 @@ const PatientFormModal = ({
                   <Field
                     component={TextField}
                     type="text"
-                    label="Numero de telephone"
+                    label="Téléphone"
                     name="mytel"
                     value={values.mytel}
                     variant="outlined"
@@ -314,7 +322,7 @@ const PatientFormModal = ({
                   <Field
                     component={TextField}
                     type="text"
-                    label="Zip Code"
+                    label="Code Postal"
                     name="zipcode"
                     value={values.zipcode}
                     variant="outlined"
