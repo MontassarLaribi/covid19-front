@@ -58,10 +58,7 @@ function UpperCasingTextField(props) {
 const Login = props => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  console.log("props", props);
-  const userLoged=props.location.state.redirectUrl
-  console.log(props.location)
-  console.log (props.location.state);
+  const userLoged = props.location.state.redirectUrl;
   return (
     <div className="login-page">
       <div className="main-navbar">
@@ -78,7 +75,10 @@ const Login = props => {
         </div>
       </div>
       <div className="login-text">
-        <h1>Connectez-vous pour accéder à l'espace {props.location.state&&props.location.state.type}</h1>
+        <h1>
+          Connectez-vous pour accéder à l'espace
+          {props.location.state && props.location.state.type}
+        </h1>
         <h4>
           Cet espace vous permet de voir les demandes envoyées par les patients
           et les traiter chronologiquement.
@@ -109,15 +109,20 @@ const Login = props => {
         }}
         onSubmit={(values, { setSubmitting }) => {
           const { submitLogin } = props;
-          console.log("values", values);
           setSubmitting(false);
           submitLogin(values).then(res => {
-            console.log(res);
-            if(res.data){
-              console.log('choco')
-              history.push(`${userLoged}`);
-            }else{
-              alert('user unknown')
+            if (res.data) {
+              switch (res.role[0]) {
+                case "ROLE_DOCTOR":
+                  history.push("/docteur");
+                  break;
+
+                default:
+                  history.push("/samu");
+                  break;
+              }
+            } else {
+              alert("user unknown");
             }
           });
         }}
@@ -187,7 +192,6 @@ const Login = props => {
   );
 };
 const mapStateToProps = state => {
-  console.log("state", state);
   return { isAuth: state.auth };
 };
 export default connect(mapStateToProps, { submitLogin })(Login);
