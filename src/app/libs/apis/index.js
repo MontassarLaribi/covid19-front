@@ -45,7 +45,7 @@ export const patchPatientByDoc = async (status, guid) => {
   }
 };
 
-export const patchPatientBySAMU = async guid => {
+export const patchPatientBySAMU = async (status, guid) => {
   if (guid) {
     const response = await axios
       .patch(`${DOMAINE}/api/v1/secured/patient/${guid}`, {

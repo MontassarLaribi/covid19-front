@@ -10,6 +10,8 @@ import {
   Divider
 } from "@material-ui/core";
 
+//STABLE / SUSPECT / URGENT
+
 import ellipse from "../ellipse.svg";
 import group from "../group.svg";
 
@@ -39,13 +41,16 @@ const ClaimDialog = ({
   const [open, setOpen] = useState(false);
   const [condition, setCondition] = useState(null);
 
+  console.log("patient", patient);
+
   const {
-    guid,
     first_name,
     last_name,
     address,
     zip_code,
     phone_number,
+    gender,
+    audio,
     responses
   } = patient;
 
@@ -62,11 +67,12 @@ const ClaimDialog = ({
   };
 
   const renderClassName = value => {
-    switch (value) {
-      case "0":
+    const test = String(value) === "1";
+    switch (test) {
+      case false:
         return "critique-active";
 
-      case "1":
+      case true:
         return "stable-active";
 
       default:
@@ -75,22 +81,21 @@ const ClaimDialog = ({
   };
 
   const renderValue = (value, type) => {
-    switch (value) {
-      case "0":
+    const test = String(value) === "1";
+    switch (test) {
+      case false:
         return "non";
-
-      case "1":
+      case true:
         return "oui";
-
       default:
         break;
     }
   };
 
   const renderQuestions = cat => {
-    return responses[cat].map(q => {
+    return responses[cat].map((q, key) => {
       return (
-        <div className="single-question">
+        <div key={key} className="single-question">
           <p> {q.question.fr_value}</p>
           {q.question.type === 1 && (
             <Button
@@ -103,7 +108,6 @@ const ClaimDialog = ({
           )}
           {q.question.type === 2 && (
             <TextField
-              id={q.question.id}
               className="question-textfield"
               label=""
               disabled
@@ -123,37 +127,42 @@ const ClaimDialog = ({
         switch (cat) {
           case "CATEGORY_GENERAL":
             return (
-              <div>
+              <div key={index}>
                 <h3>{index + 1}.Questions générales</h3>
                 {renderQuestions(cat)}
               </div>
             );
           case "CATEGORY_ANTECEDENT":
             return (
-              <div>
+              <div key={index}>
                 <h3>{index + 1}.Questions médicales</h3>
                 {renderQuestions(cat)}
               </div>
             );
           case "CATEGORY_SYMPTOMS":
             return (
-              <div>
+              <div key={index}>
                 <h3>{index + 1}.Les symptômes</h3>
                 {renderQuestions(cat)}
               </div>
             );
 
           default:
-            break;
+            return <></>;
         }
       })
     );
   };
 
+  const renderAudio = audio => {
+    if (!audio) return "Pas d'enregistrement";
+    return <audio controls src={"data:audio/mp3;base64," + audio} />;
+  };
+
   return (
     <Dialog
       className="claim-dialog"
-      onClose={onClose}
+      // onClose={onClose}
       aria-labelledby="Claim Dialog"
       open={visible}
       fullWidth={true}
@@ -171,6 +180,9 @@ const ClaimDialog = ({
                   prénom: <span>{first_name}</span>
                 </p>
                 <p>
+                  sexe : <span>{gender === "MALE" ? "Homme" : "Femme"}</span>
+                </p>
+                <p>
                   adresse: <span>{address}</span>
                 </p>
                 <p>
@@ -179,6 +191,7 @@ const ClaimDialog = ({
                 <p>
                   numéro de téléphone: <span>{phone_number}</span>
                 </p>
+                <p>{renderAudio(audio)}</p>
               </div>
               <Divider />
               <div className="claim-dialog-message">
@@ -186,7 +199,7 @@ const ClaimDialog = ({
                   utilisez une réponse rapide
                 </InputLabel>
                 <Select
-                  labelId="select-response-label"
+                  labelid="select-response-label"
                   id="select-response"
                   className="select-response"
                   label="utilisez une réponse rapide"
@@ -196,8 +209,8 @@ const ClaimDialog = ({
                   value={response}
                   onChange={handleChange}
                 >
-                  {predefinedResponses.map(response => (
-                    <MenuItem value={response}>
+                  {predefinedResponses.map((response, key) => (
+                    <MenuItem key={key} value={response}>
                       <h5>{response.title}</h5>
                       <div>{response.text}</div>
                     </MenuItem>
@@ -215,98 +228,81 @@ const ClaimDialog = ({
                   onChange={handleChange}
                 />
               </div>
-              <div className="container">
-                <div>
-                  <Button
-                    variant="outlined"
-                    className={condition === "stable" && "stable-active"}
-                    onClick={() =>
-                      condition === "stable"
-                        ? setCondition(null)
-                        : setCondition("stable")
-                    }
-                  >
-
-                    Envoyer pour un test
+              <div className="conditions">
+                <Button
+                  variant="outlined"
+                  className={condition === "stable" ? "stable-active" : ""}
+                  onClick={() =>
+                    condition === "stable"
+                      ? setCondition(null)
+                      : setCondition("stable")
+                  }
+                >
+                  Cas non suspect
                 </Button>
-                </div>
-                <div>
-                  <Button
-                    variant="outlined"
-                    className={condition === "urgent" && "urgent-active"}
-                    onClick={() =>
-                      condition === "urgent"
-                        ? setCondition(null)
-                        : setCondition("urgent")
-                    }
-                  >
-                    traiter la reclamation suivante
+                <Button
+                  variant="outlined"
+                  className={condition === "urgent" ? "critique-active" : ""}
+                  onClick={() =>
+                    condition === "urgent"
+                      ? setCondition(null)
+                      : setCondition("urgent")
+                  }
+                >
+                  Envoyer pour un test
                 </Button>
-                </div>
-                <div>
-                  <Button
-                    variant="outlined"
-                    className={condition === "critique" && "critique-active"}
-                    onClick={() =>
-                      condition === "critique"
-                        ? setCondition(null)
-                        : setCondition("critique")
-                    }
-                  >
-                    Revenir au dashbord
-                </Button>
-               </div>
-                </div>
-                <div className="sms">
-                  <Button
-                    variant="outlined"
-                    size="large"
-                    onClick={() => {
-                      onSendSMS(condition);
-                      setCondition(null);
-                      setResponse("");
-                    }}
-                    disabled={!condition || !response}
-                  >
-                    envoyer sms
-                </Button>
-                </div>
               </div>
-          </Grid>
-            <Grid item md={6} xs={12}>
-              <div className="claim-dialog-questions">{renderCategories()}</div>
-            </Grid>
-          </Grid>
-          )}
-    
-      {isSent && (
-            <div className="issent">
-              <div className="issent-content">
-                <img alt="" class="Ellipse" src={ellipse} />
-                <button class="send">
-                  <img alt="" src={group} />
-                </button>
-                <h2> Merci Beaucoup docteur!</h2>
-                <div>Le document à été traité avec succés…..</div>
-              </div>
-              <Divider />
-              <div className="issent-actions">
-                <Button variant="outlined" size="small" onClick={onClose}>
-                  revenir au dashboard
-            </Button>
-                {allPatientsCount > 0 && (
-                  <Button
-                    className="issent-actions-btn"
-                    size="large"
-                    onClick={onClickNext}
-                  >
-                    traiter le dossier suivant
-              </Button>
-                )}
+              <div className="sms">
+                <Button
+                  variant="outlined"
+                  size="large"
+                  // style="align:right"
+                  onClick={() => {
+                    onSendSMS(condition);
+                    setCondition(null);
+                    setResponse("");
+                  }}
+                  disabled={!condition || !response}
+                >
+                  Envoyer SMS Et Valider
+                </Button>
               </div>
             </div>
-          )}
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <div className="claim-dialog-questions">{renderCategories()}</div>
+          </Grid>
+        </Grid>
+      )}
+
+      {isSent && (
+        <div className="issent">
+          <div className="issent-content">
+            <img alt="" className="Ellipse" src={ellipse} />
+            <button className="send">
+              <img alt="" src={group} />
+            </button>
+            <h2> Merci Beaucoup docteur!</h2>
+            <div>Le document à été traité avec succés…..</div>
+          </div>
+          <Divider />
+          <div className="issent-actions">
+            <Button variant="outlined" size="small" onClick={onClose}>
+              revenir au dashboard
+            </Button>
+            {allPatientsCount > 0 && (
+              <Button
+                className="issent-actions-btn"
+                size="large"
+                onClick={onClickNext}
+              >
+                traiter le dossier suivant
+              </Button>
+            )}
+          </div>
+        </div>
+      )}
     </Dialog>
-      );
-    };
-    export default ClaimDialog;
+  );
+};
+export default ClaimDialog;
