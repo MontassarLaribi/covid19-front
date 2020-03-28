@@ -1,32 +1,63 @@
-import { Button, Snackbar } from "@material-ui/core";
+import { Button, Modal } from "@material-ui/core";
 import * as React from "react";
-import { useTranslation } from "react-i18next";
+import charteTxt from "../../app/page/welcome/charte.txt";
+import { makeStyles } from "@material-ui/core/styles";
 
-export default CharteSnack => {
+const useStyles = makeStyles(theme => ({
+  paper: {
+    left: "25%",
+    position: "absolute",
+    width: "50%",
+    overflow: "scroll",
+    height: "100%",
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3)
+  },
+  content: {
+    padding: 12,
+    overflow: "scroll"
+  }
+}));
 
-  const { t } = useTranslation("welcome");
-
-  const [open, setOpen] = React.useState(false);
-  const message = t("CHARTE_SNACK_TEXT");
+const CharteSnack = ({ close, charte }) => {
+  const classes = useStyles();
+  // const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState("");
+  fetch(charteTxt)
+    .then(r => r.text())
+    .then(text => {
+      setMessage(text);
+      // console.log(text);
+    });
   const action = (
-    <Button onClick={handleCloseMessage} color="secondary" size="small">
+    <Button onClick={handleCloseMessage} color="primary" size="large">
       Fermer
     </Button>
   );
+  const handleClose = () => {
+    // setOpen(false);
+    close();
+  };
 
   function handleCloseMessage() {
-    setOpen(false);
+    close();
   }
-
+  console.log(charte);
   return (
-    <Snackbar
-      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      key={`bottom,right`}
-      style={{ maxWidth: "30%" }}
-      open={open}
-      action={action}
-      // onClose={handleClose}
-      message={message}
-    />
+    <Modal open={charte} onClose={handleClose}>
+      <div className={classes.paper}>
+        <div
+          className={classes.content}
+          dangerouslySetInnerHTML={{ __html: message }}
+        ></div>
+        <Button onClick={handleCloseMessage} color="secondary" size="small">
+          Fermer
+        </Button>
+      </div>
+    </Modal>
   );
 };
+
+export default CharteSnack;
