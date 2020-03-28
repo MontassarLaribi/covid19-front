@@ -16,6 +16,7 @@ import tunisieTelecom from "../../img/tunisieTelecom.png";
 import "../../scss/welcome_page.scss";
 import Sms from "./sms";
 import { useTranslation } from "react-i18next";
+import Alert from "@material-ui/icons/AddAlert";
 
 const styles = theme => ({
   layoutRoot: {
@@ -71,8 +72,7 @@ const Welcome = props => {
       disabled: false,
       title: "CARD_DOCTOR_TITLE",
       className: "medecin",
-      text:
-        "CARD_DOCTOR_TEXT",
+      text: "CARD_DOCTOR_TEXT",
       redirect: "/login",
       buttonContent: "CARD_DOCTOR_BTN",
       src: "assets/images/welcome/doctor.png",
@@ -87,8 +87,7 @@ const Welcome = props => {
       disabled: false,
       title: "CARD_PATIENT_TITLE",
       className: "malade",
-      text:
-        "CARD_PATIENT_TEXT",
+      text: "CARD_PATIENT_TEXT",
       redirect: "/malade",
       buttonContent: "CARD_PATIENT_BTN",
       src: "assets/images/welcome/sick.png",
@@ -100,8 +99,7 @@ const Welcome = props => {
       disabled: false,
       title: "CARD_INFORMER_TITLE",
       className: "informer",
-      text:
-        "CARD_INFORMER_TEXT",
+      text: "CARD_INFORMER_TEXT",
       redirect: "/informer",
       buttonContent: "CARD_INFORMER_BTN",
       src: "assets/images/welcome/inform.png",
@@ -178,18 +176,18 @@ const Welcome = props => {
     });
   };
 
-  const { t, i18n } = useTranslation('welcome');
+  const { t, i18n } = useTranslation("welcome");
 
   return (
     <div className="welcome-page">
-      <div className={classes.samu}>
+      {/* <div className={classes.samu}>
         <button
           onClick={() => props.history.push("/login", { type: "samu" })}
           className={classes.subsamu}
         >
           Samu
         </button>
-      </div>
+      </div> */}
       <div className="main-navbar">
         {/*<div className="logo-container">*/}
         {/*   <img className="logo" src={logo} alt="logo" /> */}
@@ -198,14 +196,23 @@ const Welcome = props => {
           <ul className="language-list">
             <li>
               <span
-                  className={i18n.language === 'ar' || i18n.language === undefined ? 'selected' : ''}
-                  onClick={() => i18n.changeLanguage('ar')}
-              >AR</span>
+                className={
+                  i18n.language === "ar" || i18n.language === undefined
+                    ? "selected"
+                    : ""
+                }
+                onClick={() => i18n.changeLanguage("ar")}
+              >
+                AR
+              </span>
             </li>
             <li>
               <span
-                  className={i18n.language === 'fr' ? 'selected' : ''}
-                  onClick={() => i18n.changeLanguage('fr')}>FR</span>
+                className={i18n.language === "fr" ? "selected" : ""}
+                onClick={() => i18n.changeLanguage("fr")}
+              >
+                FR
+              </span>
             </li>
           </ul>
         </div>
@@ -276,6 +283,37 @@ const Welcome = props => {
             />
           </li>
         </ul>
+
+        <button
+          onClick={() => props.history.push("/login", { type: "samu" })}
+          style={{ display: "flex", marginLeft: "auto" }}
+          class="MuiButtonBase-root MuiButton-root makeStyles-button-877 MuiButton-textPrimary MuiButton-text MuiButton-sizeSmall"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label"
+            style={{
+              fontSize: "1em",
+              display: "table",
+              width: "auto",
+              border: "1px solid #707070",
+              padding: "12px 15px",
+              borderRadius: "50px",
+              margin: "10px",
+              color: "#707070",
+              // position: "fixed",
+              bottom: "50px",
+              right: "30px"
+            }}
+          >
+            <Alert />
+            <span style={{ verticalAlign: "super" }}>
+              {t("ESPACE_CHOC_ROOM")}
+            </span>
+          </span>
+          <span class="MuiTouchRipple-root"></span>
+        </button>
         {/* </div> */}
         {lengthFormStatic !== 0 && (
           <PatientFormModal

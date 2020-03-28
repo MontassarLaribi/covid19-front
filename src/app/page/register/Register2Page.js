@@ -58,7 +58,7 @@ function UpperCasingTextField(props) {
 const Login = props => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const userLoged = props.location.state.redirectUrl;
+  // const userLoged = props.location.state.redirectUrl;
   return (
     <div className="login-page">
       <div className="main-navbar">
