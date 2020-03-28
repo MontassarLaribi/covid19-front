@@ -49,7 +49,7 @@ export const patchPatientByDoc = async (status, guid) => {
 export const patchPatientByDocDenoncer = async guid => {
   if (guid) {
     const response = await axios
-      .patch(`${DOMAINE_HTTP}/api/v1/secured/denounce-patient/${guid}`)
+      .patch(`${DOMAINE}/api/v1/secured/denounce-patient/${guid}`)
       .catch(err => {
         //alert(err)
         throw new Error(err);
