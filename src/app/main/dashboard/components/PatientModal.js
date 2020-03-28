@@ -15,7 +15,7 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
   } = patient;
 
   const renderClassName = value => {
-    const test = value === "false" || value === false || value === "0";
+    const test = String(value) === "1";
     switch (test) {
       case false:
         return "critique-active";
@@ -29,7 +29,7 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
   };
 
   const renderValue = (value, type) => {
-    const test = value === "false" || value === false || value === "0";
+    const test = String(value) === "1";
     switch (test) {
       case false:
         return "non";
@@ -131,7 +131,7 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
                   prénom: <span>{first_name}</span>
                 </p>
                 <p>
-                  sexe : <span>{gender === "H" ? "Homme" : "Femme"}</span>
+                  sexe : <span>{gender === "MALE" ? "Homme" : "Femme"}</span>
                 </p>
                 <p>
                   adresse: <span>{address}</span>
