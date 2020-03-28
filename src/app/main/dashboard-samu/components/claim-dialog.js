@@ -1,17 +1,6 @@
+import { Button, Dialog, Divider, Grid, TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import {
-  Dialog,
-  Grid,
-  Select,
-  MenuItem,
-  TextField,
-  Button,
-  InputLabel,
-  Divider
-} from "@material-ui/core";
-
 //STABLE / SUSPECT / URGENT
-
 import ellipse from "../ellipse.svg";
 import group from "../group.svg";
 
@@ -195,27 +184,6 @@ const ClaimDialog = ({
               </div>
               <Divider />
               <div className="claim-dialog-message">
-                <InputLabel id="select-response-label">
-                  utilisez une réponse rapide
-                </InputLabel>
-                <Select
-                  labelid="select-response-label"
-                  id="select-response"
-                  className="select-response"
-                  label="utilisez une réponse rapide"
-                  open={open}
-                  onClose={handleClose}
-                  onOpen={handleOpen}
-                  value={response}
-                  onChange={handleChange}
-                >
-                  {predefinedResponses.map((response, key) => (
-                    <MenuItem key={key} value={response}>
-                      <h5>{response.title}</h5>
-                      <div>{response.text}</div>
-                    </MenuItem>
-                  ))}
-                </Select>
                 <TextField
                   id="standard-multiline-static"
                   className="text-response"
@@ -232,22 +200,24 @@ const ClaimDialog = ({
                 <Button
                   variant="outlined"
                   className={condition === "stable" ? "stable-active" : ""}
-                  onClick={() =>
+                  onClick={() => {
                     condition === "stable"
                       ? setCondition(null)
-                      : setCondition("stable")
-                  }
+                      : setCondition("stable");
+                    setResponse(predefinedResponses[0]);
+                  }}
                 >
                   Cas non suspect
                 </Button>
                 <Button
                   variant="outlined"
                   className={condition === "urgent" ? "critique-active" : ""}
-                  onClick={() =>
+                  onClick={() => {
                     condition === "urgent"
                       ? setCondition(null)
-                      : setCondition("urgent")
-                  }
+                      : setCondition("urgent");
+                    setResponse(predefinedResponses[1]);
+                  }}
                 >
                   Envoyer pour un test
                 </Button>

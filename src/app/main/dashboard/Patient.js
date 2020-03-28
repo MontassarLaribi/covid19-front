@@ -24,7 +24,9 @@ const useStyles = makeStyles({
     marginLeft: "auto",
     marginRight: "auto"
   },
-
+  hide: {
+    display: "none"
+  },
   text: {
     textAlign: "center"
   },
@@ -55,10 +57,23 @@ function renderFlag(flag) {
   }
 }
 
-export default function Patient({ title, text, flag, handleClick }) {
+export default function Patient({ title, text, flag, handleClick, search }) {
   const classes = useStyles();
+
+  function isSearchValid(search) {
+    const searchRegex = new RegExp(`${search}`, "gi");
+    return (
+      !title ||
+      String(title).search(searchRegex) > -1 ||
+      !text ||
+      String(text).search(searchRegex) > -1 ||
+      !flag ||
+      String(flag).search(searchRegex) > -1
+    );
+  }
+
   return (
-    <Card className={classes.root}>
+    <Card className={isSearchValid(search) ? classes.root : classes.hide}>
       <CardActionArea onClick={handleClick}>
         <CardContent className={classes.cardContent}>
           <Typography

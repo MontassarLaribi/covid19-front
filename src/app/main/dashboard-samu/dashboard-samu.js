@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Container, Grid } from "@material-ui/core";
+import { Button, Container, TextField, Grid } from "@material-ui/core";
 import { get } from "lodash";
 
 import {
@@ -21,6 +21,7 @@ const Dashboard = () => {
   const [show, setShow] = useState(false);
   const [isSent, setIsSent] = useState(false);
   const [patient, setPatient] = useState({});
+  const [search, setSearch] = useState("");
   const [allPatients, setAllPatients] = useState();
 
   useEffect(() => {
@@ -49,15 +50,15 @@ const Dashboard = () => {
   }
 
   const renderPatients = patients => {
-    console.log(patients);
     return patients.map((patient, key) => (
       <Patient
         key={key}
         text={patient.phone_number}
         title={patient.first_name + " " + patient.last_name}
         flag={patient.flag}
+        search={search}
         handleClick={() => {
-          if (patient.emergencyStatus === "CLOSED") {
+          if (patient.status === "CLOSED") {
             setShow(true);
             getPatientSingle(patient.guid).then(res => {
               setPatient(get(res, "data.payload.patient", {}));
@@ -67,6 +68,10 @@ const Dashboard = () => {
         }}
       />
     ));
+  };
+
+  const handleChange = e => {
+    setSearch(e.target.value);
   };
 
   const renderColumns = () => {
@@ -111,6 +116,16 @@ const Dashboard = () => {
           >
             Traiter un dossier
           </Button>
+          <TextField
+            style={{ margin: "32px 0 8px 32px" }}
+            id="standard-multiline-static"
+            className="text-response"
+            label="Recherche"
+            placeholder="Recherche..."
+            variant="outlined"
+            value={search}
+            onChange={handleChange}
+          />
         </header>
         <Grid className="columns" container spacing={4}>
           {renderColumns()}
