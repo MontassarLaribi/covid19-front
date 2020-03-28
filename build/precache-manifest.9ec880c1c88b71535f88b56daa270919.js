@@ -1,43 +1,43 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "47de49e5728da85eaeef3cc333d50cab",
+    "revision": "976bdd6e5357cd9ff17b91501013b1d0",
     "url": "/index.html"
   },
   {
-    "revision": "f08dead487e08b838d96",
+    "revision": "3f4fe0dc5beaab66625f",
     "url": "/static/css/2.eb777b3d.chunk.css"
   },
   {
-    "revision": "94e44d75437e8129039a",
+    "revision": "f213402391fe2f4fa1ba",
     "url": "/static/css/3.fb888df0.chunk.css"
   },
   {
-    "revision": "b39b8225664a7f0a261f",
+    "revision": "9331989bb881a0342c41",
     "url": "/static/css/4.14bce991.chunk.css"
   },
   {
-    "revision": "864f38f02e9f3d01f631",
-    "url": "/static/css/main.b675c0b3.chunk.css"
+    "revision": "5b8b9467abaa241114c5",
+    "url": "/static/css/main.e5489e6c.chunk.css"
   },
   {
-    "revision": "f08dead487e08b838d96",
-    "url": "/static/js/2.9ad72f7b.chunk.js"
+    "revision": "3f4fe0dc5beaab66625f",
+    "url": "/static/js/2.8fc7f402.chunk.js"
   },
   {
-    "revision": "94e44d75437e8129039a",
-    "url": "/static/js/3.c2e1cd12.chunk.js"
+    "revision": "f213402391fe2f4fa1ba",
+    "url": "/static/js/3.61dd5b4a.chunk.js"
   },
   {
-    "revision": "b39b8225664a7f0a261f",
-    "url": "/static/js/4.a9ce480f.chunk.js"
+    "revision": "9331989bb881a0342c41",
+    "url": "/static/js/4.60f395ca.chunk.js"
   },
   {
-    "revision": "864f38f02e9f3d01f631",
-    "url": "/static/js/main.96807243.chunk.js"
+    "revision": "5b8b9467abaa241114c5",
+    "url": "/static/js/main.4389ce6e.chunk.js"
   },
   {
-    "revision": "0cd595006cb5791909cf",
-    "url": "/static/js/runtime~main.5983a3dc.js"
+    "revision": "a025fd5bc6cfcac043c7",
+    "url": "/static/js/runtime~main.567f1f6b.js"
   },
   {
     "revision": "c1d6ac056d5d415e1b5065acf8632508",
@@ -186,10 +186,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "e1a6256de8045c167b89b133f58d194b",
     "url": "/static/media/tunisieTelecom.e1a6256d.png"
-  },
-  {
-    "revision": "848d62c620f4f3aa82629ebca61a1dae",
-    "url": "/static/media/twitter-icon.848d62c6.svg"
   },
   {
     "revision": "44a1190f3595fefaa93f04f6761e1172",

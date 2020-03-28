@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.b675c0b3.chunk.css",
-    "main.js": "/static/js/main.96807243.chunk.js",
-    "runtime~main.js": "/static/js/runtime~main.5983a3dc.js",
+    "main.css": "/static/css/main.e5489e6c.chunk.css",
+    "main.js": "/static/js/main.4389ce6e.chunk.js",
+    "runtime~main.js": "/static/js/runtime~main.567f1f6b.js",
     "static/css/2.eb777b3d.chunk.css": "/static/css/2.eb777b3d.chunk.css",
-    "static/js/2.9ad72f7b.chunk.js": "/static/js/2.9ad72f7b.chunk.js",
+    "static/js/2.8fc7f402.chunk.js": "/static/js/2.8fc7f402.chunk.js",
     "static/css/3.fb888df0.chunk.css": "/static/css/3.fb888df0.chunk.css",
-    "static/js/3.c2e1cd12.chunk.js": "/static/js/3.c2e1cd12.chunk.js",
+    "static/js/3.61dd5b4a.chunk.js": "/static/js/3.61dd5b4a.chunk.js",
     "static/css/4.14bce991.chunk.css": "/static/css/4.14bce991.chunk.css",
-    "static/js/4.a9ce480f.chunk.js": "/static/js/4.a9ce480f.chunk.js",
+    "static/js/4.60f395ca.chunk.js": "/static/js/4.60f395ca.chunk.js",
     "index.html": "/index.html",
-    "precache-manifest.b63d535833bdb0fb15b0ff624e4d18b5.js": "/precache-manifest.b63d535833bdb0fb15b0ff624e4d18b5.js",
+    "precache-manifest.9ec880c1c88b71535f88b56daa270919.js": "/precache-manifest.9ec880c1c88b71535f88b56daa270919.js",
     "service-worker.js": "/service-worker.js",
     "static/media/Ellipse33.svg": "/static/media/Ellipse33.c1d6ac05.svg",
     "static/media/Group40.svg": "/static/media/Group40.558e2845.svg",
@@ -22,7 +22,6 @@
     "static/media/ministere.png": "/static/media/ministere.76db49a5.png",
     "static/media/index.css": "/static/media/muli-latin-900italic.f99056b6.woff2",
     "static/media/tunisieTelecom.png": "/static/media/tunisieTelecom.e1a6256d.png",
-    "static/media/twitter-icon.svg": "/static/media/twitter-icon.848d62c6.svg",
     "static/media/upload-icon.svg": "/static/media/upload-icon.44a1190f.svg"
   }
 }
