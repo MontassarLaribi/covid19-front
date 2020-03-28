@@ -160,8 +160,12 @@ const PatientFormModal = ({
         <button onClick={() => handleClose("PatientForm")}>x</button>
       </div>
       <div className="modal-content">
-        <h5 className="info">Vous n’avez droit qu’à un seul formulaire toutes les 6h</h5>
-        <h5 className="info ar">من باب الانصاف، يتاح لكل شخص تعمير جذاذة واحدة كل 6 ساعات</h5>
+        <h5 className="info">
+          Vous n’avez droit qu’à un seul formulaire toutes les 6h
+        </h5>
+        <h5 className="info ar">
+          من باب الانصاف، يتاح لكل شخص تعمير جذاذة واحدة كل 6 ساعات
+        </h5>
         {dataModal &&
           dataModal.map((el, key) => {
             return (
@@ -232,7 +236,7 @@ const PatientFormModal = ({
           validationSchema={PatientSchema}
           onSubmit={(values, { setSubmitting }) => {
             const caste = {
-              acceptTerms: values.acceptTerms,
+              // acceptTerms: values.acceptTerms,
               firstName: values.prenom,
               lastName: values.nom,
               address: values.adresse,
@@ -260,8 +264,22 @@ const PatientFormModal = ({
                   <Field
                     component={CheckboxWithLabel}
                     type="checkbox"
-                    Label={{ label: <div><h5>J'accepte la <a href="javascript:;">Charte des Données Personnelles</a></h5><h5 className="ar">اوافق على <a href="javascript:;">ميثاق
-                        البيانات الشخصية</a></h5></div>}}
+                    Label={{
+                      label: (
+                        <div>
+                          <h5>
+                            J'accepte la{" "}
+                            <a href="javascript:;">
+                              Charte des Données Personnelles
+                            </a>
+                          </h5>
+                          <h5 className="ar">
+                            اوافق على{" "}
+                            <a href="javascript:;">ميثاق البيانات الشخصية</a>
+                          </h5>
+                        </div>
+                      )
+                    }}
                     name="acceptTerms"
                     variant="outlined"
                     style={{

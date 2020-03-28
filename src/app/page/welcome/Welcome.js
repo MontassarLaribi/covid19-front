@@ -266,24 +266,40 @@ const Welcome = props => {
         <div className="partenariat">Agréée par | En partenariat avec</div>
         <ul className="logos">
           <li>
-            <a href="http://www.fmt.rnu.tn/index.php?id=55" target="_blank"><img className="associaMed" src={associaMed} alt="assciaMed" /></a>
+            <a href="http://www.fmt.rnu.tn/index.php?id=55" target="_blank">
+              <img className="associaMed" src={associaMed} alt="assciaMed" />
+            </a>
           </li>
           <li>
-            <a href="http://www.santetunisie.rns.tn/fr/" target="_blank"><img className="ministere" src={ministere} alt="ministere" /></a>
+            <a href="http://www.santetunisie.rns.tn/fr/" target="_blank">
+              <img className="ministere" src={ministere} alt="ministere" />
+            </a>
           </li>
           <li>
-            <a href="http://www.tunisietelecom.tn" target="_blank"><img className="tunisieTelecom" src={tunisieTelecom} alt="tunisieTelecom" /></a>
+            <a href="http://www.tunisietelecom.tn" target="_blank">
+              <img
+                className="tunisieTelecom"
+                src={tunisieTelecom}
+                alt="tunisieTelecom"
+              />
+            </a>
           </li>
           <li>
-            <a href="https://beecoop.co" target="_blank"><img className="beecoop" src={beecoop} alt="beecoop" /></a>
+            <a href="https://beecoop.co" target="_blank">
+              <img className="beecoop" src={beecoop} alt="beecoop" />
+            </a>
           </li>
           <li>
-            <a href="http://esprit.tn/" target="_blank"><img className="esprit" src={esprit} alt="esprit" /></a>
+            <a href="http://esprit.tn/" target="_blank">
+              <img className="esprit" src={esprit} alt="esprit" />
+            </a>
           </li>
         </ul>
 
         <button
-          onClick={() => props.history.push("/login", { type: "samu" })}
+          onClick={() =>
+            (window.location.href = "https://api.maabaadhna.com/admin/login")
+          }
           style={{ display: "flex", marginLeft: "auto" }}
           className="MuiButtonBase-root MuiButton-root makeStyles-button-877 MuiButton-textPrimary MuiButton-text MuiButton-sizeSmall"
           tabIndex="0"
