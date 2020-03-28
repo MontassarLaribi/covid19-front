@@ -15,6 +15,7 @@ import twitter from "../../img/social/twitter-icon.svg";
 import tunisieTelecom from "../../img/tunisieTelecom.png";
 import "../../scss/welcome_page.scss";
 import Sms from "./sms";
+import { useTranslation } from "react-i18next";
 
 const styles = theme => ({
   layoutRoot: {
@@ -39,17 +40,17 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2)
   },
   samu: {
-    width: "100px",
-    background: "white",
-    color: "black",
-    margingRight: "2px",
+    width: "80px",
+    background: "rebeccapurple",
+    color: "white",
+    padding: "10px",
     display: "flex",
     alignItems: "center",
-    position: "relative",
-    float: "right"
+    position: "absolute",
+    top: "50%"
   },
   subsamu: {
-    color: "Black"
+    color: "white"
   }
 }));
 const Welcome = props => {
@@ -68,28 +69,28 @@ const Welcome = props => {
   const cardProps = [
     {
       disabled: false,
-      title: "Médecin",
+      title: "CARD_DOCTOR_TITLE",
       className: "medecin",
       text:
-        "Vous êtes un medecin déjà inscrit sur la plateforme? Connectez-vous et aidez-nous à traiter les dossiers.",
+        "CARD_DOCTOR_TEXT",
       redirect: "/login",
-      buttonContent: "Connectez-vous",
+      buttonContent: "CARD_DOCTOR_BTN",
       src: "assets/images/welcome/doctor.png",
       handleClick: () => {
         history.push({
-          pathname: "/docteur",
+          pathname: "/login",
           state: { type: "docteur" }
         });
       }
     },
     {
       disabled: false,
-      title: "Malade",
+      title: "CARD_PATIENT_TITLE",
       className: "malade",
       text:
-        "Vous ressentez les symptômes du COVID-19 mais vous n'arrivez pas à évaluer votre cas? Notre équipe des médecins pourra traiter votre dossier dans les plus brefs délais.",
+        "CARD_PATIENT_TEXT",
       redirect: "/malade",
-      buttonContent: "Contactez un médecin",
+      buttonContent: "CARD_PATIENT_BTN",
       src: "assets/images/welcome/sick.png",
       handleClick: () => {
         props.ModalAction("PatientForm");
@@ -97,12 +98,12 @@ const Welcome = props => {
     },
     {
       disabled: false,
-      title: "Informer",
+      title: "CARD_INFORMER_TITLE",
       className: "informer",
       text:
-        "Vous connaissez quelqu'un qui ne respecte pas les règles du confinement? Protégez-vous et protégez votre entourage en remplissant ce formulaire.",
+        "CARD_INFORMER_TEXT",
       redirect: "/informer",
-      buttonContent: "choisissez d'informer",
+      buttonContent: "CARD_INFORMER_BTN",
       src: "assets/images/welcome/inform.png",
       handleClick: () => {
         props.ModalAction("Inform");
@@ -170,23 +171,44 @@ const Welcome = props => {
 
   const submitForm = data => {
     const newData = { ...responses, ...data };
-    console.log(JSON.stringify(newData));
+    console.log("newDataaaaaaaaaaaa", newData);
     axios.post(`${DOMAINE}/api/v1/patient`, { ...newData }).then(res => {
       console.log(res);
       props.ModalAction("sms");
     });
   };
 
+  const { t, i18n } = useTranslation('welcome');
+
   return (
     <div className="welcome-page">
-
+      <div className={classes.samu}>
+        <button
+          onClick={() => props.history.push("/login", { type: "samu" })}
+          className={classes.subsamu}
+        >
+          Samu
+        </button>
+      </div>
       <div className="main-navbar">
-        <div className="logo-container">
-          {/* <img className="logo" src={logo} alt="logo" /> */}
+        {/*<div className="logo-container">*/}
+        {/*   <img className="logo" src={logo} alt="logo" /> */}
+        {/*</div>*/}
+        <div className="language-selection-container">
+          <ul className="language-list">
+            <li>
+              <span
+                  className={i18n.language === 'ar' || i18n.language === undefined ? 'selected' : ''}
+                  onClick={() => i18n.changeLanguage('ar')}
+              >AR</span>
+            </li>
+            <li>
+              <span
+                  className={i18n.language === 'fr' ? 'selected' : ''}
+                  onClick={() => i18n.changeLanguage('fr')}>FR</span>
+            </li>
+          </ul>
         </div>
-
-
-
         <div className="social-container">
           <ul className="social-list">
             <li>
@@ -206,8 +228,6 @@ const Welcome = props => {
             </li>
           </ul>
         </div>
-
-
       </div>
       <div className="welcome-title">
         <h1>مع بعضنا</h1>
@@ -227,10 +247,10 @@ const Welcome = props => {
               {cardProps.map((item, key) => (
                 <Grid key={key} item>
                   <WelcomeCard
-                    text={item.text}
-                    title={item.title}
+                    text={t(item.text)}
+                    title={t(item.title)}
                     handleClick={item.handleClick}
-                    buttonContent={item.buttonContent}
+                    buttonContent={t(item.buttonContent)}
                     src={item.src}
                     disabled={item.disabled}
                   ></WelcomeCard>
@@ -241,65 +261,40 @@ const Welcome = props => {
         </Grid>
         {/* <div className=""> */}
         <div className="partenariat">Agréée par | En partenariat avec</div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-
-          <div>
-            <ul className="logos">
-              <li>
-                <img className="associaMed" src={associaMed} alt="facebook" />
-              </li>
-              <li>
-                <img className="ministere" src={ministere} alt="instagram" />
-              </li>
-              <li>
-                <img
-                  className="tunisieTelecom"
-                  src={tunisieTelecom}
-                  alt="twitter"
-                />
-              </li>
-            </ul>
-          </div>
-
-          <div className={classes.samu}>
-            <button
-              onClick={() => history.push({
-                pathname: "/samu",
-                state: { type: "samu" }})
-              }
-               
-          >
-            Espace Samu
-          </button>
-        </div>
-        <div className={classes.samu}>
-          <button
-            onClick={() => history.push("/denonciation", { type: "chocroom" })}
-          >
-            Espace CHOC ROOM
-          </button>
-        </div>
-
-      </div>
-      {/* </div> */}
-      {lengthFormStatic !== 0 && (
-        <PatientFormModal
-          updateResponse={updateResponse}
-          dataModal={question ? question : []}
+        <ul className="logos">
+          <li>
+            <img className="associaMed" src={associaMed} alt="facebook" />
+          </li>
+          <li>
+            <img className="ministere" src={ministere} alt="instagram" />
+          </li>
+          <li>
+            <img
+              className="tunisieTelecom"
+              src={tunisieTelecom}
+              alt="twitter"
+            />
+          </li>
+        </ul>
+        {/* </div> */}
+        {lengthFormStatic !== 0 && (
+          <PatientFormModal
+            updateResponse={updateResponse}
+            dataModal={question ? question : []}
+            modalAction={props.ModalAction}
+            submitFormCallback={submitForm}
+            staticCount={lengthFormStatic}
+            dynamicCount={lengthFormDynamic}
+          />
+        )}
+        <InformModal modalAction={props.ModalAction} />
+        <Sms
+          tel={responses && responses.phoneNumber}
+          history={history}
           modalAction={props.ModalAction}
-          submitFormCallback={submitForm}
-          staticCount={lengthFormStatic}
-          dynamicCount={lengthFormDynamic}
         />
-      )}
-      <InformModal modalAction={props.ModalAction} />
-      <Sms
-        tel={responses && responses.phoneNumber}
-        history={history}
-        modalAction={props.ModalAction}
-      />
+      </div>
     </div>
-    </div >
   );
 };
 

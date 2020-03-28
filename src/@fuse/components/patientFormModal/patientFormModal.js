@@ -31,6 +31,12 @@ const PatientSchema = yup.object().shape({
   sexe: yup.string().required("Champ sexe est requis")
 });
 
+navigator.getUserMedia =
+  navigator.getUserMedia ||
+  navigator.webkitGetUserMedia ||
+  navigator.mozGetUserMedia ||
+  navigator.msGetUserMedia;
+
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 
 const PatientFormModal = ({
