@@ -12,6 +12,8 @@ import ministere from "../../img/ministere.png";
 import facebook from "../../img/social/facebook-icon.svg";
 import instagram from "../../img/social/instagram-icon.svg";
 import tunisieTelecom from "../../img/tunisieTelecom.png";
+import beecoop from "../../img/beecoop.png";
+import esprit from "../../img/esprit.png";
 import "../../scss/welcome_page.scss";
 import Sms from "./sms";
 import { useTranslation } from "react-i18next";
@@ -28,6 +30,9 @@ const styles = theme => ({
   }
 });
 const useStyles = makeStyles(theme => ({
+  arabi: {
+    flexDirection: "row-reverse"
+  },
   root: {
     flexGrow: 1,
     paddingTop: "5rem"
@@ -168,7 +173,7 @@ const Welcome = props => {
 
   const submitForm = data => {
     const newData = { ...responses, ...data };
-    console.log("newDataaaaaaaaaaaa", newData);
+    console.log(JSON.stringify(newData));
     axios.post(`${DOMAINE}/api/v1/patient`, { ...newData }).then(res => {
       console.log(res);
       props.ModalAction("sms");
@@ -179,27 +184,12 @@ const Welcome = props => {
 
   return (
     <div className="welcome-page">
-      {/* <div className={classes.samu}>
-        <button
-          onClick={() => props.history.push("/login", { type: "samu" })}
-          className={classes.subsamu}
-        >
-          Samu
-        </button>
-      </div> */}
       <div className="main-navbar">
-        {/*<div className="logo-container">*/}
-        {/*   <img className="logo" src={logo} alt="logo" /> */}
-        {/*</div>*/}
         <div className="language-selection-container">
           <ul className="language-list">
             <li>
               <span
-                className={
-                  i18n.language === "ar" || i18n.language === undefined
-                    ? "selected"
-                    : ""
-                }
+                className={i18n.language === "ar" ? "selected" : ""}
                 onClick={() => i18n.changeLanguage("ar")}
               >
                 AR
@@ -230,19 +220,33 @@ const Welcome = props => {
           </ul>
         </div>
       </div>
-      <div className="welcome-title">
-        <h1>مع بعضنا</h1>
-        <h1> Ensemble</h1>
-      </div>
-      <div className="welcome-subtitle">
-        {t("TEXT_WELCOME")} <br />
-        {t("TEXT_24H")}
-      </div>
+      <Grid container style={{ placeContent: "center" }}>
+        <Grid item xs={9}>
+          <div className="welcome-title">
+            <h1>مع بعضنا</h1>
+            <h1> Ensemble</h1>
+          </div>
+          <div className="welcome-subtitle">
+            {t("TEXT_WELCOME")} <br />
+            {t("TEXT_24H")}
+          </div>
+        </Grid>
+      </Grid>
+
       {/*  <GroupedWelcomeCards/> */}
       <div className="card-wrapper">
         <Grid container className={classes.root} spacing={2}>
           <Grid item xs={12}>
-            <Grid container justify="center" spacing={9}>
+            <Grid
+              container
+              justify="center"
+              style={
+                i18n.language === "ar" || i18n.language === undefined
+                  ? { flexDirection: "row-reverse" }
+                  : {}
+              }
+              spacing={9}
+            >
               {cardProps.map((item, key) => (
                 <Grid key={key} item>
                   <WelcomeCard
@@ -262,29 +266,31 @@ const Welcome = props => {
         <div className="partenariat">Agréée par | En partenariat avec</div>
         <ul className="logos">
           <li>
-            <img className="associaMed" src={associaMed} alt="facebook" />
+            <a href="http://www.fmt.rnu.tn/index.php?id=55" target="_blank"><img className="associaMed" src={associaMed} alt="assciaMed" /></a>
           </li>
           <li>
-            <img className="ministere" src={ministere} alt="instagram" />
+            <a href="http://www.santetunisie.rns.tn/fr/" target="_blank"><img className="ministere" src={ministere} alt="ministere" /></a>
           </li>
           <li>
-            <img
-              className="tunisieTelecom"
-              src={tunisieTelecom}
-              alt="twitter"
-            />
+            <a href="http://www.tunisietelecom.tn" target="_blank"><img className="tunisieTelecom" src={tunisieTelecom} alt="tunisieTelecom" /></a>
+          </li>
+          <li>
+            <a href="https://beecoop.co" target="_blank"><img className="beecoop" src={beecoop} alt="beecoop" /></a>
+          </li>
+          <li>
+            <a href="http://esprit.tn/" target="_blank"><img className="esprit" src={esprit} alt="esprit" /></a>
           </li>
         </ul>
 
         <button
           onClick={() => props.history.push("/login", { type: "samu" })}
           style={{ display: "flex", marginLeft: "auto" }}
-          class="MuiButtonBase-root MuiButton-root makeStyles-button-877 MuiButton-textPrimary MuiButton-text MuiButton-sizeSmall"
-          tabindex="0"
+          className="MuiButtonBase-root MuiButton-root makeStyles-button-877 MuiButton-textPrimary MuiButton-text MuiButton-sizeSmall"
+          tabIndex="0"
           type="button"
         >
           <span
-            class="MuiButton-label"
+            className="MuiButton-label"
             style={{
               fontSize: "1em",
               display: "table",
@@ -304,7 +310,7 @@ const Welcome = props => {
               {t("ESPACE_SHOC_ROOM")}
             </span>
           </span>
-          <span class="MuiTouchRipple-root"></span>
+          <span className="MuiTouchRipple-root"></span>
         </button>
         {/* </div> */}
         {lengthFormStatic !== 0 && (

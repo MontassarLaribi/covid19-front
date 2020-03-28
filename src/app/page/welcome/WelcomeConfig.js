@@ -6,9 +6,7 @@ import fr from "./i18n/fr";
 
 i18n.use(initReactI18next)
     .init({
-        fallbackLng: 'ar',
         debug: true,
-
         interpolation: {
             escapeValue: false,
         }
@@ -16,6 +14,7 @@ i18n.use(initReactI18next)
 
 i18n.addResourceBundle('ar', 'welcome', ar);
 i18n.addResourceBundle('fr', 'welcome', fr);
+i18n.changeLanguage('ar');
 
 export const WelcomeConfig = {
     settings: {

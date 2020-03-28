@@ -204,7 +204,7 @@ const ClaimDialog = ({
                     condition === "stable"
                       ? setCondition(null)
                       : setCondition("stable");
-                    setResponse(predefinedResponses[0]);
+                    setResponse(predefinedResponses[1]);
                   }}
                 >
                   Cas non suspect
@@ -216,7 +216,7 @@ const ClaimDialog = ({
                     condition === "urgent"
                       ? setCondition(null)
                       : setCondition("urgent");
-                    setResponse(predefinedResponses[1]);
+                    setResponse(predefinedResponses[0]);
                   }}
                 >
                   Envoyer pour un test
@@ -253,7 +253,7 @@ const ClaimDialog = ({
               <img alt="" src={group} />
             </button>
             <h2> Merci Beaucoup docteur!</h2>
-            <div>Le document à été traité avec succés…..</div>
+            <div>Le document a été traité avec succés…..</div>
           </div>
           <Divider />
           <div className="issent-actions">

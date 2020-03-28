@@ -75,9 +75,9 @@
     text-align: center;
     color: white;
     background-color: red;
-    width: 68%;
-    left: 16%;
-    right: 15%;
+    // width: 68%;
+    // left: 16%;
+    // right: 15%;
     position: relative;
     justify-content: center;
     font-size: 30px;
@@ -136,6 +136,16 @@
   }
   .tunisieTelecom {
     width: 100px;
+    height: 66px;
+    margin: 20px;
+  }
+  .beecoop {
+    width: auto;
+    height: 66px;
+    margin: 20px;
+  }
+  .esprit {
+    width: auto;
     height: 66px;
     margin: 20px;
   }
@@ -352,6 +362,30 @@
         }
       }
     }
+  }
+  .MuiCheckbox-root + span {
+    h5.ar {
+      direction: rtl;
+    }
+    h5 a {
+      color: #596377;
+    }
+  }
+  .info {
+    color: #596377;
+    &.ar {
+      direction: rtl;
+    }
+  }
+  .invalid-acceptTerms {
+    color: #f44336;
+    margin: 0 12px;
+    font-size: 1.2rem;
+    text-align: left;
+    min-height: 1em;
+    font-family: Muli,Roboto,"Helvetica",Arial,sans-serif;
+    font-weight: 400;
+    line-height: 1em;
   }
 }
 /*INFORMANT POPUP*/

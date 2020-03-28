@@ -32,7 +32,7 @@ const QuestionEducation = props => {
   };
 
   const handleText = data => {
-    if (new RegExp(/^[0-9]{1,3}$/).test(data)) {
+    if (new RegExp(/^(?!\.?$)\d{0,3}(\.\d{0,2})?$/).test(data)) {
       props.getState({
         field: "responses",
         value: data,

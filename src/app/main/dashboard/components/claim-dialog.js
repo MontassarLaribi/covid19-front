@@ -311,7 +311,7 @@ const ClaimDialog = ({
               <img alt="" src={group} />
             </button>
             <h2> Merci Beaucoup docteur!</h2>
-            <div>Le document à été traité avec succés…..</div>
+            <div>Le document a été traité avec succés…..</div>
           </div>
           <Divider />
           <div className="issent-actions">
