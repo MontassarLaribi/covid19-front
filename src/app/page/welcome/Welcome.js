@@ -171,7 +171,7 @@ const Welcome = props => {
 
   const submitForm = data => {
     const newData = { ...responses, ...data };
-    console.log("newDataaaaaaaaaaaa", newData);
+    console.log(JSON.stringify(newData));
     axios.post(`${DOMAINE}/api/v1/patient`, { ...newData }).then(res => {
       console.log(res);
       props.ModalAction("sms");
@@ -291,12 +291,12 @@ const Welcome = props => {
         <button
           onClick={() => props.history.push("/login", { type: "samu" })}
           style={{ display: "flex", marginLeft: "auto" }}
-          class="MuiButtonBase-root MuiButton-root makeStyles-button-877 MuiButton-textPrimary MuiButton-text MuiButton-sizeSmall"
-          tabindex="0"
+          className="MuiButtonBase-root MuiButton-root makeStyles-button-877 MuiButton-textPrimary MuiButton-text MuiButton-sizeSmall"
+          tabIndex="0"
           type="button"
         >
           <span
-            class="MuiButton-label"
+            className="MuiButton-label"
             style={{
               fontSize: "1em",
               display: "table",
@@ -316,7 +316,7 @@ const Welcome = props => {
               {t("ESPACE_SHOC_ROOM")}
             </span>
           </span>
-          <span class="MuiTouchRipple-root"></span>
+          <span className="MuiTouchRipple-root"></span>
         </button>
         {/* </div> */}
         {lengthFormStatic !== 0 && (
