@@ -15,19 +15,14 @@ import group from "../group.svg";
 
 const predefinedResponses = [
   {
-    title: "Cas suspect (score > 4) / urgent (rappeler le patient) :",
+    title: "Dossier traité et accepté :",
     text:
-      "Votre dossier a été envoyé au SAMU pour une meilleure prise en charge. Si un prélèvement sera jugé nécessaire, on vous contactera. Entre temps, restez dans votre chambre et évitez tout contact avec les membres de votre famille."
+      "Votre dossier a été traité par l'équipe SAMU .  un prélèvement est jugé nécessaire,notre équipe SAMU se déplassera xxxx  . Entre temps, restez dans votre chambre et évitez tout contact avec les membres de votre famille."
   },
   {
-    title: "Cas non suspect (score < 4) sans notion d’exposition :",
+    title: "Dossier traité et refusé :",
     text:
-      "Votre état ne semble pas préoccupant. Protégez-vous et protégez les autres en restant chez vous. En cas de modification de votre état de santé veuillez nous re-contacter."
-  },
-  {
-    title: "Notion d’exposition sans symptômes :",
-    text:
-      "Votre état ne semble pas préoccupant actuellement, toutefois une mise en quarantaine de 14 jours est nécessaire. Restez dans votre chambre et évitez tout contact avec les membres de votre famille."
+      "L'équipe SAMU vous informe que votre état ne semble pas préoccupant.Protégez-vous et protégez les autres en restant chez vous. En cas de modification de votre état de santé veuillez nous re-contacter."
   }
 ];
 
@@ -220,91 +215,98 @@ const ClaimDialog = ({
                   onChange={handleChange}
                 />
               </div>
-              <div className="conditions">
-                <Button
-                  variant="outlined"
-                  className={condition === "stable" && "stable-active"}
-                  onClick={() =>
-                    condition === "stable"
-                      ? setCondition(null)
-                      : setCondition("stable")
-                  }
-                >
-                  stable
+              <div className="container">
+                <div>
+                  <Button
+                    variant="outlined"
+                    className={condition === "stable" && "stable-active"}
+                    onClick={() =>
+                      condition === "stable"
+                        ? setCondition(null)
+                        : setCondition("stable")
+                    }
+                  >
+
+                    Envoyer pour un test
                 </Button>
-                <Button
-                  variant="outlined"
-                  className={condition === "urgent" && "urgent-active"}
-                  onClick={() =>
-                    condition === "urgent"
-                      ? setCondition(null)
-                      : setCondition("urgent")
-                  }
-                >
-                  urgent
+                </div>
+                <div>
+                  <Button
+                    variant="outlined"
+                    className={condition === "urgent" && "urgent-active"}
+                    onClick={() =>
+                      condition === "urgent"
+                        ? setCondition(null)
+                        : setCondition("urgent")
+                    }
+                  >
+                    traiter la reclamation suivante
                 </Button>
-                <Button
-                  variant="outlined"
-                  className={condition === "critique" && "critique-active"}
-                  onClick={() =>
-                    condition === "critique"
-                      ? setCondition(null)
-                      : setCondition("critique")
-                  }
-                >
-                  critique
+                </div>
+                <div>
+                  <Button
+                    variant="outlined"
+                    className={condition === "critique" && "critique-active"}
+                    onClick={() =>
+                      condition === "critique"
+                        ? setCondition(null)
+                        : setCondition("critique")
+                    }
+                  >
+                    Revenir au dashbord
                 </Button>
+               </div>
+                </div>
+                <div className="sms">
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    onClick={() => {
+                      onSendSMS(condition);
+                      setCondition(null);
+                      setResponse("");
+                    }}
+                    disabled={!condition || !response}
+                  >
+                    envoyer sms
+                </Button>
+                </div>
               </div>
-              <div className="sms">
-                <Button
-                  variant="outlined"
-                  size="large"
-                  onClick={() => {
-                    onSendSMS(condition);
-                    setCondition(null);
-                    setResponse("");
-                  }}
-                  disabled={!condition || !response}
-                >
-                  envoyer sms
-                </Button>
+          </Grid>
+            <Grid item md={6} xs={12}>
+              <div className="claim-dialog-questions">{renderCategories()}</div>
+            </Grid>
+          </Grid>
+          )}
+    
+      {isSent && (
+            <div className="issent">
+              <div className="issent-content">
+                <img alt="" class="Ellipse" src={ellipse} />
+                <button class="send">
+                  <img alt="" src={group} />
+                </button>
+                <h2> Merci Beaucoup docteur!</h2>
+                <div>Le document à été traité avec succés…..</div>
+              </div>
+              <Divider />
+              <div className="issent-actions">
+                <Button variant="outlined" size="small" onClick={onClose}>
+                  revenir au dashboard
+            </Button>
+                {allPatientsCount > 0 && (
+                  <Button
+                    className="issent-actions-btn"
+                    size="large"
+                    onClick={onClickNext}
+                  >
+                    traiter le dossier suivant
+              </Button>
+                )}
               </div>
             </div>
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <div className="claim-dialog-questions">{renderCategories()}</div>
-          </Grid>
-        </Grid>
-      )}
-
-      {isSent && (
-        <div className="issent">
-          <div className="issent-content">
-            <img alt="" class="Ellipse" src={ellipse} />
-            <button class="send">
-              <img alt="" src={group} />
-            </button>
-            <h2> Merci Beaucoup docteur!</h2>
-            <div>Le document à été traité avec succés…..</div>
-          </div>
-          <Divider />
-          <div className="issent-actions">
-            <Button variant="outlined" size="small" onClick={onClose}>
-              revenir au dashboard
-            </Button>
-            {allPatientsCount > 0 && (
-              <Button
-                className="issent-actions-btn"
-                size="large"
-                onClick={onClickNext}
-              >
-                traiter le dossier suivant
-              </Button>
-            )}
-          </div>
-        </div>
-      )}
+          )}
     </Dialog>
-  );
-};
-export default ClaimDialog;
+      );
+    };
+    export default ClaimDialog;

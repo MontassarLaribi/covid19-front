@@ -39,17 +39,17 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2)
   },
   samu: {
-    width: "80px",
-    background: "rebeccapurple",
-    color: "white",
-    padding: "10px",
+    width: "100px",
+    background: "white",
+    color: "black",
+    margingRight: "2px",
     display: "flex",
     alignItems: "center",
-    position: "absolute",
-    top: "50%"
+    position: "relative",
+    float: "right"
   },
   subsamu: {
-    color: "white"
+    color: "Black"
   }
 }));
 const Welcome = props => {
@@ -77,7 +77,7 @@ const Welcome = props => {
       src: "assets/images/welcome/doctor.png",
       handleClick: () => {
         history.push({
-          pathname: "/login",
+          pathname: "/docteur",
           state: { type: "docteur" }
         });
       }
@@ -179,18 +179,14 @@ const Welcome = props => {
 
   return (
     <div className="welcome-page">
-      <div className={classes.samu}>
-        <button
-          onClick={() => props.history.push("/login", { type: "samu" })}
-          className={classes.subsamu}
-        >
-          Samu
-        </button>
-      </div>
+
       <div className="main-navbar">
         <div className="logo-container">
           {/* <img className="logo" src={logo} alt="logo" /> */}
         </div>
+
+
+
         <div className="social-container">
           <ul className="social-list">
             <li>
@@ -210,6 +206,8 @@ const Welcome = props => {
             </li>
           </ul>
         </div>
+
+
       </div>
       <div className="welcome-title">
         <h1>مع بعضنا</h1>
@@ -243,40 +241,65 @@ const Welcome = props => {
         </Grid>
         {/* <div className=""> */}
         <div className="partenariat">Agréée par | En partenariat avec</div>
-        <ul className="logos">
-          <li>
-            <img className="associaMed" src={associaMed} alt="facebook" />
-          </li>
-          <li>
-            <img className="ministere" src={ministere} alt="instagram" />
-          </li>
-          <li>
-            <img
-              className="tunisieTelecom"
-              src={tunisieTelecom}
-              alt="twitter"
-            />
-          </li>
-        </ul>
-        {/* </div> */}
-        {lengthFormStatic !== 0 && (
-          <PatientFormModal
-            updateResponse={updateResponse}
-            dataModal={question ? question : []}
-            modalAction={props.ModalAction}
-            submitFormCallback={submitForm}
-            staticCount={lengthFormStatic}
-            dynamicCount={lengthFormDynamic}
-          />
-        )}
-        <InformModal modalAction={props.ModalAction} />
-        <Sms
-          tel={responses && responses.phoneNumber}
-          history={history}
-          modalAction={props.ModalAction}
-        />
+        <div style={{ display: "flex", justifyContent: "center" }}>
+
+          <div>
+            <ul className="logos">
+              <li>
+                <img className="associaMed" src={associaMed} alt="facebook" />
+              </li>
+              <li>
+                <img className="ministere" src={ministere} alt="instagram" />
+              </li>
+              <li>
+                <img
+                  className="tunisieTelecom"
+                  src={tunisieTelecom}
+                  alt="twitter"
+                />
+              </li>
+            </ul>
+          </div>
+
+          <div className={classes.samu}>
+            <button
+              onClick={() => history.push({
+                pathname: "/samu",
+                state: { type: "samu" }})
+              }
+               
+          >
+            Espace Samu
+          </button>
+        </div>
+        <div className={classes.samu}>
+          <button
+            onClick={() => history.push("/denonciation", { type: "chocroom" })}
+          >
+            Espace CHOC ROOM
+          </button>
+        </div>
+
       </div>
+      {/* </div> */}
+      {lengthFormStatic !== 0 && (
+        <PatientFormModal
+          updateResponse={updateResponse}
+          dataModal={question ? question : []}
+          modalAction={props.ModalAction}
+          submitFormCallback={submitForm}
+          staticCount={lengthFormStatic}
+          dynamicCount={lengthFormDynamic}
+        />
+      )}
+      <InformModal modalAction={props.ModalAction} />
+      <Sms
+        tel={responses && responses.phoneNumber}
+        history={history}
+        modalAction={props.ModalAction}
+      />
     </div>
+    </div >
   );
 };
 
