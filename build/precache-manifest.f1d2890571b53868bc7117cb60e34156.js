@@ -1,43 +1,43 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "98b7e685e1848d9393cdbe4316c7b2c9",
+    "revision": "23898710de1913928a7075e8c351f9c7",
     "url": "/index.html"
   },
   {
-    "revision": "ad1cbfcbaad84a90f905",
+    "revision": "e4f1661b40e8204adc7b",
     "url": "/static/css/2.eb777b3d.chunk.css"
   },
   {
-    "revision": "e45e1d06a9b2d0db3717",
+    "revision": "9b313c7f47deeb070f68",
     "url": "/static/css/3.14bce991.chunk.css"
   },
   {
-    "revision": "b17ca87e8ed602ef62b2",
+    "revision": "0e689adc1c30e57e1ae3",
     "url": "/static/css/4.fb888df0.chunk.css"
   },
   {
-    "revision": "629893fff6faea22b8bf",
+    "revision": "5a2b3d6a4c5fbe3a5767",
     "url": "/static/css/main.22d49bd9.chunk.css"
   },
   {
-    "revision": "ad1cbfcbaad84a90f905",
-    "url": "/static/js/2.2819c2c7.chunk.js"
+    "revision": "e4f1661b40e8204adc7b",
+    "url": "/static/js/2.0d38fd86.chunk.js"
   },
   {
-    "revision": "e45e1d06a9b2d0db3717",
-    "url": "/static/js/3.6823fcee.chunk.js"
+    "revision": "9b313c7f47deeb070f68",
+    "url": "/static/js/3.3cfc9a79.chunk.js"
   },
   {
-    "revision": "b17ca87e8ed602ef62b2",
-    "url": "/static/js/4.fa669a8d.chunk.js"
+    "revision": "0e689adc1c30e57e1ae3",
+    "url": "/static/js/4.d06e98f5.chunk.js"
   },
   {
-    "revision": "629893fff6faea22b8bf",
-    "url": "/static/js/main.daa3808a.chunk.js"
+    "revision": "5a2b3d6a4c5fbe3a5767",
+    "url": "/static/js/main.fc90074d.chunk.js"
   },
   {
-    "revision": "a088e4f3e36b84bd02bb",
-    "url": "/static/js/runtime~main.7b92675d.js"
+    "revision": "3d4fc95829aec529cb1d",
+    "url": "/static/js/runtime~main.6ccd7036.js"
   },
   {
     "revision": "c1d6ac056d5d415e1b5065acf8632508",
@@ -52,12 +52,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/Logo-plain.3f5bbf22.png"
   },
   {
+    "revision": "548bfd05e13f03a18d14c576be4c165e",
+    "url": "/static/media/charte.548bfd05.txt"
+  },
+  {
     "revision": "c1d6ac056d5d415e1b5065acf8632508",
     "url": "/static/media/ellipse.c1d6ac05.svg"
   },
   {
-    "revision": "eafe758aacfcf2138bae2f7c7ec9ba4e",
-    "url": "/static/media/esprit.eafe758a.png"
+    "revision": "7e97452a03c29fbdd488c3568db3a38e",
+    "url": "/static/media/esprit.7e97452a.png"
   },
   {
     "revision": "df521155d47abc10ee9775e3816521f4",
