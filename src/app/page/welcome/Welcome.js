@@ -28,6 +28,9 @@ const styles = theme => ({
   }
 });
 const useStyles = makeStyles(theme => ({
+  arabi: {
+    flexDirection: "row-reverse"
+  },
   root: {
     flexGrow: 1,
     paddingTop: "5rem"
@@ -242,7 +245,16 @@ const Welcome = props => {
       <div className="card-wrapper">
         <Grid container className={classes.root} spacing={2}>
           <Grid item xs={12}>
-            <Grid container justify="center" spacing={9}>
+            <Grid
+              container
+              justify="center"
+              style={
+                i18n.language === "ar" || i18n.language === undefined
+                  ? { flexDirection: "row-reverse" }
+                  : {}
+              }
+              spacing={9}
+            >
               {cardProps.map((item, key) => (
                 <Grid key={key} item>
                   <WelcomeCard
