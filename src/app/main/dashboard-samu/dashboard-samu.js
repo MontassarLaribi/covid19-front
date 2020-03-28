@@ -65,7 +65,6 @@ const DashboardSAMU = () => {
       </Grid>
     ));
   };
-
   return (
     <div className="dashboard">
       <Container maxWidth="md">

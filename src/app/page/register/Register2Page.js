@@ -59,7 +59,9 @@ const Login = props => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   console.log("props", props);
-  const userLoged=props.location.state && props.location.state.type
+  const userLoged=props.location.state.redirectUrl
+  console.log(props.location)
+  console.log (props.location.state);
   return (
     <div className="login-page">
       <div className="main-navbar">
@@ -110,8 +112,10 @@ const Login = props => {
           console.log("values", values);
           setSubmitting(false);
           submitLogin(values).then(res => {
-            if(userLoged){
-              props.history.push(`${userLoged}`);
+            console.log(res);
+            if(res.data){
+              console.log('choco')
+              history.push(`${userLoged}`);
             }else{
               alert('user unknown')
             }
