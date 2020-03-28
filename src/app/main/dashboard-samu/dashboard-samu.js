@@ -81,7 +81,10 @@ const Dashboard = () => {
       return (
         <Grid key={key} item md={4} xs={12}>
           <div className={`single-column ${status.replace(/ /g, "-")}`}>
-            <div className="column-title">
+            <div
+              className="column-title"
+              style={{ textTransform: "capitalize" }}
+            >
               {status} <span>({filtredByStatus.count})</span>
             </div>
             <div className="patients">

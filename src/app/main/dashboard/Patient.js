@@ -31,8 +31,9 @@ const useStyles = makeStyles({
     textAlign: "center"
   },
   title: {
-    textAlign: "left",
-    textTransform: "uppercase",
+    textAlign: "center",
+    fontfamily: "unset",
+    textTransform: "capitalize",
     fontSize: "16px",
     fontWeight: "bold",
     color: "#596377",
@@ -46,11 +47,35 @@ function renderFlag(flag) {
   if (flag) {
     switch (flag.toLowerCase()) {
       case "suspect":
-        return <Chip style={{ backgroundColor: "orange" }} label={flag} />;
+        return (
+          <Chip
+            style={{
+              backgroundColor: "orange",
+              height: "20px",
+              fontSize: "1rem"
+            }}
+            label={flag}
+          />
+        );
       case "stable":
-        return <Chip color="secondary" label={flag} />;
+        return (
+          <Chip
+            color="secondary"
+            style={{ height: "20px", fontSize: "1rem" }}
+            label={flag}
+          />
+        );
       case "urgent":
-        return <Chip style={{ backgroundColor: "#e23b42" }} label={flag} />;
+        return (
+          <Chip
+            style={{
+              backgroundColor: "#e23b42",
+              height: "20px",
+              fontSize: "1rem"
+            }}
+            label={flag}
+          />
+        );
       default:
         break;
     }

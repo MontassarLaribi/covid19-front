@@ -11,7 +11,6 @@ import associaMed from "../../img/associaMed.png";
 import ministere from "../../img/ministere.png";
 import facebook from "../../img/social/facebook-icon.svg";
 import instagram from "../../img/social/instagram-icon.svg";
-import twitter from "../../img/social/twitter-icon.svg";
 import tunisieTelecom from "../../img/tunisieTelecom.png";
 import "../../scss/welcome_page.scss";
 import Sms from "./sms";
@@ -228,11 +227,6 @@ const Welcome = props => {
                 <img src={instagram} alt="instagram" />
               </a>
             </li>
-            <li>
-              <a href="#">
-                <img src={twitter} alt="twitter" />
-              </a>
-            </li>
           </ul>
         </div>
       </div>
@@ -241,10 +235,8 @@ const Welcome = props => {
         <h1> Ensemble</h1>
       </div>
       <div className="welcome-subtitle">
-        Mabaadhna est une plateforme permettant la mise en relation rapide des
-        porteurs des <br />
-        symptômes du Covid-19 avec le corps médical et l'accélération de leur
-        prise en charge
+        {t("TEXT_WELCOME")} <br />
+        {t("TEXT_24H")}
       </div>
       {/*  <GroupedWelcomeCards/> */}
       <div className="card-wrapper">

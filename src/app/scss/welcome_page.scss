@@ -75,8 +75,8 @@
     text-align: center;
     color: white;
     background-color: red;
-    width: 62%;
-    left: 19%;
+    width: 68%;
+    left: 16%;
     right: 15%;
     position: relative;
     justify-content: center;
@@ -85,24 +85,29 @@
   }
   .welcome-title :nth-child(1) {
     text-align: center;
-    font: Bold 49px/48px Tajawal;
+    font: Bold 70px/58px Tajawal;
     letter-spacing: 0;
     color: #ffffff;
     opacity: 1;
     padding-top: 10px;
   }
   .welcome-title :nth-child(2) {
+    text-transform: uppercase;
     text-align: center;
     font: Bold 24px/23px Tajawal;
-    letter-spacing: 2.4px;
+    letter-spacing: 8.4px;
     color: #ffffff;
     opacity: 1;
     padding: 10px 0;
   }
   .welcome-subtitle {
+    margin-top: 40px;
     text-align: center;
     color: $gray_font;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    width: 70%;
+    margin-left: 15%;
   }
   .partenariat {
     text-align: center;
@@ -261,29 +266,41 @@
           font-weight: bold;
           margin: 28px 0;
         }
-        
-        .tim{
+
+        .tim {
           font-size: 18px;
           border: 2px solid #ffffff;
           border-radius: 100px;
           width: 80px;
-          background-size:100% 100%;
-          height: 80px; background-image: url(https://www.shareicon.net/data/128x128/2015/09/25/107222_multimedia_504x512.png);
-          }
-          .tim2{
-            font-size: 18px;
-            border: 2px solid #ffffff;
-            border-radius: 100px;
-            width: 80px;
-            background-size:100% 100%;
-            height: 80px; background-image: url(https://cdn1.iconfinder.com/data/icons/jetflat-devices-vol-5/90/0094_015_audio_mic_microphone_record_broadcast_mute-512.png);
-            }
-            .tim3{
-              width:100px;right:0px; top:100px; height:200px;background-color:#ffffff;margin-left:200px;
-            }
-            .tim4{
-              width:100px;right:0px; top:100px; height:30px;background-color:#ffffff;margin-left:-110px;
-            }
+          background-size: 100% 100%;
+          height: 80px;
+          background-image: url(https://www.shareicon.net/data/128x128/2015/09/25/107222_multimedia_504x512.png);
+        }
+        .tim2 {
+          font-size: 18px;
+          border: 2px solid #ffffff;
+          border-radius: 100px;
+          width: 80px;
+          background-size: 100% 100%;
+          height: 80px;
+          background-image: url(https://cdn1.iconfinder.com/data/icons/jetflat-devices-vol-5/90/0094_015_audio_mic_microphone_record_broadcast_mute-512.png);
+        }
+        .tim3 {
+          width: 100px;
+          right: 0px;
+          top: 100px;
+          height: 200px;
+          background-color: #ffffff;
+          margin-left: 200px;
+        }
+        .tim4 {
+          width: 100px;
+          right: 0px;
+          top: 100px;
+          height: 30px;
+          background-color: #ffffff;
+          margin-left: -110px;
+        }
         .form-title {
           color: #596377;
           font-size: 22px;

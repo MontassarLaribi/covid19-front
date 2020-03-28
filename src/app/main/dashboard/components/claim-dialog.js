@@ -39,6 +39,7 @@ const ClaimDialog = ({
   onClose,
   onSendSMS,
   onClickNext,
+  onDenoncer,
   patient,
   allPatientsCount
 }) => {
@@ -282,7 +283,15 @@ const ClaimDialog = ({
                 >
                   Envoyer SMS Et Valider
                 </Button>
-                <Button variant="outlined" size="large" onClick={() => {}}>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  onClick={() => {
+                    onDenoncer();
+                    setCondition(null);
+                    setResponse("");
+                  }}
+                >
                   Dénoncer patient
                 </Button>
               </div>

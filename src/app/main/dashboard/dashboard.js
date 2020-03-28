@@ -6,7 +6,8 @@ import {
   getPatient,
   getPatientSingle,
   getAllPatients,
-  patchPatientByDoc
+  patchPatientByDoc,
+  patchPatientByDocDenoncer
 } from "app/libs/apis";
 import Patient from "./Patient";
 import ClaimDialog from "./components/claim-dialog";
@@ -77,7 +78,10 @@ const Dashboard = () => {
       return (
         <Grid key={key} item md={4} xs={12}>
           <div className={`single-column ${status.replace(/ /g, "-")}`}>
-            <div className="column-title">
+            <div
+              className="column-title"
+              style={{ textTransform: "capitalize" }}
+            >
               {status} <span>({filtredByStatus.count})</span>
             </div>
             <div className="patients">
@@ -145,6 +149,13 @@ const Dashboard = () => {
               //add dynamic status flag
               setIsSent(true);
               patchPatientByDoc(condition.toUpperCase(), patient.guid);
+              getAllPatients().then(res => {
+                setAllPatients(get(res, "data.payload.patients", {}));
+              });
+            }}
+            onDenoncer={() => {
+              setIsSent(true);
+              patchPatientByDocDenoncer(patient.guid);
               getAllPatients().then(res => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });
