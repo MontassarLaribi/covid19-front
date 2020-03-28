@@ -189,11 +189,7 @@ const Welcome = props => {
           <ul className="language-list">
             <li>
               <span
-                className={
-                  i18n.language === "ar" || i18n.language === undefined
-                    ? "selected"
-                    : ""
-                }
+                className={i18n.language === "ar" ? "selected" : ""}
                 onClick={() => i18n.changeLanguage("ar")}
               >
                 AR

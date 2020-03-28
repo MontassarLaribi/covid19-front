@@ -2,23 +2,21 @@ import { Button, Snackbar } from "@material-ui/core";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 
-export default LoiSnack => {
+export default CharteSnack => {
 
   const { t } = useTranslation("welcome");
 
-  const [open, setOpen] = React.useState(true);
-  const message = t("LOI_SNACK_TEXT");
+  const [open, setOpen] = React.useState(false);
+  const message = t("CHARTE_SNACK_TEXT");
   const action = (
     <Button onClick={handleCloseMessage} color="secondary" size="small">
-      {t('LOI_SNACK_CLOSE_TEXT')}
+      Fermer
     </Button>
   );
 
   function handleCloseMessage() {
     setOpen(false);
   }
-
-
 
   return (
     <Snackbar

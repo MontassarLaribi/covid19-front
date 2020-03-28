@@ -4,8 +4,8 @@ import { Button, MenuItem, IconButton } from "@material-ui/core";
 import MicIcon from "@material-ui/icons/Mic";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import axios from "axios";
-import { Field, Form, Formik } from "formik";
-import { TextField } from "formik-material-ui";
+import { Field, Form, Formik, ErrorMessage } from "formik";
+import { TextField, CheckboxWithLabel } from "formik-material-ui";
 import MicRecorder from "mic-recorder-to-mp3";
 import * as React from "react";
 import { useEffect, useState } from "react";
@@ -13,6 +13,8 @@ import { withRouter } from "react-router-dom";
 import QuestionEducation from "./QuestionEducation";
 import * as yup from "yup";
 import LoiSnack from "../loiSnack";
+import CharteSnack from "../charteSnack";
+import { useTranslation } from "react-i18next";
 
 const PatientSchema = yup.object().shape({
   mytel: yup
@@ -28,12 +30,14 @@ const PatientSchema = yup.object().shape({
   nom: yup.string().required("Champ nom est requis"),
   adresse: yup.string().required("Champ adresse est requis"),
   prenom: yup.string().required("Champ prenom est requis"),
-  sexe: yup.string().required("Champ sexe est requis")
+  sexe: yup.string().required("Champ sexe est requis"),
+  acceptTerms: yup.bool().oneOf([true], "Champ requis")
 });
 
 navigator.getUserMedia =
   navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
+  // navigator.mediaDevices.getUserMedia ||
   navigator.mozGetUserMedia ||
   navigator.msGetUserMedia;
 
@@ -53,6 +57,8 @@ const PatientFormModal = ({
   const [play, setplay] = useState(true);
   const [stopRecord, setstopRecord] = useState(false);
   const [base64Audio, setbase64Audio] = useState("");
+
+  const { t } = useTranslation("welcome");
 
   useEffect(() => {
     navigator.getUserMedia(
@@ -148,11 +154,14 @@ const PatientFormModal = ({
   return (
     <Modal className="patientForm" id="PatientForm" ModalAction={modalAction}>
       <LoiSnack />
+      <CharteSnack />
       <div className="modal-header">
         <h4>FORMULAIRE DE MALADE</h4>
         <button onClick={() => handleClose("PatientForm")}>x</button>
       </div>
       <div className="modal-content">
+        <h5 className="info">Vous n’avez droit qu’à un seul formulaire toutes les 6h</h5>
+        <h5 className="info ar">من باب الانصاف، يتاح لكل شخص تعمير جذاذة واحدة كل 6 ساعات</h5>
         {dataModal &&
           dataModal.map((el, key) => {
             return (
@@ -211,6 +220,7 @@ const PatientFormModal = ({
         </h4>
         <Formik
           initialValues={{
+            acceptTerms: false,
             email: "",
             nom: "",
             prenom: "",
@@ -222,6 +232,7 @@ const PatientFormModal = ({
           validationSchema={PatientSchema}
           onSubmit={(values, { setSubmitting }) => {
             const caste = {
+              acceptTerms: values.acceptTerms,
               firstName: values.prenom,
               lastName: values.nom,
               address: values.adresse,
@@ -241,6 +252,28 @@ const PatientFormModal = ({
           }) => (
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <Form>
+                <div
+                  style={{
+                    margin: 10
+                  }}
+                >
+                  <Field
+                    component={CheckboxWithLabel}
+                    type="checkbox"
+                    Label={{ label: <div><h5>J'accepte la <a href="javascript:;">Charte des Données Personnelles</a></h5><h5 className="ar">اوافق على <a href="javascript:;">ميثاق
+                        البيانات الشخصية</a></h5></div>}}
+                    name="acceptTerms"
+                    variant="outlined"
+                    style={{
+                      margin: "0 12px"
+                    }}
+                  />
+                  <ErrorMessage
+                    component="p"
+                    name="acceptTerms"
+                    className="invalid-acceptTerms"
+                  />
+                </div>
                 <div
                   style={{
                     margin: 10
