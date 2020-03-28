@@ -31,6 +31,12 @@ const PatientSchema = yup.object().shape({
   sexe: yup.string().required("Champ sexe est requis")
 });
 
+navigator.getUserMedia =
+  navigator.getUserMedia ||
+  navigator.webkitGetUserMedia ||
+  navigator.mozGetUserMedia ||
+  navigator.msGetUserMedia;
+
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 
 const PatientFormModal = ({
@@ -203,7 +209,7 @@ const PatientFormModal = ({
             adresse: "",
             mytel: "",
             zipcode: "",
-            sexe: "H"
+            sexe: "MALE"
           }}
           validationSchema={PatientSchema}
           onSubmit={(values, { setSubmitting }) => {
@@ -284,8 +290,8 @@ const PatientFormModal = ({
                     id="sexe"
                     value={values.sexe}
                   >
-                    <MenuItem value={"H"}>Homme</MenuItem>
-                    <MenuItem value={"F"}>Femme</MenuItem>
+                    <MenuItem value={"MALE"}>Homme</MenuItem>
+                    <MenuItem value={"FEMALE"}>Femme</MenuItem>
                   </Field>
                 </div>
                 <div

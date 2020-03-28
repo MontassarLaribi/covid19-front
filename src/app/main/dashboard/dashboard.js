@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Button, Container, Grid } from "@material-ui/core";
+import { Button, Container, TextField, Grid } from "@material-ui/core";
 import { get } from "lodash";
 
 import {
   getPatient,
   getPatientSingle,
   getAllPatients,
-  patchPatientByDoc
+  patchPatientByDoc,
+  patchPatientByDocDenoncer
 } from "app/libs/apis";
 import Patient from "./Patient";
 import ClaimDialog from "./components/claim-dialog";
@@ -21,6 +22,7 @@ const Dashboard = () => {
   const [show, setShow] = useState(false);
   const [isSent, setIsSent] = useState(false);
   const [patient, setPatient] = useState({});
+  const [search, setSearch] = useState("");
   const [allPatients, setAllPatients] = useState();
 
   useEffect(() => {
@@ -55,6 +57,7 @@ const Dashboard = () => {
         text={patient.phone_number}
         title={patient.first_name + " " + patient.last_name}
         flag={patient.flag}
+        search={search}
         handleClick={() => {
           if (patient.status === "CLOSED") {
             setShow(true);
@@ -75,7 +78,10 @@ const Dashboard = () => {
       return (
         <Grid key={key} item md={4} xs={12}>
           <div className={`single-column ${status.replace(/ /g, "-")}`}>
-            <div className="column-title">
+            <div
+              className="column-title"
+              style={{ textTransform: "capitalize" }}
+            >
               {status} <span>({filtredByStatus.count})</span>
             </div>
             <div className="patients">
@@ -85,6 +91,10 @@ const Dashboard = () => {
         </Grid>
       );
     });
+  };
+
+  const handleChange = e => {
+    setSearch(e.target.value);
   };
 
   if (!allPatients) return <></>;
@@ -110,6 +120,16 @@ const Dashboard = () => {
           >
             Traiter un dossier
           </Button>
+          <TextField
+            style={{ margin: "32px 0 8px 32px" }}
+            id="standard-multiline-static"
+            className="text-response"
+            label="Recherche"
+            placeholder="Recherche..."
+            variant="outlined"
+            value={search}
+            onChange={handleChange}
+          />
         </header>
         <Grid className="columns" container spacing={4}>
           {renderColumns()}
@@ -129,6 +149,13 @@ const Dashboard = () => {
               //add dynamic status flag
               setIsSent(true);
               patchPatientByDoc(condition.toUpperCase(), patient.guid);
+              getAllPatients().then(res => {
+                setAllPatients(get(res, "data.payload.patients", {}));
+              });
+            }}
+            onDenoncer={() => {
+              setIsSent(true);
+              patchPatientByDocDenoncer(patient.guid);
               getAllPatients().then(res => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });

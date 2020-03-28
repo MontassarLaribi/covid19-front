@@ -39,6 +39,7 @@ const ClaimDialog = ({
   onClose,
   onSendSMS,
   onClickNext,
+  onDenoncer,
   patient,
   allPatientsCount
 }) => {
@@ -72,7 +73,7 @@ const ClaimDialog = ({
   };
 
   const renderClassName = value => {
-    const test = value === "false" || value === false || value === "0";
+    const test = String(value) === "1";
     switch (test) {
       case false:
         return "critique-active";
@@ -86,7 +87,7 @@ const ClaimDialog = ({
   };
 
   const renderValue = (value, type) => {
-    const test = value === "false" || value === false || value === "0";
+    const test = String(value) === "1";
     switch (test) {
       case false:
         return "non";
@@ -167,7 +168,7 @@ const ClaimDialog = ({
   return (
     <Dialog
       className="claim-dialog"
-      onClose={onClose}
+      // onClose={onClose}
       aria-labelledby="Claim Dialog"
       open={visible}
       fullWidth={true}
@@ -185,7 +186,7 @@ const ClaimDialog = ({
                   prénom: <span>{first_name}</span>
                 </p>
                 <p>
-                  sexe : <span>{gender === "H" ? "Homme" : "Femme"}</span>
+                  sexe : <span>{gender === "MALE" ? "Homme" : "Femme"}</span>
                 </p>
                 <p>
                   adresse: <span>{address}</span>
@@ -282,7 +283,15 @@ const ClaimDialog = ({
                 >
                   Envoyer SMS Et Valider
                 </Button>
-                <Button variant="outlined" size="large" onClick={() => {}}>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  onClick={() => {
+                    onDenoncer();
+                    setCondition(null);
+                    setResponse("");
+                  }}
+                >
                   Dénoncer patient
                 </Button>
               </div>
@@ -297,8 +306,8 @@ const ClaimDialog = ({
       {isSent && (
         <div className="issent">
           <div className="issent-content">
-            <img alt="" class="Ellipse" src={ellipse} />
-            <button class="send">
+            <img alt="" className="Ellipse" src={ellipse} />
+            <button className="send">
               <img alt="" src={group} />
             </button>
             <h2> Merci Beaucoup docteur!</h2>

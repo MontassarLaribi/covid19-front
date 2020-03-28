@@ -15,7 +15,7 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
   } = patient;
 
   const renderClassName = value => {
-    const test = value === "false" || value === false || value === "0";
+    const test = String(value) === "1";
     switch (test) {
       case false:
         return "critique-active";
@@ -29,7 +29,7 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
   };
 
   const renderValue = (value, type) => {
-    const test = value === "false" || value === false || value === "0";
+    const test = String(value) === "1";
     switch (test) {
       case false:
         return "non";
@@ -73,35 +73,22 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
 
   const renderCategories = () => {
     return (
-      responses &&
-      responses.map((response, index) => {
-        switch (response.question.category) {
-          case 1:
-            return (
-              <div key={index}>
-                <h3>{index + 1}.Questions générales</h3>
-                {renderQuestions(response.question.category)}
-              </div>
-            );
-          case 2:
-            return (
-              <div key={index}>
-                <h3>{index + 1}.Questions médicales</h3>
-                {renderQuestions(response.question.category)}
-              </div>
-            );
-          case 3:
-            return (
-              <div key={index}>
-                <h3>{index + 1}.Les symptômes</h3>
-                {renderQuestions(response.question.category)}
-              </div>
-            );
-
-          default:
-            return <></>;
-        }
-      })
+      responses && (
+        <>
+          <div>
+            <h3>1.Questions générales</h3>
+            {renderQuestions(1)}
+          </div>
+          <div>
+            <h3>2.Questions médicales</h3>
+            {renderQuestions(2)}
+          </div>
+          <div>
+            <h3>3.Les symptômes</h3>
+            {renderQuestions(3)}
+          </div>
+        </>
+      )
     );
   };
 
@@ -131,7 +118,7 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
                   prénom: <span>{first_name}</span>
                 </p>
                 <p>
-                  sexe : <span>{gender === "H" ? "Homme" : "Femme"}</span>
+                  sexe : <span>{gender === "MALE" ? "Homme" : "Femme"}</span>
                 </p>
                 <p>
                   adresse: <span>{address}</span>

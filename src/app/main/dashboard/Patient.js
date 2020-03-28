@@ -24,13 +24,16 @@ const useStyles = makeStyles({
     marginLeft: "auto",
     marginRight: "auto"
   },
-
+  hide: {
+    display: "none"
+  },
   text: {
     textAlign: "center"
   },
   title: {
-    textAlign: "left",
-    textTransform: "uppercase",
+    textAlign: "center",
+    fontfamily: "unset",
+    textTransform: "capitalize",
     fontSize: "16px",
     fontWeight: "bold",
     color: "#596377",
@@ -44,21 +47,58 @@ function renderFlag(flag) {
   if (flag) {
     switch (flag.toLowerCase()) {
       case "suspect":
-        return <Chip color="primary" label={flag} />;
+        return (
+          <Chip
+            style={{
+              backgroundColor: "orange",
+              height: "20px",
+              fontSize: "1rem"
+            }}
+            label={flag}
+          />
+        );
       case "stable":
-        return <Chip color="secondary" label={flag} />;
+        return (
+          <Chip
+            color="secondary"
+            style={{ height: "20px", fontSize: "1rem" }}
+            label={flag}
+          />
+        );
       case "urgent":
-        return <Chip style={{ backgroundColor: "darkred" }} label={flag} />;
+        return (
+          <Chip
+            style={{
+              backgroundColor: "#e23b42",
+              height: "20px",
+              fontSize: "1rem"
+            }}
+            label={flag}
+          />
+        );
       default:
         break;
     }
   }
 }
 
-export default function Patient({ title, text, flag, handleClick }) {
+export default function Patient({ title, text, flag, handleClick, search }) {
   const classes = useStyles();
+
+  function isSearchValid(search) {
+    const searchRegex = new RegExp(`${search}`, "gi");
+    return (
+      !title ||
+      String(title).search(searchRegex) > -1 ||
+      !text ||
+      String(text).search(searchRegex) > -1 ||
+      !flag ||
+      String(flag).search(searchRegex) > -1
+    );
+  }
+
   return (
-    <Card className={classes.root}>
+    <Card className={isSearchValid(search) ? classes.root : classes.hide}>
       <CardActionArea onClick={handleClick}>
         <CardContent className={classes.cardContent}>
           <Typography

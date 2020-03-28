@@ -1,5 +1,6 @@
 import axios from "axios";
 import { DOMAINE } from "config";
+import { DOMAINE_HTTP } from "config";
 
 export const getPatient = async () => {
   const response = await axios
@@ -45,7 +46,19 @@ export const patchPatientByDoc = async (status, guid) => {
   }
 };
 
-export const patchPatientBySAMU = async guid => {
+export const patchPatientByDocDenoncer = async guid => {
+  if (guid) {
+    const response = await axios
+      .patch(`${DOMAINE_HTTP}/api/v1/secured/denounce-patient/${guid}`)
+      .catch(err => {
+        //alert(err)
+        throw new Error(err);
+      });
+    return response;
+  }
+};
+
+export const patchPatientBySAMU = async (status, guid) => {
   if (guid) {
     const response = await axios
       .patch(`${DOMAINE}/api/v1/secured/patient/${guid}`, {

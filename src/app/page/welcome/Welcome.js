@@ -11,10 +11,11 @@ import associaMed from "../../img/associaMed.png";
 import ministere from "../../img/ministere.png";
 import facebook from "../../img/social/facebook-icon.svg";
 import instagram from "../../img/social/instagram-icon.svg";
-import twitter from "../../img/social/twitter-icon.svg";
 import tunisieTelecom from "../../img/tunisieTelecom.png";
 import "../../scss/welcome_page.scss";
 import Sms from "./sms";
+import { useTranslation } from "react-i18next";
+import Alert from "@material-ui/icons/AddAlert";
 
 const styles = theme => ({
   layoutRoot: {
@@ -68,12 +69,11 @@ const Welcome = props => {
   const cardProps = [
     {
       disabled: false,
-      title: "Médecin",
+      title: "CARD_DOCTOR_TITLE",
       className: "medecin",
-      text:
-        "Vous êtes un medecin déjà inscrit sur la plateforme? Connectez-vous et aidez-nous à traiter les dossiers.",
+      text: "CARD_DOCTOR_TEXT",
       redirect: "/login",
-      buttonContent: "Connectez-vous",
+      buttonContent: "CARD_DOCTOR_BTN",
       src: "assets/images/welcome/doctor.png",
       handleClick: () => {
         history.push({
@@ -84,12 +84,11 @@ const Welcome = props => {
     },
     {
       disabled: false,
-      title: "Malade",
+      title: "CARD_PATIENT_TITLE",
       className: "malade",
-      text:
-        "Vous ressentez les symptômes du COVID-19 mais vous n'arrivez pas à évaluer votre cas? Notre équipe des médecins pourra traiter votre dossier dans les plus brefs délais.",
+      text: "CARD_PATIENT_TEXT",
       redirect: "/malade",
-      buttonContent: "Contactez un médecin",
+      buttonContent: "CARD_PATIENT_BTN",
       src: "assets/images/welcome/sick.png",
       handleClick: () => {
         props.ModalAction("PatientForm");
@@ -97,12 +96,11 @@ const Welcome = props => {
     },
     {
       disabled: false,
-      title: "Informer",
+      title: "CARD_INFORMER_TITLE",
       className: "informer",
-      text:
-        "Vous connaissez quelqu'un qui ne respecte pas les règles du confinement? Protégez-vous et protégez votre entourage en remplissant ce formulaire.",
+      text: "CARD_INFORMER_TEXT",
       redirect: "/informer",
-      buttonContent: "choisissez d'informer",
+      buttonContent: "CARD_INFORMER_BTN",
       src: "assets/images/welcome/inform.png",
       handleClick: () => {
         props.ModalAction("Inform");
@@ -170,26 +168,52 @@ const Welcome = props => {
 
   const submitForm = data => {
     const newData = { ...responses, ...data };
-    console.log(JSON.stringify(newData));
+    console.log("newDataaaaaaaaaaaa", newData);
     axios.post(`${DOMAINE}/api/v1/patient`, { ...newData }).then(res => {
       console.log(res);
       props.ModalAction("sms");
     });
   };
 
+  const { t, i18n } = useTranslation("welcome");
+
   return (
     <div className="welcome-page">
-      <div className={classes.samu}>
+      {/* <div className={classes.samu}>
         <button
           onClick={() => props.history.push("/login", { type: "samu" })}
           className={classes.subsamu}
         >
           Samu
         </button>
-      </div>
+      </div> */}
       <div className="main-navbar">
-        <div className="logo-container">
-          {/* <img className="logo" src={logo} alt="logo" /> */}
+        {/*<div className="logo-container">*/}
+        {/*   <img className="logo" src={logo} alt="logo" /> */}
+        {/*</div>*/}
+        <div className="language-selection-container">
+          <ul className="language-list">
+            <li>
+              <span
+                className={
+                  i18n.language === "ar" || i18n.language === undefined
+                    ? "selected"
+                    : ""
+                }
+                onClick={() => i18n.changeLanguage("ar")}
+              >
+                AR
+              </span>
+            </li>
+            <li>
+              <span
+                className={i18n.language === "fr" ? "selected" : ""}
+                onClick={() => i18n.changeLanguage("fr")}
+              >
+                FR
+              </span>
+            </li>
+          </ul>
         </div>
         <div className="social-container">
           <ul className="social-list">
@@ -203,11 +227,6 @@ const Welcome = props => {
                 <img src={instagram} alt="instagram" />
               </a>
             </li>
-            <li>
-              <a href="#">
-                <img src={twitter} alt="twitter" />
-              </a>
-            </li>
           </ul>
         </div>
       </div>
@@ -216,10 +235,8 @@ const Welcome = props => {
         <h1> Ensemble</h1>
       </div>
       <div className="welcome-subtitle">
-        Mabaadhna est une plateforme permettant la mise en relation rapide des
-        porteurs des <br />
-        symptômes du Covid-19 avec le corps médical et l'accélération de leur
-        prise en charge
+        {t("TEXT_WELCOME")} <br />
+        {t("TEXT_24H")}
       </div>
       {/*  <GroupedWelcomeCards/> */}
       <div className="card-wrapper">
@@ -229,10 +246,10 @@ const Welcome = props => {
               {cardProps.map((item, key) => (
                 <Grid key={key} item>
                   <WelcomeCard
-                    text={item.text}
-                    title={item.title}
+                    text={t(item.text)}
+                    title={t(item.title)}
                     handleClick={item.handleClick}
-                    buttonContent={item.buttonContent}
+                    buttonContent={t(item.buttonContent)}
                     src={item.src}
                     disabled={item.disabled}
                   ></WelcomeCard>
@@ -258,6 +275,37 @@ const Welcome = props => {
             />
           </li>
         </ul>
+
+        <button
+          onClick={() => props.history.push("/login", { type: "samu" })}
+          style={{ display: "flex", marginLeft: "auto" }}
+          class="MuiButtonBase-root MuiButton-root makeStyles-button-877 MuiButton-textPrimary MuiButton-text MuiButton-sizeSmall"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label"
+            style={{
+              fontSize: "1em",
+              display: "table",
+              width: "auto",
+              border: "1px solid #707070",
+              padding: "12px 15px",
+              borderRadius: "50px",
+              margin: "10px",
+              color: "#707070",
+              // position: "fixed",
+              bottom: "50px",
+              right: "30px"
+            }}
+          >
+            <Alert />
+            <span style={{ verticalAlign: "super" }}>
+              {t("ESPACE_SHOC_ROOM")}
+            </span>
+          </span>
+          <span class="MuiTouchRipple-root"></span>
+        </button>
         {/* </div> */}
         {lengthFormStatic !== 0 && (
           <PatientFormModal
