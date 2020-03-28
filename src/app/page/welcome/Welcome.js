@@ -195,11 +195,7 @@ const Welcome = props => {
           <ul className="language-list">
             <li>
               <span
-                className={
-                  i18n.language === "ar" || i18n.language === undefined
-                    ? "selected"
-                    : ""
-                }
+                className={i18n.language === "ar" ? "selected" : ""}
                 onClick={() => i18n.changeLanguage("ar")}
               >
                 AR
@@ -279,12 +275,12 @@ const Welcome = props => {
         <button
           onClick={() => props.history.push("/login", { type: "samu" })}
           style={{ display: "flex", marginLeft: "auto" }}
-          class="MuiButtonBase-root MuiButton-root makeStyles-button-877 MuiButton-textPrimary MuiButton-text MuiButton-sizeSmall"
-          tabindex="0"
+          className="MuiButtonBase-root MuiButton-root makeStyles-button-877 MuiButton-textPrimary MuiButton-text MuiButton-sizeSmall"
+          tabIndex="0"
           type="button"
         >
           <span
-            class="MuiButton-label"
+            className="MuiButton-label"
             style={{
               fontSize: "1em",
               display: "table",
@@ -304,7 +300,7 @@ const Welcome = props => {
               {t("ESPACE_SHOC_ROOM")}
             </span>
           </span>
-          <span class="MuiTouchRipple-root"></span>
+          <span className="MuiTouchRipple-root"></span>
         </button>
         {/* </div> */}
         {lengthFormStatic !== 0 && (

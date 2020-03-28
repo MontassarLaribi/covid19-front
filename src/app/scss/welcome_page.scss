@@ -353,6 +353,30 @@
       }
     }
   }
+  .MuiCheckbox-root + span {
+    h5.ar {
+      direction: rtl;
+    }
+    h5 a {
+      color: #596377;
+    }
+  }
+  .info {
+    color: #596377;
+    &.ar {
+      direction: rtl;
+    }
+  }
+  .invalid-acceptTerms {
+    color: #f44336;
+    margin: 0 12px;
+    font-size: 1.2rem;
+    text-align: left;
+    min-height: 1em;
+    font-family: Muli,Roboto,"Helvetica",Arial,sans-serif;
+    font-weight: 400;
+    line-height: 1em;
+  }
 }
 /*INFORMANT POPUP*/
 .d-flex {
