@@ -113,6 +113,7 @@ const PatientFormModal = ({
     }
   };
   // TIMER START
+  const [charte, setCharte] = useState(false);
   const [mSeconds, setMSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
@@ -154,7 +155,14 @@ const PatientFormModal = ({
   return (
     <Modal className="patientForm" id="PatientForm" ModalAction={modalAction}>
       <LoiSnack />
-      <CharteSnack />
+      {charte && (
+        <CharteSnack
+          charte={charte}
+          close={() => {
+            setCharte(false);
+          }}
+        />
+      )}
       <div className="modal-header">
         <h4>FORMULAIRE DE MALADE</h4>
         <button onClick={() => handleClose("PatientForm")}>x</button>
@@ -268,14 +276,14 @@ const PatientFormModal = ({
                       label: (
                         <div>
                           <h5>
-                            J'accepte la{" "}
-                            <a href="javascript:;">
-                              Charte des Données Personnelles
+                            <a onClick={() => setCharte(true)}>
+                              J'accepte la Charte des Données Personnelles
                             </a>
                           </h5>
                           <h5 className="ar">
-                            اوافق على{" "}
-                            <a href="javascript:;">ميثاق البيانات الشخصية</a>
+                            <a onClick={() => setCharte(true)}>
+                              اوافق على ميثاق البيانات الشخصية
+                            </a>
                           </h5>
                         </div>
                       )
@@ -300,7 +308,7 @@ const PatientFormModal = ({
                   <Field
                     component={TextField}
                     type="text"
-                    label="Nom"
+                    label="Nom / اللقب"
                     name="nom"
                     value={values.nom}
                     variant="outlined"
@@ -311,7 +319,7 @@ const PatientFormModal = ({
                   <Field
                     component={TextField}
                     type="text"
-                    label="Prenom"
+                    label="Prenom / الاسم"
                     name="prenom"
                     value={values.prenom}
                     variant="outlined"
@@ -328,7 +336,7 @@ const PatientFormModal = ({
                   <Field
                     component={TextField}
                     type="text"
-                    label="Adresse"
+                    label="Adresse / العنوان"
                     name="adresse"
                     value={values.adresse}
                     variant="outlined"
@@ -339,11 +347,12 @@ const PatientFormModal = ({
                   <Field
                     select
                     component={TextField}
-                    label="sexe"
+                    label="sexe / الجنس"
                     variant="outlined"
                     fullwidth="true"
                     style={{
-                      margin: "0 12px"
+                      margin: "0 12px",
+                      minWidth: "150px"
                     }}
                     name="sexe"
                     id="sexe"
@@ -361,7 +370,7 @@ const PatientFormModal = ({
                   <Field
                     component={TextField}
                     type="text"
-                    label="Téléphone"
+                    label="Téléphone / رقم الهاتف"
                     name="mytel"
                     value={values.mytel}
                     variant="outlined"
@@ -373,7 +382,7 @@ const PatientFormModal = ({
                   <Field
                     component={TextField}
                     type="text"
-                    label="Code Postal"
+                    label="Code Postal / رقم البريد"
                     name="zipcode"
                     value={values.zipcode}
                     variant="outlined"
