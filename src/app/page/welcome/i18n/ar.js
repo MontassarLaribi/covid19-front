@@ -10,7 +10,7 @@ const locale = {
   CARD_INFORMER_TEXT:
     "جارك و ال جارتك متحترمش الحجر الصحي و تحط فلي دايرين بيها في خطر؟ اعلن عليها و احمي روحك و غيرك",
   CARD_INFORMER_BTN: "أعلن",
-  ESPACE_CHOC_ROOM: "Espace Choc Room arabic"
+  ESPACE_SHOC_ROOM: "قاعة العمليات"
 };
 
 export default locale;

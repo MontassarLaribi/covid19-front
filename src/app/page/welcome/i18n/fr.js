@@ -11,7 +11,7 @@ const locale = {
   CARD_INFORMER_TEXT:
     "Vous connaissez quelqu'un qui ne respecte pas les règles du confinement? Protégez-vous et protégez votre entourage en remplissant ce formulaire.",
   CARD_INFORMER_BTN: "Choisissez d'informer",
-  ESPACE_CHOC_ROOM: "Espace Choc Room"
+  ESPACE_SHOC_ROOM: "Espace Shoc Room"
 };
 
 export default locale;

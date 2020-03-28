@@ -309,7 +309,7 @@ const Welcome = props => {
           >
             <Alert />
             <span style={{ verticalAlign: "super" }}>
-              {t("ESPACE_CHOC_ROOM")}
+              {t("ESPACE_SHOC_ROOM")}
             </span>
           </span>
           <span class="MuiTouchRipple-root"></span>
