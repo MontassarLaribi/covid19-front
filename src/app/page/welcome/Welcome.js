@@ -12,6 +12,8 @@ import ministere from "../../img/ministere.png";
 import facebook from "../../img/social/facebook-icon.svg";
 import instagram from "../../img/social/instagram-icon.svg";
 import tunisieTelecom from "../../img/tunisieTelecom.png";
+import beecoop from "../../img/beecoop.png";
+import esprit from "../../img/esprit.png";
 import "../../scss/welcome_page.scss";
 import Sms from "./sms";
 import { useTranslation } from "react-i18next";
@@ -262,17 +264,19 @@ const Welcome = props => {
         <div className="partenariat">Agréée par | En partenariat avec</div>
         <ul className="logos">
           <li>
-            <img className="associaMed" src={associaMed} alt="facebook" />
+            <a href="http://www.fmt.rnu.tn/index.php?id=55" target="_blank"><img className="associaMed" src={associaMed} alt="assciaMed" /></a>
           </li>
           <li>
-            <img className="ministere" src={ministere} alt="instagram" />
+            <a href="http://www.santetunisie.rns.tn/fr/" target="_blank"><img className="ministere" src={ministere} alt="ministere" /></a>
           </li>
           <li>
-            <img
-              className="tunisieTelecom"
-              src={tunisieTelecom}
-              alt="twitter"
-            />
+            <a href="http://www.tunisietelecom.tn" target="_blank"><img className="tunisieTelecom" src={tunisieTelecom} alt="tunisieTelecom" /></a>
+          </li>
+          <li>
+            <a href="https://beecoop.co" target="_blank"><img className="beecoop" src={beecoop} alt="beecoop" /></a>
+          </li>
+          <li>
+            <a href="http://esprit.tn/" target="_blank"><img className="esprit" src={esprit} alt="esprit" /></a>
           </li>
         </ul>
 
