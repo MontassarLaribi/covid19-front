@@ -5,11 +5,12 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    left: "25%",
+    left: "40px",
+    top: "40px",
     position: "absolute",
-    width: "50%",
+    width: "calc(100% - 40px * 2)",
     overflow: "scroll",
-    height: "100%",
+    height: "calc(100% - 40px * 2)",
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],

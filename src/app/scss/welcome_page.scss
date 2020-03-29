@@ -311,20 +311,26 @@
           background-image: url(https://cdn1.iconfinder.com/data/icons/jetflat-devices-vol-5/90/0094_015_audio_mic_microphone_record_broadcast_mute-512.png);
         }
         .tim3 {
-          width: 100px;
+          //width: 100px;
           right: 0px;
           top: 100px;
-          height: 200px;
+          height: 100px;
           background-color: #ffffff;
-          margin-left: 200px;
+          //margin-left: 200px;
+          text-align: center;
         }
         .tim4 {
-          width: 100px;
+          //width: 100px;
           right: 0px;
           top: 100px;
           height: 30px;
           background-color: #ffffff;
-          margin-left: -110px;
+          //margin-left: -110px;
+          text-align: center;
+          width: 100%;
+          audio {
+            max-width: 100%;
+          }
         }
         .form-title {
           color: #596377;
