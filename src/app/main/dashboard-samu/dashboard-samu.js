@@ -148,11 +148,7 @@ const Dashboard = () => {
             onSendSMS={(condition, textToSend) => {
               //add dynamic status flag
               setIsSent(true);
-              patchPatientBySAMU(
-                condition.toUpperCase(),
-                patient.guid,
-                textToSend
-              );
+              patchPatientBySAMU(patient.guid, textToSend);
               getAllPatients().then(res => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });

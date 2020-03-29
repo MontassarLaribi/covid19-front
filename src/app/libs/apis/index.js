@@ -42,7 +42,7 @@ export const patchPatientByDoc = async (status, guid, textToSend) => {
         throw new Error(err);
       });
     await axios
-      .post(`${DOMAINE}/api/v1/sms/consultation/${guid}`, {
+      .post(`${DOMAINE}/api/v1/secured/sms/consultation/${guid}`, {
         content: textToSend
       })
       .catch(err => {
@@ -76,7 +76,7 @@ export const patchPatientBySAMU = async (guid, textToSend) => {
         throw new Error(err);
       });
     await axios
-      .post(`${DOMAINE}/api/v1/sms/consultation/${guid}`, {
+      .post(`${DOMAINE}/api/v1/secured/sms/consultation/${guid}`, {
         content: textToSend
       })
       .catch(err => {
