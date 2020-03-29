@@ -275,7 +275,7 @@ const ClaimDialog = ({
                   size="large"
                   // style="align:right"
                   onClick={() => {
-                    onSendSMS(condition);
+                    onSendSMS(condition, response.text);
                     setCondition(null);
                     setResponse("");
                   }}

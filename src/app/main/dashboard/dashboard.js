@@ -145,10 +145,14 @@ const Dashboard = () => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });
             }}
-            onSendSMS={condition => {
+            onSendSMS={(condition, textToSend) => {
               //add dynamic status flag
               setIsSent(true);
-              patchPatientByDoc(condition.toUpperCase(), patient.guid);
+              patchPatientByDoc(
+                condition.toUpperCase(),
+                patient.guid,
+                textToSend
+              );
               getAllPatients().then(res => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });

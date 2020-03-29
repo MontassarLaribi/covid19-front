@@ -224,12 +224,6 @@ const Welcome = props => {
               >
                 FR
               </span>
-              <span
-                // className={i18n.language === "fr" ? "selected" : ""}
-                onClick={() => props.ModalAction("sms")}
-              >
-                SMS
-              </span>
             </li>
           </ul>
         </div>
