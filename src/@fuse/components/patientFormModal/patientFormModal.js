@@ -34,13 +34,6 @@ const PatientSchema = yup.object().shape({
   acceptTerms: yup.bool().oneOf([true], "Champ requis")
 });
 
-navigator.getUserMedia =
-  navigator.getUserMedia ||
-  navigator.webkitGetUserMedia ||
-  // navigator.mediaDevices.getUserMedia ||
-  navigator.mozGetUserMedia ||
-  navigator.msGetUserMedia;
-
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
 
 const PatientFormModal = ({
@@ -61,17 +54,14 @@ const PatientFormModal = ({
   const { t } = useTranslation("welcome");
 
   useEffect(() => {
-    navigator.getUserMedia(
-      { audio: true },
-      () => {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(stream => {
         console.log("Permission Granted");
         setIsBlocked(false);
-      },
-      () => {
+      }).catch(err => {
         console.log("Permission Denied");
         setIsBlocked(true);
-      }
-    );
+      });
   });
   const stop = () => {
     Mp3Recorder.stop()
