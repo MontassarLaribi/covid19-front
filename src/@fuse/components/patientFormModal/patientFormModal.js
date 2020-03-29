@@ -47,25 +47,12 @@ const PatientFormModal = ({
 }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [blobURL, setBlobURL] = useState("");
-  const [isBlocked, setIsBlocked] = useState(false);
   const [play, setplay] = useState(true);
   const [stopRecord, setstopRecord] = useState(false);
   const [base64Audio, setbase64Audio] = useState("");
 
   // const { t } = useTranslation("welcome");
 
-  useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ audio: true })
-      .then(stream => {
-        // console.log("Permission Granted");
-        setIsBlocked(false);
-      })
-      .catch(err => {
-        // console.log("Permission Denied");
-        setIsBlocked(true);
-      });
-  });
   const stop = () => {
     Mp3Recorder.stop()
       .getMp3()
@@ -93,17 +80,13 @@ const PatientFormModal = ({
   };
 
   const start = () => {
-    if (isBlocked) {
-      // console.log("Permission Denied");
-    } else {
-      Mp3Recorder.start()
-        .then(() => {
-          setIsRecording(true);
-          setplay(false);
-          setstopRecord(true);
-        })
-        .catch(e => console.error(e));
-    }
+    Mp3Recorder.start()
+      .then(() => {
+        setIsRecording(true);
+        setplay(false);
+        setstopRecord(true);
+      })
+      .catch(e => console.error(e));
   };
   // TIMER START
   const [charte, setCharte] = useState(false);
