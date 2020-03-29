@@ -215,16 +215,54 @@ const Welcome = props => {
   };
 
   const submitInformerAfterVerification = () => {
-    axios.post(`${DOMAINE}/api/v1/informer`, { ...data }).then(res => {
-      history.push("/envoiyer/maladie");
-    });
+    axios
+      .post(`${DOMAINE}/api/v1/informer`, { ...data })
+      .then(res => {
+        history.push("/envoiyer/maladie");
+      })
+      .catch(error => {
+        console.log(error.response);
+        if (error.response.data.code === 403) {
+          alert(
+            error.response.data.message
+              .replace(
+                "Patient with phone number",
+                "Nous avons déjà reçu un formulaire avec ce numéro"
+              )
+              .replace(
+                "can submit again in",
+                "vous serez en mesure d'en renvoyer un autre que dans"
+              )
+          );
+          window.location.reload();
+        }
+      });
   };
 
   const submitPatientAfterVerification = () => {
     const newData = { ...responses, ...data };
-    axios.post(`${DOMAINE}/api/v1/patient`, { ...newData }).then(res => {
-      history.push("/envoiyer/maladie");
-    });
+    axios
+      .post(`${DOMAINE}/api/v1/patient`, { ...newData })
+      .then(res => {
+        history.push("/envoiyer/maladie");
+      })
+      .catch(error => {
+        console.log(error.response);
+        if (error.response.data.code === 403) {
+          alert(
+            error.response.data.message
+              .replace(
+                "Patient with phone number",
+                "Nous avons déjà reçu un formulaire avec ce numéro"
+              )
+              .replace(
+                "can submit again in",
+                "vous serez en mesure d'en renvoyer un autre que dans"
+              )
+          );
+          window.location.reload();
+        }
+      });
   };
 
   const { t, i18n } = useTranslation("welcome");

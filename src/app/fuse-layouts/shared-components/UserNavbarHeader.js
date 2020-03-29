@@ -61,15 +61,17 @@ function UserNavbarHeader(props) {
       >
         {user.data.email}
       </Typography>
-      <Avatar
-        className={clsx(classes.avatar, "avatar")}
-        alt="user photo"
-        src={
-          user.data.photoURL && user.data.photoURL !== ""
-            ? user.data.photoURL
-            : logo
-        }
-      />
+      <a href="/">
+        <Avatar
+          className={clsx(classes.avatar, "avatar")}
+          alt="user photo"
+          src={
+            user.data.photoURL && user.data.photoURL !== ""
+              ? user.data.photoURL
+              : logo
+          }
+        />
+      </a>
     </AppBar>
   );
 }
