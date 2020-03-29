@@ -53,6 +53,10 @@ const PatientFormModal = ({
 
   // const { t } = useTranslation("welcome");
 
+  useEffect(() => {
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+  });
+
   const stop = () => {
     Mp3Recorder.stop()
       .getMp3()
