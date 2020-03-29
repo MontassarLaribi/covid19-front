@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import group from "./Group40.svg";
 
@@ -8,7 +8,7 @@ const Envoiyer = props => {
   return (
     <>
       <button class="send">
-        <img src={group} />
+        <img src={group} alt="message sent" />
       </button>
 
       <div class="jumbotron jumbotron-fluid text-center ">
@@ -23,15 +23,15 @@ const Envoiyer = props => {
         </p>
 
         <p>
-          <a class="button" href="" role="button">
+          <a class="button" href="/" role="button">
             revenir à la page d'accueil
           </a>
         </p>
 
         <hr />
-        <p>
+        {/* <p>
           Having trouble? <br /> <a href="">Contact us</a>
-        </p>
+        </p> */}
       </div>
     </>
   );

@@ -31,11 +31,7 @@ const CharteSnack = ({ close, charte }) => {
       setMessage(text);
       // console.log(text);
     });
-  const action = (
-    <Button onClick={handleCloseMessage} color="primary" size="large">
-      Fermer
-    </Button>
-  );
+
   const handleClose = () => {
     // setOpen(false);
     close();
@@ -44,7 +40,7 @@ const CharteSnack = ({ close, charte }) => {
   function handleCloseMessage() {
     close();
   }
-  console.log(charte);
+  // console.log(charte);
   return (
     <Modal open={charte} onClose={handleClose}>
       <div className={classes.paper}>

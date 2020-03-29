@@ -59,7 +59,7 @@ export default function WelcomeCard({
             height={90}
             className={classes.iconContainer}
           >
-            <img src={src} className={classes.icon} />
+            <img src={src} className={classes.icon} alt="icon" />
           </Skeleton>
 
           <Typography

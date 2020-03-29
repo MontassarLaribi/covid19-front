@@ -1,6 +1,5 @@
 import axios from "axios";
 import { DOMAINE } from "config";
-import { DOMAINE_HTTP } from "config";
 
 export const getPatient = async () => {
   const response = await axios

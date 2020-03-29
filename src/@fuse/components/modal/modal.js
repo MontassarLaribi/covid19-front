@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
 import Dialog from "@material-ui/core/Dialog";
-import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 const Modal = ({
   className,
@@ -12,11 +12,11 @@ const Modal = ({
   ModalAction,
   modal
 }) => {
-  const handleClose = () => {
-    ModalAction(id);
-  };
+  // const handleClose = () => {
+  //   ModalAction(id);
+  // };
 
-  console.log(ModalAction, modal, id);
+  // console.log(ModalAction, modal, id);
 
   return (
     <div>

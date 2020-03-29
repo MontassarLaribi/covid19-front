@@ -27,10 +27,10 @@ const ClaimDialog = ({
   allPatientsCount
 }) => {
   const [response, setResponse] = useState("");
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [condition, setCondition] = useState(null);
 
-  console.log("patient", patient);
+  // console.log("patient", patient);
 
   const {
     first_name,
@@ -47,13 +47,13 @@ const ClaimDialog = ({
     setResponse(event.target.value);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
 
   const renderClassName = value => {
     const test = String(value) === "1";

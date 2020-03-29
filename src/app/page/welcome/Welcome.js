@@ -19,16 +19,16 @@ import Sms from "./sms";
 import { useTranslation } from "react-i18next";
 import Alert from "@material-ui/icons/AddAlert";
 
-const styles = theme => ({
-  layoutRoot: {
-    height: "100vh",
-    // paddingTop: "5rem",
-    textAlign: "center"
-  },
-  title: {
-    paddingBottom: "1.2rem"
-  }
-});
+// const styles = theme => ({
+//   layoutRoot: {
+//     height: "100vh",
+//     // paddingTop: "5rem",
+//     textAlign: "center"
+//   },
+//   title: {
+//     paddingBottom: "1.2rem"
+//   }
+// });
 const useStyles = makeStyles(theme => ({
   arabi: {
     flexDirection: "row-reverse"
@@ -150,7 +150,7 @@ const Welcome = props => {
   }, []);
 
   const updateResponse = data => {
-    console.log("lengthFormStatic", lengthFormStatic);
+    // console.log("lengthFormStatic", lengthFormStatic);
     const newResponse = responses;
     const findIt = newResponse[data.field].findIndex(
       d => d.question === data.extraData.id
@@ -167,15 +167,15 @@ const Welcome = props => {
       });
       setlengthFormDynamic(lengthFormDynamic + 1);
     }
-    console.log("newResponse", newResponse);
+    // console.log("newResponse", newResponse);
     setReponse(newResponse);
   };
 
   const submitForm = data => {
     const newData = { ...responses, ...data };
-    console.log(JSON.stringify(newData));
+    // console.log(JSON.stringify(newData));
     axios.post(`${DOMAINE}/api/v1/patient`, { ...newData }).then(res => {
-      console.log(res);
+      // console.log(res);
       props.ModalAction("sms");
     });
   };
@@ -208,12 +208,20 @@ const Welcome = props => {
         <div className="social-container">
           <ul className="social-list">
             <li>
-              <a href="#">
+              <a
+                href="https://www.facebook.com/maabaadhna"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img src={facebook} alt="facebook" />
               </a>
             </li>
             <li>
-              <a href="#">
+              <a
+                href="https://www.instagram.com/maabaadhna"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img src={instagram} alt="instagram" />
               </a>
             </li>
@@ -266,17 +274,29 @@ const Welcome = props => {
         <div className="partenariat">Agréée par | En partenariat avec</div>
         <ul className="logos">
           <li>
-            <a href="http://www.fmt.rnu.tn/index.php?id=55" target="_blank">
+            <a
+              href="http://www.fmt.rnu.tn/index.php?id=55"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img className="associaMed" src={associaMed} alt="assciaMed" />
             </a>
           </li>
           <li>
-            <a href="http://www.santetunisie.rns.tn/fr/" target="_blank">
+            <a
+              href="http://www.santetunisie.rns.tn/fr/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img className="ministere" src={ministere} alt="ministere" />
             </a>
           </li>
           <li>
-            <a href="http://www.tunisietelecom.tn" target="_blank">
+            <a
+              href="http://www.tunisietelecom.tn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img
                 className="tunisieTelecom"
                 src={tunisieTelecom}
@@ -285,12 +305,20 @@ const Welcome = props => {
             </a>
           </li>
           <li>
-            <a href="https://beecoop.co" target="_blank">
+            <a
+              href="https://beecoop.co"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img className="beecoop" src={beecoop} alt="beecoop" />
             </a>
           </li>
           <li>
-            <a href="http://esprit.tn/" target="_blank">
+            <a
+              href="http://esprit.tn/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img className="esprit" src={esprit} alt="esprit" />
             </a>
           </li>
