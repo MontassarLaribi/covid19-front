@@ -31,20 +31,63 @@ const QuestionEducation = props => {
     });
   };
 
-  const handleText = data => {
-    if (new RegExp(/^(?!\.?$)\d{0,3}(\.\d{0,2})?$/).test(data)) {
-      props.getState({
-        field: "responses",
-        value: data,
-        stateNon,
-        title: props.title,
-        extraData: props
-      });
-      setExtraField(data);
-      setError(false);
+  function renderTextField(props) {
+    if (props.title.indexOf("âge") > -1) {
+      return (
+        <>
+          <p>{props.textField}</p>
+          <MuiTextField
+            type="number"
+            inputProps={{ min: "0", max: "120", step: "1" }}
+            error={error}
+            variant="outlined"
+            value={extraField}
+            id="filled-basic"
+            onChange={v => handleText(v.target.value)}
+          />
+        </>
+      );
+    } else if (props.title.indexOf("temperature")) {
+      return (
+        <>
+          <p>{props.textField}</p>
+          <MuiTextField
+            type="number"
+            inputProps={{ min: "35", max: "50", step: "0.1" }}
+            error={error}
+            variant="outlined"
+            value={extraField}
+            id="filled-basic"
+            onChange={v => handleText(v.target.value)}
+          />
+        </>
+      );
     } else {
-      setError(true);
+      return (
+        <>
+          <p>{props.textField}</p>
+          <MuiTextField
+            error={error}
+            variant="outlined"
+            value={extraField}
+            id="filled-basic"
+            onChange={v => handleText(v.target.value)}
+          />
+        </>
+      );
     }
+  }
+
+  const handleText = data => {
+    props.getState({
+      field: "responses",
+      value: data,
+      stateNon,
+      title: props.title,
+      extraData: props
+    });
+    setExtraField(data);
+    setError(false);
   };
 
   return (
@@ -90,18 +133,7 @@ const QuestionEducation = props => {
         </div>
       )}
 
-      {(props.type === 2 || props.type === 3) && (
-        <>
-          <p>{props.textField}</p>
-          <MuiTextField
-            error={error}
-            variant="outlined"
-            value={extraField}
-            id="filled-basic"
-            onChange={v => handleText(v.target.value)}
-          />
-        </>
-      )}
+      {(props.type === 2 || props.type === 3) && renderTextField(props)}
     </div>
   );
 };

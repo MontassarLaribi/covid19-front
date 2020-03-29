@@ -8,7 +8,7 @@ const predefinedResponses = [
   {
     title: "Dossier traité et accepté :",
     text:
-      "Votre dossier a été traité par l'équipe SAMU .  un prélèvement est jugé nécessaire,notre équipe SAMU se déplassera xxxx  . Entre temps, restez dans votre chambre et évitez tout contact avec les membres de votre famille."
+      "Votre dossier a été traité par l'équipe SAMU.  Un prélèvement est jugé nécessaire, notre équipe SAMU se déplacera vers xxadressexx. Entre temps, restez dans votre chambre et évitez tout contact avec les membres de votre famille."
   },
   {
     title: "Dossier traité et refusé :",
@@ -216,7 +216,12 @@ const ClaimDialog = ({
                     condition === "urgent"
                       ? setCondition(null)
                       : setCondition("urgent");
-                    setResponse(predefinedResponses[0].text);
+                    setResponse(
+                      predefinedResponses[0].text.replace(
+                        "xxadressexx",
+                        patient.address
+                      )
+                    );
                   }}
                 >
                   Envoyer pour un test
