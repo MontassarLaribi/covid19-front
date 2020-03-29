@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../../app/img/Logo-plain.png";
+import logo from "../../../app/img/logo-plain.png";
 function FuseSplashScreen() {
   return (
     <div id="fuse-splash-screen">

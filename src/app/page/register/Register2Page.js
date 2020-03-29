@@ -20,7 +20,7 @@ import { fieldToTextField, TextField } from "formik-material-ui";
 import * as React from "react";
 import { connect } from "react-redux";
 import { submitLogin } from "../../auth/store/actions/login.actions";
-import logo from "../../img/Logo-plain.png";
+import logo from "../../img/logo-plain.png";
 import "../../scss/login_page.scss";
 
 function UpperCasingTextField(props) {

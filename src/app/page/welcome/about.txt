@@ -1,0 +1,24 @@
+<h1>Maabaadhna</h1>
+<h2>Description:</h2>
+<p>
+    “Maabaadhna” est une platforme permettant la mise en relation rapide des porteurs des symptômes du COVID-19
+    et l’accélération de leur prise en charge par le corps médical. Elle agit comme un intermédiaire entre les
+    patients et les docteurs, mais aussi entre les docteurs et le SAMU.
+</p>
+<p>
+    “Maabaadhna” est <strong>une initiative citoyenne</strong> promue par des jeunes Tunisiens résidents
+    à l’étranger avec la contribution d’autres partenaires résidents en Tunisie. L’idée est issue du fait que
+    le nombre des individus atteints du COVID-19 ne cesse d’augmenter. De ce fait, nous avons décidé d’anticiper
+    la propagation de ce virus en Tunisie et aider les citoyens à mieux se prémunir.
+</p>
+<h2>Contributeurs:</h2>
+<p>
+    Les contributeurs ayant pris part au développement de ce projet avaient déjà un travail à plein temps.
+    Ce travail a donc été réalisé grâce aux efforts et à la motivation de chacun qui lui a dédié son temps
+    libre.
+</p>
+<p>
+    Bien que les contributeurs ne se connaissaient pas avant le début de ce projet, ils ont été, sans doute,
+    réunis par leur esprit patriotique pour servir le pays. Leur dévouement a permis la naissance dece projet
+    qui, nous l'espérons, sera un outil efficient pour la gestion de cette crise.
+</p>
