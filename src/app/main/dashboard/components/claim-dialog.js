@@ -242,6 +242,7 @@ const ClaimDialog = ({
                     condition === "stable"
                       ? setCondition(null)
                       : setCondition("stable");
+                    setResponse("");
                   }}
                 >
                   stable

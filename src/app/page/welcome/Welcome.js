@@ -189,10 +189,14 @@ const Welcome = props => {
       d => d.question === data.extraData.id
     );
     if (findIt !== -1) {
-      newResponse[data.field].splice(findIt, 1, {
-        value: data.value,
-        question: data.extraData.id
-      });
+      if (data.value) {
+        newResponse[data.field].splice(findIt, 1, {
+          value: data.value,
+          question: data.extraData.id
+        });
+      } else {
+        setlengthFormDynamic(lengthFormDynamic - 1);
+      }
     } else {
       newResponse[data.field].push({
         value: data.value,
