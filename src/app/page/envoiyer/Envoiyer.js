@@ -12,10 +12,10 @@ const Envoiyer = props => {
       </button>
 
       <div className="jumbotron jumbotron-fluid text-center ">
-        <h1> Formulaire envoyé!</h1>
+        <h1>Formulaire envoyé!</h1>
         <p className="lead">
           Nous avons bien reçu votre formulaire, il sera traité dans les plus
-          brefs délais par notre équipe.
+          brefs délais par notre équipe.&nbsp;
           <strong>
             Gardez votre téléphone dans les environs, vous recevrez nos
             consignes par SMS.
@@ -29,9 +29,6 @@ const Envoiyer = props => {
         </p>
 
         <hr />
-        {/* <p>
-          Having trouble? <br /> <a href="">Contact us</a>
-        </p> */}
       </div>
     </>
   );
