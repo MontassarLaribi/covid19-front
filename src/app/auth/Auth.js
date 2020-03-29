@@ -32,7 +32,7 @@ class Auth extends Component {
       jwtService
         .signInWithToken()
         .then(user => {
-          console.log("jwtService.signInWithToken()", user);
+          // console.log("jwtService.signInWithToken()", user);
 
           const userConfig = {
             role: user.roles,
@@ -46,7 +46,7 @@ class Auth extends Component {
           };
 
           this.props.setUserData(userConfig);
-          console.log("this.props", this.props);
+          // console.log("this.props", this.props);
           this.props.dispatch({
             type: "LOGIN_SUCCESS"
           });

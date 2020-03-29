@@ -1,6 +1,5 @@
 import axios from "axios";
 import { DOMAINE } from "config";
-import { DOMAINE_HTTP } from "config";
 
 export const getPatient = async () => {
   const response = await axios
@@ -32,11 +31,19 @@ export const getAllPatients = async () => {
   return response;
 };
 
-export const patchPatientByDoc = async (status, guid) => {
+export const patchPatientByDoc = async (status, guid, textToSend) => {
   if (guid) {
     const response = await axios
       .patch(`${DOMAINE}/api/v1/secured/patient/${guid}`, {
         flag: status
+      })
+      .catch(err => {
+        //alert(err)
+        throw new Error(err);
+      });
+    await axios
+      .post(`${DOMAINE}/api/v1/sms/consultation/${guid}`, {
+        content: textToSend
       })
       .catch(err => {
         //alert(err)
@@ -58,11 +65,19 @@ export const patchPatientByDocDenoncer = async guid => {
   }
 };
 
-export const patchPatientBySAMU = async (status, guid) => {
+export const patchPatientBySAMU = async (guid, textToSend) => {
   if (guid) {
     const response = await axios
       .patch(`${DOMAINE}/api/v1/secured/patient/${guid}`, {
         emergencyStatus: "CLOSED"
+      })
+      .catch(err => {
+        //alert(err)
+        throw new Error(err);
+      });
+    await axios
+      .post(`${DOMAINE}/api/v1/sms/consultation/${guid}`, {
+        content: textToSend
       })
       .catch(err => {
         //alert(err)

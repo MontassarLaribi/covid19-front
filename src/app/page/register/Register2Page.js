@@ -1,9 +1,5 @@
-import * as React from "react";
-import { useSelector } from "react-redux";
-import { Formik, Form, Field } from "formik";
+import DateFnsUtils from "@date-io/date-fns";
 import history from "@history";
-import { withRouter } from "react-router-dom";
-
 import {
   Button
   /*   LinearProgress,
@@ -13,24 +9,19 @@ import {
   FormControlLabel */
 } from "@material-ui/core";
 import MuiTextField from "@material-ui/core/TextField";
-import {
-  fieldToTextField,
-  TextField,
-  TextFieldProps
-  /*   Select,
-  Switch */
-} from "formik-material-ui";
 /* import {
   TimePicker,
   DatePicker,
   DateTimePicker
 } from "formik-material-ui-pickers"; */
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-import { submitLogin } from "../../auth/store/actions/login.actions";
+import { Field, Form, Formik } from "formik";
+import { fieldToTextField, TextField } from "formik-material-ui";
+import * as React from "react";
 import { connect } from "react-redux";
-import "../../scss/login_page.scss";
+import { submitLogin } from "../../auth/store/actions/login.actions";
 import logo from "../../img/Logo-plain.png";
+import "../../scss/login_page.scss";
 
 function UpperCasingTextField(props) {
   const {

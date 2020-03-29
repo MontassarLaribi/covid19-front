@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import associaMed from "../../img/associaMed.png";
 import ministere from "../../img/ministere.png";
 import facebook from "../../img/social/facebook-icon.svg";
+import samu from "../../img/samu.png";
 import instagram from "../../img/social/instagram-icon.svg";
 import tunisieTelecom from "../../img/tunisieTelecom.png";
 import beecoop from "../../img/beecoop.png";
@@ -19,16 +20,16 @@ import Sms from "./sms";
 import { useTranslation } from "react-i18next";
 import Alert from "@material-ui/icons/AddAlert";
 
-const styles = theme => ({
-  layoutRoot: {
-    height: "100vh",
-    // paddingTop: "5rem",
-    textAlign: "center"
-  },
-  title: {
-    paddingBottom: "1.2rem"
-  }
-});
+// const styles = theme => ({
+//   layoutRoot: {
+//     height: "100vh",
+//     // paddingTop: "5rem",
+//     textAlign: "center"
+//   },
+//   title: {
+//     paddingBottom: "1.2rem"
+//   }
+// });
 const useStyles = makeStyles(theme => ({
   arabi: {
     flexDirection: "row-reverse"
@@ -70,8 +71,26 @@ const Welcome = props => {
     phoneNumber: 0,
     responses: []
   });
+
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
+  const [data, setData] = useState({});
+  const [type, setType] = useState("");
+
   const classes = useStyles();
   const cardProps = [
+    {
+      disabled: false,
+      title: "CARD_PATIENT_TITLE",
+      className: "malade",
+      text: "CARD_PATIENT_TEXT",
+      redirect: "/malade",
+      buttonContent: "CARD_PATIENT_BTN",
+      src: "assets/images/welcome/sick.png",
+      handleClick: () => {
+        props.ModalAction("PatientForm");
+      }
+    },
     {
       disabled: false,
       title: "CARD_DOCTOR_TITLE",
@@ -87,18 +106,7 @@ const Welcome = props => {
         });
       }
     },
-    {
-      disabled: false,
-      title: "CARD_PATIENT_TITLE",
-      className: "malade",
-      text: "CARD_PATIENT_TEXT",
-      redirect: "/malade",
-      buttonContent: "CARD_PATIENT_BTN",
-      src: "assets/images/welcome/sick.png",
-      handleClick: () => {
-        props.ModalAction("PatientForm");
-      }
-    },
+
     {
       disabled: false,
       title: "CARD_INFORMER_TITLE",
@@ -112,6 +120,29 @@ const Welcome = props => {
       }
     }
   ];
+
+  function renderSamu() {
+    if (i18n.language === "ar" || i18n.language === undefined) {
+      return (
+        <>
+          <span>
+            <img src={samu} alt="samu" style={{ maxWidth: "30px" }} />
+            <span className="span-samu">{t("SAMU")}</span>
+          </span>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <span>
+            <span className="span-samu">{t("SAMU")}</span>
+            <img src={samu} alt="samu" style={{ maxWidth: "30px" }} />
+          </span>
+        </>
+      );
+    }
+  }
+
   const renderLabelCategroy = cat => {
     switch (cat) {
       case "CATEGORY_GENERAL":
@@ -150,7 +181,6 @@ const Welcome = props => {
   }, []);
 
   const updateResponse = data => {
-    console.log("lengthFormStatic", lengthFormStatic);
     const newResponse = responses;
     const findIt = newResponse[data.field].findIndex(
       d => d.question === data.extraData.id
@@ -167,16 +197,33 @@ const Welcome = props => {
       });
       setlengthFormDynamic(lengthFormDynamic + 1);
     }
-    console.log("newResponse", newResponse);
     setReponse(newResponse);
   };
 
   const submitForm = data => {
+    const number = { number: data.phoneNumber };
+    setData(data);
+
+    axios
+      .post(`${DOMAINE}/api/v1/sms/authentication`, {
+        ...number
+      })
+      .then(res => {
+        setVerificationCode(res.data.payload.verificationCode);
+        props.ModalAction("sms");
+      });
+  };
+
+  const submitInformerAfterVerification = () => {
+    axios.post(`${DOMAINE}/api/v1/informer`, { ...data }).then(res => {
+      history.push("/envoiyer/maladie");
+    });
+  };
+
+  const submitPatientAfterVerification = () => {
     const newData = { ...responses, ...data };
-    console.log(JSON.stringify(newData));
     axios.post(`${DOMAINE}/api/v1/patient`, { ...newData }).then(res => {
-      console.log(res);
-      props.ModalAction("sms");
+      history.push("/envoiyer/maladie");
     });
   };
 
@@ -208,12 +255,20 @@ const Welcome = props => {
         <div className="social-container">
           <ul className="social-list">
             <li>
-              <a href="#">
+              <a
+                href="https://www.facebook.com/maabaadhna"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img src={facebook} alt="facebook" />
               </a>
             </li>
             <li>
-              <a href="#">
+              <a
+                href="https://www.instagram.com/maabaadhna"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img src={instagram} alt="instagram" />
               </a>
             </li>
@@ -224,7 +279,8 @@ const Welcome = props => {
         <Grid item xs={9}>
           <div className="welcome-title">
             <h1>مع بعضنا</h1>
-            <h1> Ensemble</h1>
+            <h1>Ensemble</h1>
+            <h4>{renderSamu()}</h4>
           </div>
           <div className="welcome-subtitle">
             {t("TEXT_WELCOME")} <br />
@@ -266,17 +322,29 @@ const Welcome = props => {
         <div className="partenariat">Agréée par | En partenariat avec</div>
         <ul className="logos">
           <li>
-            <a href="http://www.fmt.rnu.tn/index.php?id=55" target="_blank">
+            <a
+              href="http://www.fmt.rnu.tn/index.php?id=55"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img className="associaMed" src={associaMed} alt="assciaMed" />
             </a>
           </li>
           <li>
-            <a href="http://www.santetunisie.rns.tn/fr/" target="_blank">
+            <a
+              href="http://www.santetunisie.rns.tn/fr/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img className="ministere" src={ministere} alt="ministere" />
             </a>
           </li>
           <li>
-            <a href="http://www.tunisietelecom.tn" target="_blank">
+            <a
+              href="http://www.tunisietelecom.tn"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img
                 className="tunisieTelecom"
                 src={tunisieTelecom}
@@ -285,12 +353,20 @@ const Welcome = props => {
             </a>
           </li>
           <li>
-            <a href="https://beecoop.co" target="_blank">
+            <a
+              href="https://beecoop.co"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img className="beecoop" src={beecoop} alt="beecoop" />
             </a>
           </li>
           <li>
-            <a href="http://esprit.tn/" target="_blank">
+            <a
+              href="http://esprit.tn/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img className="esprit" src={esprit} alt="esprit" />
             </a>
           </li>
@@ -332,18 +408,30 @@ const Welcome = props => {
         {lengthFormStatic !== 0 && (
           <PatientFormModal
             updateResponse={updateResponse}
+            changePhoneNumber={setPhoneNumber}
             dataModal={question ? question : []}
             modalAction={props.ModalAction}
             submitFormCallback={submitForm}
             staticCount={lengthFormStatic}
             dynamicCount={lengthFormDynamic}
+            setType={setType}
           />
         )}
-        <InformModal modalAction={props.ModalAction} />
-        <Sms
-          tel={responses && responses.phoneNumber}
-          history={history}
+        <InformModal
+          changePhoneNumber={setPhoneNumber}
           modalAction={props.ModalAction}
+          submitFormCallback={submitForm}
+          setType={setType}
+        />
+        <Sms
+          tel={phoneNumber}
+          type={type}
+          history={history}
+          data={data}
+          submitFinal={submitInformerAfterVerification}
+          submitFinalPatient={submitPatientAfterVerification}
+          modalAction={props.ModalAction}
+          verificationCode={verificationCode}
         />
       </div>
     </div>

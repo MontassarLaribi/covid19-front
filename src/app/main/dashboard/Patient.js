@@ -82,7 +82,14 @@ function renderFlag(flag) {
   }
 }
 
-export default function Patient({ title, text, flag, handleClick, search }) {
+export default function Patient({
+  title,
+  text,
+  guid,
+  flag,
+  handleClick,
+  search
+}) {
   const classes = useStyles();
 
   function isSearchValid(search) {
@@ -93,7 +100,9 @@ export default function Patient({ title, text, flag, handleClick, search }) {
       !text ||
       String(text).search(searchRegex) > -1 ||
       !flag ||
-      String(flag).search(searchRegex) > -1
+      String(flag).search(searchRegex) > -1 ||
+      !guid ||
+      String(guid).search(searchRegex) > -1
     );
   }
 
@@ -115,7 +124,7 @@ export default function Patient({ title, text, flag, handleClick, search }) {
             component="p"
             className={classes.text}
           >
-            {text}
+            {guid} - {text}
           </Typography>
           {flag && renderFlag(flag)}
         </CardContent>

@@ -54,6 +54,7 @@ const Dashboard = () => {
       <Patient
         key={key}
         text={patient.phone_number}
+        guid={patient.guid}
         title={patient.first_name + " " + patient.last_name}
         flag={patient.flag}
         search={search}
@@ -144,10 +145,14 @@ const Dashboard = () => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });
             }}
-            onSendSMS={condition => {
+            onSendSMS={(condition, textToSend) => {
               //add dynamic status flag
               setIsSent(true);
-              patchPatientBySAMU(condition.toUpperCase(), patient.guid);
+              patchPatientBySAMU(
+                condition.toUpperCase(),
+                patient.guid,
+                textToSend
+              );
               getAllPatients().then(res => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });

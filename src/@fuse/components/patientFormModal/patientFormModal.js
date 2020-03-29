@@ -1,20 +1,19 @@
 import DateFnsUtils from "@date-io/date-fns";
 import { Modal } from "@fuse";
-import { Button, MenuItem, IconButton } from "@material-ui/core";
+import { Button, IconButton, MenuItem } from "@material-ui/core";
 import MicIcon from "@material-ui/icons/Mic";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import axios from "axios";
-import { Field, Form, Formik, ErrorMessage } from "formik";
-import { TextField, CheckboxWithLabel } from "formik-material-ui";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { CheckboxWithLabel, TextField } from "formik-material-ui";
 import MicRecorder from "mic-recorder-to-mp3";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
-import QuestionEducation from "./QuestionEducation";
 import * as yup from "yup";
-import LoiSnack from "../loiSnack";
 import CharteSnack from "../charteSnack";
-import { useTranslation } from "react-i18next";
+import LoiSnack from "../loiSnack";
+import QuestionEducation from "./QuestionEducation";
 
 const PatientSchema = yup.object().shape({
   mytel: yup
@@ -42,7 +41,9 @@ const PatientFormModal = ({
   modalAction,
   dataModal,
   submitFormCallback,
-  updateResponse
+  updateResponse,
+  changePhoneNumber,
+  setType
 }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [blobURL, setBlobURL] = useState("");
@@ -51,15 +52,17 @@ const PatientFormModal = ({
   const [stopRecord, setstopRecord] = useState(false);
   const [base64Audio, setbase64Audio] = useState("");
 
-  const { t } = useTranslation("welcome");
+  // const { t } = useTranslation("welcome");
 
   useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ audio: true })
+    navigator.mediaDevices
+      .getUserMedia({ audio: true })
       .then(stream => {
-        console.log("Permission Granted");
+        // console.log("Permission Granted");
         setIsBlocked(false);
-      }).catch(err => {
-        console.log("Permission Denied");
+      })
+      .catch(err => {
+        // console.log("Permission Denied");
         setIsBlocked(true);
       });
   });
@@ -91,7 +94,7 @@ const PatientFormModal = ({
 
   const start = () => {
     if (isBlocked) {
-      console.log("Permission Denied");
+      // console.log("Permission Denied");
     } else {
       Mp3Recorder.start()
         .then(() => {
@@ -141,7 +144,7 @@ const PatientFormModal = ({
     updateResponse(data);
   };
 
-  console.log("dynamicCount,  staticCount,", dynamicCount, staticCount);
+  // console.log("dynamicCount,  staticCount,", dynamicCount, staticCount);
   return (
     <Modal className="patientForm" id="PatientForm" ModalAction={modalAction}>
       <LoiSnack />
@@ -232,7 +235,7 @@ const PatientFormModal = ({
             sexe: "MALE"
           }}
           validationSchema={PatientSchema}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={values => {
             const caste = {
               // acceptTerms: values.acceptTerms,
               firstName: values.prenom,
@@ -243,6 +246,8 @@ const PatientFormModal = ({
               gender: values.sexe,
               audio: base64Audio
             };
+            setType("patient");
+            changePhoneNumber(values.mytel);
             submitFormCallback(caste);
           }}
           render={({
@@ -256,7 +261,9 @@ const PatientFormModal = ({
               <Form>
                 <div
                   style={{
-                    margin: 10
+                    textAlign: "center",
+                    margin: 10,
+                    marginBottom: "30px"
                   }}
                 >
                   <Field
@@ -266,14 +273,22 @@ const PatientFormModal = ({
                       label: (
                         <div>
                           <h5>
-                            <a onClick={() => setCharte(true)}>
+                            <button
+                              type="button"
+                              onClick={() => setCharte(true)}
+                              style={{ color: "royalblue" }}
+                            >
                               J'accepte la Charte des Données Personnelles
-                            </a>
+                            </button>
                           </h5>
                           <h5 className="ar">
-                            <a onClick={() => setCharte(true)}>
+                            <button
+                              type="button"
+                              onClick={() => setCharte(true)}
+                              style={{ color: "royalblue" }}
+                            >
                               اوافق على ميثاق البيانات الشخصية
-                            </a>
+                            </button>
                           </h5>
                         </div>
                       )

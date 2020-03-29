@@ -230,7 +230,7 @@ const ClaimDialog = ({
                   multiline
                   rows="4"
                   variant="outlined"
-                  value={response.text}
+                  value={response}
                   onChange={handleChange}
                 />
               </div>
@@ -238,33 +238,35 @@ const ClaimDialog = ({
                 <Button
                   variant="outlined"
                   className={condition === "stable" ? "stable-active" : ""}
-                  onClick={() =>
+                  onClick={() => {
                     condition === "stable"
                       ? setCondition(null)
-                      : setCondition("stable")
-                  }
+                      : setCondition("stable");
+                  }}
                 >
                   stable
                 </Button>
                 <Button
                   variant="outlined"
                   className={condition === "suspect" ? "urgent-active" : ""}
-                  onClick={() =>
+                  onClick={() => {
                     condition === "suspect"
                       ? setCondition(null)
-                      : setCondition("suspect")
-                  }
+                      : setCondition("suspect");
+                    setResponse(predefinedResponses[0].text);
+                  }}
                 >
                   suspect
                 </Button>
                 <Button
                   variant="outlined"
                   className={condition === "urgent" ? "critique-active" : ""}
-                  onClick={() =>
+                  onClick={() => {
                     condition === "urgent"
                       ? setCondition(null)
-                      : setCondition("urgent")
-                  }
+                      : setCondition("urgent");
+                    setResponse(predefinedResponses[0].text);
+                  }}
                 >
                   urgent
                 </Button>
@@ -275,9 +277,13 @@ const ClaimDialog = ({
                   size="large"
                   // style="align:right"
                   onClick={() => {
-                    onSendSMS(condition);
-                    setCondition(null);
-                    setResponse("");
+                    if (response.length > 620) {
+                      alert("maxiumum 620 caracteres");
+                    } else {
+                      onSendSMS(condition, response);
+                      setCondition(null);
+                      setResponse("");
+                    }
                   }}
                   disabled={!condition || !response}
                 >
