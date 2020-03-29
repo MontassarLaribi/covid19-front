@@ -70,6 +70,12 @@ const Welcome = props => {
     phoneNumber: 0,
     responses: []
   });
+
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
+  const [data, setData] = useState({});
+  const [type, setType] = useState("");
+
   const classes = useStyles();
   const cardProps = [
     {
@@ -150,7 +156,6 @@ const Welcome = props => {
   }, []);
 
   const updateResponse = data => {
-    // console.log("lengthFormStatic", lengthFormStatic);
     const newResponse = responses;
     const findIt = newResponse[data.field].findIndex(
       d => d.question === data.extraData.id
@@ -167,16 +172,33 @@ const Welcome = props => {
       });
       setlengthFormDynamic(lengthFormDynamic + 1);
     }
-    // console.log("newResponse", newResponse);
     setReponse(newResponse);
   };
 
   const submitForm = data => {
+    const number = { number: data.phoneNumber };
+    setData(data);
+
+    axios
+      .post(`${DOMAINE}/api/v1/sms/authentication`, {
+        ...number
+      })
+      .then(res => {
+        setVerificationCode(res.data.payload.verificationCode);
+        props.ModalAction("sms");
+      });
+  };
+
+  const submitInformerAfterVerification = () => {
+    axios.post(`${DOMAINE}/api/v1/informer`, { ...data }).then(res => {
+      history.push("/envoiyer/maladie");
+    });
+  };
+
+  const submitPatientAfterVerification = () => {
     const newData = { ...responses, ...data };
-    // console.log(JSON.stringify(newData));
     axios.post(`${DOMAINE}/api/v1/patient`, { ...newData }).then(res => {
-      // console.log(res);
-      props.ModalAction("sms");
+      history.push("/envoiyer/maladie");
     });
   };
 
@@ -201,6 +223,12 @@ const Welcome = props => {
                 onClick={() => i18n.changeLanguage("fr")}
               >
                 FR
+              </span>
+              <span
+                // className={i18n.language === "fr" ? "selected" : ""}
+                onClick={() => props.ModalAction("sms")}
+              >
+                SMS
               </span>
             </li>
           </ul>
@@ -360,18 +388,30 @@ const Welcome = props => {
         {lengthFormStatic !== 0 && (
           <PatientFormModal
             updateResponse={updateResponse}
+            changePhoneNumber={setPhoneNumber}
             dataModal={question ? question : []}
             modalAction={props.ModalAction}
             submitFormCallback={submitForm}
             staticCount={lengthFormStatic}
             dynamicCount={lengthFormDynamic}
+            setType={setType}
           />
         )}
-        <InformModal modalAction={props.ModalAction} />
-        <Sms
-          tel={responses && responses.phoneNumber}
-          history={history}
+        <InformModal
+          changePhoneNumber={setPhoneNumber}
           modalAction={props.ModalAction}
+          submitFormCallback={submitForm}
+          setType={setType}
+        />
+        <Sms
+          tel={phoneNumber}
+          type={type}
+          history={history}
+          data={data}
+          submitFinal={submitInformerAfterVerification}
+          submitFinalPatient={submitPatientAfterVerification}
+          modalAction={props.ModalAction}
+          verificationCode={verificationCode}
         />
       </div>
     </div>

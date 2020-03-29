@@ -10,10 +10,26 @@ import upload from "../../../app/img/upload-icon.svg";
 import LoiSnack from "../loiSnack";
 import * as yup from "yup";
 
-const InformModal = ({ modalAction, submitForm, history }) => {
+const InformModal = ({
+  modalAction,
+  submitFormCallback,
+  changePhoneNumber,
+  setType
+}) => {
   const handleClose = id => {
     modalAction(id);
   };
+
+  const [file, setFile] = React.useState(null);
+
+  const toBase64 = file =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+    });
+
   const InformSchema = yup.object().shape({
     numeroDenonciateur: yup
       .string()
@@ -37,14 +53,14 @@ const InformModal = ({ modalAction, submitForm, history }) => {
       .string()
       .max(30)
       .required("Champ prenom est requis"),
-    cinDenonciateur: yup
-      .string()
-      .matches(/^[0-9]{8}$/, "Doit être 8 chiffres")
-      .required("Champ sexe est requis"),
+    // cinDenonciateur: yup
+    //   .string()
+    //   .matches(/^[0-9]{8}$/, "Doit être 8 chiffres")
+    //   .required("Champ cin est requis"),
     commentaire: yup
       .string()
       .max(700, "Maximum 700 caracteres")
-      .required("Champ sexe est requis"),
+      .required("Champ commentaire est requis"),
     nomCoupable: yup
       .string()
       .max(30)
@@ -76,30 +92,34 @@ const InformModal = ({ modalAction, submitForm, history }) => {
             adresseDenonciateur: "",
             codePostalDenonciateur: "",
             numeroDenonciateur: "",
-
             nomCoupable: "",
             prenomCoupable: "",
             adresseCoupable: "",
             commentaire: ""
           }}
-          validate={InformSchema}
-          onSubmit={(values, { setSubmitting }) => {
-            const caste = {
-              firstName: values.prenomDenonciateur,
-              lastName: values.nomDenonciateur,
-              address: values.adresseDenonciateur,
-              cin: values.cinDenonciateur,
-              phoneNumber: values.mytel,
-              culpableFirstName: "string",
-              culpableLastName: "string",
-              culpableAddress: "string",
-              comment: "string"
-            };
-            console.log("values", values);
-            setTimeout(() => {
-              setSubmitting(false);
-              // alert(JSON.stringify(values, null, 2));
-            }, 500);
+          validationSchema={InformSchema}
+          onSubmit={async (values, { setSubmitting }) => {
+            if (file) {
+              let base64 = await toBase64(file);
+              base64 = base64.split(",")[1];
+              const caste = {
+                firstName: values.prenomDenonciateur,
+                lastName: values.nomDenonciateur,
+                address: values.adresseDenonciateur,
+                zipCode: values.codePostalDenonciateur,
+                phoneNumber: values.numeroDenonciateur,
+                culpableFirstName: values.nomCoupable,
+                culpableLastName: values.prenomCoupable,
+                culpableAddress: values.adresseCoupable,
+                comment: values.commentaire,
+                image: base64
+              };
+              changePhoneNumber(values.numeroDenonciateur);
+              submitFormCallback(caste);
+              setType("informer");
+            } else {
+              alert("Le fichier de preuve est requis! ملف الأدلة مطلوب");
+            }
           }}
           render={({
             resetForm,
@@ -115,77 +135,8 @@ const InformModal = ({ modalAction, submitForm, history }) => {
                     submitForm(values);
                   }}
                 >
-                  <h4 className="form-title">1- Contact du dénonciateur</h4>
-                  <div
-                    className="d-flex"
-                    style={{
-                      margin: 10
-                    }}
-                  >
-                    <div className="p-5">
-                      <div> Nom</div>
-                      <Field
-                        component={TextField}
-                        type="text"
-                        name="nomDenonciateur"
-                        variant="outlined"
-                      />
-                    </div>
-                    <div className="p-5">
-                      <div> Prenom</div>
-                      <Field
-                        component={TextField}
-                        type="text"
-                        name="prenomDenonciateur"
-                        variant="outlined"
-                      />
-                    </div>
-                  </div>
-
-                  <div
-                    className="d-flex"
-                    style={{
-                      margin: 10
-                    }}
-                  >
-                    <div className="p-5">
-                      <div> Adresse</div>
-                      <Field
-                        component={TextField}
-                        type="text"
-                        name="adresseDenonciateur"
-                        variant="outlined"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className="d-flex"
-                    style={{
-                      margin: 10
-                    }}
-                  >
-                    <div className="p-5">
-                      <div> Code Postal</div>
-
-                      <Field
-                        component={TextField}
-                        name="codePostalDenonciateur"
-                        label="code Postal"
-                        variant="outlined"
-                      />
-                    </div>
-                    <div className="p-5">
-                      <div> numéro de téléphone</div>
-                      <Field
-                        component={TextField}
-                        type="text"
-                        name="numeroDenonciateur"
-                        variant="outlined"
-                      />
-                    </div>
-                  </div>
                   <h4 className="form-title">
-                    2- Contact de la personne à dénoncer
+                    1- Contact du dénonciateur / معلومات الشاكي
                   </h4>
                   <div
                     className="d-flex"
@@ -194,31 +145,99 @@ const InformModal = ({ modalAction, submitForm, history }) => {
                     }}
                   >
                     <div className="p-5">
-                      <div> Nom</div>
-
                       <Field
                         component={TextField}
                         type="text"
-                        name="nomCoupable"
+                        name="nomDenonciateur"
+                        label="Nom / اللقب"
                         variant="outlined"
                       />
                     </div>
                     <div className="p-5">
-                      <div> Prénom</div>
+                      <Field
+                        component={TextField}
+                        type="text"
+                        name="prenomDenonciateur"
+                        label="Prenom / الاسم"
+                        variant="outlined"
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    className="d-flex"
+                    style={{
+                      margin: 10
+                    }}
+                  >
+                    <div className="p-5">
+                      <Field
+                        component={TextField}
+                        type="text"
+                        name="adresseDenonciateur"
+                        label="Adresse / العنوان"
+                        variant="outlined"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="d-flex"
+                    style={{
+                      margin: 10
+                    }}
+                  >
+                    <div className="p-5">
+                      <Field
+                        component={TextField}
+                        name="codePostalDenonciateur"
+                        label="Code Postal / رقم البريد"
+                        variant="outlined"
+                      />
+                    </div>
+                    <div className="p-5">
+                      <Field
+                        component={TextField}
+                        type="text"
+                        name="numeroDenonciateur"
+                        label="Téléphone / رقم الهاتف"
+                        variant="outlined"
+                      />
+                    </div>
+                  </div>
+                  <h4 className="form-title">
+                    2- Contact de la personne à dénoncer / معلومات المخالف
+                  </h4>
+                  <div
+                    className="d-flex"
+                    style={{
+                      margin: 10
+                    }}
+                  >
+                    <div className="p-5">
+                      <Field
+                        component={TextField}
+                        type="text"
+                        name="nomCoupable"
+                        label="Nom / اللقب"
+                        variant="outlined"
+                      />
+                    </div>
+                    <div className="p-5">
                       <Field
                         component={TextField}
                         type="text"
                         name="prenomCoupable"
+                        label="Prénom / الاسم"
                         variant="outlined"
                       />
                     </div>
                   </div>
                   <div className="p-5">
-                    <div> Adresse</div>
                     <Field
                       component={TextField}
                       type="text"
                       name="adresseCoupable"
+                      label="Adresse / العنوان"
                       variant="outlined"
                       style={{
                         width: "100%"
@@ -226,11 +245,12 @@ const InformModal = ({ modalAction, submitForm, history }) => {
                     />
                   </div>
                   <div className="p-5">
-                    <div> Commentaire</div>
                     <Field
                       component={TextField}
-                      type="text"
+                      multiline
+                      rows="8"
                       name="commentaire"
+                      label="Commentaire / تعليق"
                       variant="outlined"
                       style={{
                         width: "100%"
@@ -244,9 +264,32 @@ const InformModal = ({ modalAction, submitForm, history }) => {
                       component="label"
                     >
                       <img src={upload} alt="" />
-                      Parcourir un fichier
-                      <input type="file" style={{ display: "none" }} />
+                      Preuve / الدليل
+                      <input
+                        id="file"
+                        name="file"
+                        type="file"
+                        accept="image/*"
+                        style={{ display: "none" }}
+                        onChange={event => {
+                          const tmp = event.currentTarget.files[0];
+                          if (tmp.type.startsWith("image")) {
+                            if (tmp.size > 5 * 1024 * 1024) {
+                              alert("L'image ne doit pas dépasser les 5Mo");
+                            } else {
+                              setFile(event.currentTarget.files[0]);
+                            }
+                          } else {
+                            alert("Le fichier doit être une image valide!");
+                          }
+                        }}
+                      />
                     </Button>
+                    {file && (
+                      <div style={{ margin: "20px" }}>
+                        <img src={URL.createObjectURL(file)} alt="preview" />
+                      </div>
+                    )}
                   </div>
                   <div className="action-buttons">
                     <Button

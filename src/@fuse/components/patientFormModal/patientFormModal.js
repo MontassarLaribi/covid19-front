@@ -41,7 +41,9 @@ const PatientFormModal = ({
   modalAction,
   dataModal,
   submitFormCallback,
-  updateResponse
+  updateResponse,
+  changePhoneNumber,
+  setType
 }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [blobURL, setBlobURL] = useState("");
@@ -233,7 +235,7 @@ const PatientFormModal = ({
             sexe: "MALE"
           }}
           validationSchema={PatientSchema}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={values => {
             const caste = {
               // acceptTerms: values.acceptTerms,
               firstName: values.prenom,
@@ -244,6 +246,8 @@ const PatientFormModal = ({
               gender: values.sexe,
               audio: base64Audio
             };
+            setType("patient");
+            changePhoneNumber(values.mytel);
             submitFormCallback(caste);
           }}
           render={({
