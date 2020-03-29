@@ -12,7 +12,7 @@ const Envoiyer = props => {
       </button>
 
       <div className="jumbotron jumbotron-fluid text-center ">
-        <h1> Formulaire {props.match.params.id} envoyé!</h1>
+        <h1> Formulaire envoyé!</h1>
         <p className="lead">
           Nous avons bien reçu votre formulaire, il sera traité dans les plus
           brefs délais par notre équipe.

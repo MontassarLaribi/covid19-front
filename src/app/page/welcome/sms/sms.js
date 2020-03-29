@@ -50,8 +50,8 @@ const Sms = ({
       <div className="jumbotron jumbotron-fluid text-center ">
         <h1>SMS envoyé</h1>
         <p className="lead">
-          Nous venons d'envoyer un code à six chiffres au
-          <strong>{tel} </strong>. Entrez le code reçu ci-dessous <br /> pour
+          Nous venons d'envoyer un code à six chiffres au &nbsp;
+          <strong> {tel} </strong>. Entrez le code reçu ci-dessous <br /> pour
           confirmer votre identité
         </p>
 
