@@ -3,7 +3,7 @@ import { AppBar, Avatar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import { useSelector } from "react-redux";
-import logo from "../../img/Logo-plain.png";
+import logo from "../../img/logo-plain.png";
 
 const useStyles = makeStyles(theme => ({
   root: {

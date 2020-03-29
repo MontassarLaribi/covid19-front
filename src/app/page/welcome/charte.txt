@@ -1,4 +1,4 @@
-<h1>Politique de protection de données</h1>
+<h2>Politique de protection de données</h2>
 <p>
   Cette charte relative aux données personnelles et à leur gestion nous permet
   de vous expliquer plus en détail, de quelle manière nous collectons les
@@ -27,9 +27,9 @@
   téléphone, adresse électronique, adresse physique, profession, confirma-tion
   que vous ne faites pas l’objet d'une mesure de protection.<br />
 </p>
-<h1>
+<h2>
   Connexion (sur internet)
-</h1>
+</h2>
 <p>
   Lors de la connexion de l'utilisateur au Site, celui-ci enregistre l'adresse
   IP, les logs de connexion et de validation, les logs d'acceptation de la
@@ -48,16 +48,16 @@
   traitement médical ou de dénonciation.<br />Stocker des données du client ou
   d'un utilisateur dans le cadre de l'activité de EN-SEMBLE;
 </p>
-<h1>
+<h2>
   Accompagner :
-</h1>
+</h2>
 <p>
   Accompagner ceux qui des symptômes covid-19 dans le traitement de leur dossier
   mé-dical et l’appel de Samu à leurs places.<br />
 </p>
-<h1>
+<h2>
   Sécuriser :
-</h1>
+</h2>
 <p>
   Prévention et détection des fraudes, malwares (softwares malicieuse ou
   logiciels mal-veillants) et gestion des incidents de sécurité.<br />Stocker et
@@ -87,18 +87,18 @@
   inutiles, ni en quantité excessive.<br />Partenaires*: Ministère de la santé,
   Tunisie Télécom, Shoc Room, SAMU.<br />
 </p>
-<h1>
+<h2>
   Droit d’accès
-</h1>
+</h2>
 <p>
   Toute personne disposant de données personnelles auprès de ENSEMBLE a le droit
   dedemander une copie de leurs données qui sont traitées par ENSEMBLE.<br />
   Toute personne souhaitant la réception de ces données, pourrait les réclamer à
   En-semble via notre adresse électroniquesuivante:
 </p>
-<h1>
+<h2>
   Sécurité et confidentialité
-</h1>
+</h2>
 <p>
   Nous veillons à la sécurité de vos données tout autant que les nôtres.<br />
   Les données col-lectées par ENSEMBLE et ses partenaires sont placées dans un

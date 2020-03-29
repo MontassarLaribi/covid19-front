@@ -2,7 +2,7 @@ import React from "react";
 import { Typography } from "@material-ui/core";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/styles";
-import logo from "../../img/Logo-plain.png";
+import logo from "../../img/logo-plain.png";
 const useStyles = makeStyles(theme => ({
   root: {
     "& .logo-icon": {

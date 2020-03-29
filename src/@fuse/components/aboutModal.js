@@ -1,6 +1,6 @@
 import { Button, Modal } from "@material-ui/core";
 import * as React from "react";
-import charteTxt from "../../app/page/welcome/charte.txt";
+import aboutTxt from "../../app/page/welcome/about.txt";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     top: "40px",
     position: "absolute",
     width: "calc(100% - 40px * 2)",
-    overflow: "scroll",
+    overflow: "auto",
     height: "calc(100% - 40px * 2)",
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
@@ -25,11 +25,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CharteSnack = ({ close, charte }) => {
+const AboutModal = ({ close, about }) => {
   const classes = useStyles();
   // const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");
-  fetch(charteTxt)
+  fetch(aboutTxt)
     .then(r => r.text())
     .then(text => {
       setMessage(text);
@@ -44,9 +44,9 @@ const CharteSnack = ({ close, charte }) => {
   function handleCloseMessage() {
     close();
   }
-  // console.log(charte);
+  // console.log(about);
   return (
-    <Modal open={charte} onClose={handleClose}>
+    <Modal open={about} onClose={handleClose}>
       <div className={classes.paper}>
         <div
           className="modal-info"
@@ -60,4 +60,4 @@ const CharteSnack = ({ close, charte }) => {
   );
 };
 
-export default CharteSnack;
+export default AboutModal;
