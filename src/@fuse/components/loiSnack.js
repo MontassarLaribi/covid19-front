@@ -24,7 +24,7 @@ export default LoiSnack => {
     <Snackbar
       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       key={`bottom,right`}
-      style={{ maxWidth: "30%" }}
+      style={{ maxWidth: "50%" }}
       open={open}
       action={action}
       // onClose={handleClose}

@@ -196,11 +196,10 @@ const PatientFormModal = ({
             >
               <MicIcon />
             </IconButton>
-            <br></br>
-            <div className="tim4">
-              <audio src={blobURL} controls="controls" />
-            </div>
           </div>
+        </div>
+        <div className="tim4">
+          <audio src={blobURL} controls="controls" />
         </div>
 
         <h4 className="personnal-question-title">
