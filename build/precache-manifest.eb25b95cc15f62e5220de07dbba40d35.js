@@ -1,43 +1,43 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4e578f48048ff561f8442737514c8f0c",
+    "revision": "1e585cf00bb93222971248ca1ebaa3eb",
     "url": "/index.html"
   },
   {
-    "revision": "e4f1661b40e8204adc7b",
+    "revision": "566a0f13b11169047bfc",
     "url": "/static/css/2.eb777b3d.chunk.css"
   },
   {
-    "revision": "9b313c7f47deeb070f68",
-    "url": "/static/css/3.14bce991.chunk.css"
+    "revision": "4c9a57d20b3608a1fe4e",
+    "url": "/static/css/3.9ad6f431.chunk.css"
   },
   {
-    "revision": "0e689adc1c30e57e1ae3",
+    "revision": "f9b6f07b0448de44002b",
     "url": "/static/css/4.fb888df0.chunk.css"
   },
   {
-    "revision": "b905f69f98f849c034e7",
-    "url": "/static/css/main.22d49bd9.chunk.css"
+    "revision": "5a73d9c922f67bcf6ce3",
+    "url": "/static/css/main.7329d853.chunk.css"
   },
   {
-    "revision": "e4f1661b40e8204adc7b",
-    "url": "/static/js/2.0d38fd86.chunk.js"
+    "revision": "566a0f13b11169047bfc",
+    "url": "/static/js/2.37cb02e2.chunk.js"
   },
   {
-    "revision": "9b313c7f47deeb070f68",
-    "url": "/static/js/3.3cfc9a79.chunk.js"
+    "revision": "4c9a57d20b3608a1fe4e",
+    "url": "/static/js/3.44f3b9d9.chunk.js"
   },
   {
-    "revision": "0e689adc1c30e57e1ae3",
-    "url": "/static/js/4.d06e98f5.chunk.js"
+    "revision": "f9b6f07b0448de44002b",
+    "url": "/static/js/4.8d8d1bbc.chunk.js"
   },
   {
-    "revision": "b905f69f98f849c034e7",
-    "url": "/static/js/main.4bece538.chunk.js"
+    "revision": "5a73d9c922f67bcf6ce3",
+    "url": "/static/js/main.52d3c6a4.chunk.js"
   },
   {
-    "revision": "3d4fc95829aec529cb1d",
-    "url": "/static/js/runtime~main.6ccd7036.js"
+    "revision": "f04e10c88c09d27603c8",
+    "url": "/static/js/runtime~main.458f07d0.js"
   },
   {
     "revision": "c1d6ac056d5d415e1b5065acf8632508",
@@ -190,6 +190,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "f99056b607ef79e25593f04506f5f744",
     "url": "/static/media/muli-latin-900italic.f99056b6.woff2"
+  },
+  {
+    "revision": "b39cc0d3d700351cd604006cb704c75a",
+    "url": "/static/media/samu.b39cc0d3.png"
   },
   {
     "revision": "e1a6256de8045c167b89b133f58d194b",
