@@ -192,7 +192,7 @@ const ClaimDialog = ({
                   multiline
                   rows="4"
                   variant="outlined"
-                  value={response.text}
+                  value={response}
                   onChange={handleChange}
                 />
               </div>
@@ -204,7 +204,7 @@ const ClaimDialog = ({
                     condition === "stable"
                       ? setCondition(null)
                       : setCondition("stable");
-                    setResponse(predefinedResponses[1]);
+                    setResponse(predefinedResponses[1].text);
                   }}
                 >
                   Cas non suspect
@@ -216,7 +216,7 @@ const ClaimDialog = ({
                     condition === "urgent"
                       ? setCondition(null)
                       : setCondition("urgent");
-                    setResponse(predefinedResponses[0]);
+                    setResponse(predefinedResponses[0].text);
                   }}
                 >
                   Envoyer pour un test
@@ -228,9 +228,13 @@ const ClaimDialog = ({
                   size="large"
                   // style="align:right"
                   onClick={() => {
-                    onSendSMS(condition, response.text);
-                    setCondition(null);
-                    setResponse("");
+                    if (response.length > 620) {
+                      alert("maxiumum 620 caracteres");
+                    } else {
+                      onSendSMS(condition, response);
+                      setCondition(null);
+                      setResponse("");
+                    }
                   }}
                   disabled={!condition || !response}
                 >

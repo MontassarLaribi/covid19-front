@@ -54,6 +54,7 @@ const Dashboard = () => {
       <Patient
         key={key}
         text={patient.phone_number}
+        guid={patient.guid}
         title={patient.first_name + " " + patient.last_name}
         flag={patient.flag}
         search={search}

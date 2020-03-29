@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import associaMed from "../../img/associaMed.png";
 import ministere from "../../img/ministere.png";
 import facebook from "../../img/social/facebook-icon.svg";
+import samu from "../../img/samu.png";
 import instagram from "../../img/social/instagram-icon.svg";
 import tunisieTelecom from "../../img/tunisieTelecom.png";
 import beecoop from "../../img/beecoop.png";
@@ -80,6 +81,18 @@ const Welcome = props => {
   const cardProps = [
     {
       disabled: false,
+      title: "CARD_PATIENT_TITLE",
+      className: "malade",
+      text: "CARD_PATIENT_TEXT",
+      redirect: "/malade",
+      buttonContent: "CARD_PATIENT_BTN",
+      src: "assets/images/welcome/sick.png",
+      handleClick: () => {
+        props.ModalAction("PatientForm");
+      }
+    },
+    {
+      disabled: false,
       title: "CARD_DOCTOR_TITLE",
       className: "medecin",
       text: "CARD_DOCTOR_TEXT",
@@ -93,18 +106,7 @@ const Welcome = props => {
         });
       }
     },
-    {
-      disabled: false,
-      title: "CARD_PATIENT_TITLE",
-      className: "malade",
-      text: "CARD_PATIENT_TEXT",
-      redirect: "/malade",
-      buttonContent: "CARD_PATIENT_BTN",
-      src: "assets/images/welcome/sick.png",
-      handleClick: () => {
-        props.ModalAction("PatientForm");
-      }
-    },
+
     {
       disabled: false,
       title: "CARD_INFORMER_TITLE",
@@ -118,6 +120,29 @@ const Welcome = props => {
       }
     }
   ];
+
+  function renderSamu() {
+    if (i18n.language === "ar" || i18n.language === undefined) {
+      return (
+        <>
+          <span>
+            <img src={samu} alt="samu" style={{ maxWidth: "30px" }} />
+            <span className="span-samu">{t("SAMU")}</span>
+          </span>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <span>
+            <span className="span-samu">{t("SAMU")}</span>
+            <img src={samu} alt="samu" style={{ maxWidth: "30px" }} />
+          </span>
+        </>
+      );
+    }
+  }
+
   const renderLabelCategroy = cat => {
     switch (cat) {
       case "CATEGORY_GENERAL":
@@ -254,7 +279,8 @@ const Welcome = props => {
         <Grid item xs={9}>
           <div className="welcome-title">
             <h1>مع بعضنا</h1>
-            <h1> Ensemble</h1>
+            <h1>Ensemble</h1>
+            <h4>{renderSamu()}</h4>
           </div>
           <div className="welcome-subtitle">
             {t("TEXT_WELCOME")} <br />

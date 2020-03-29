@@ -54,6 +54,7 @@ const Dashboard = () => {
     return patients.map((patient, key) => (
       <Patient
         key={key}
+        guid={patient.guid}
         text={patient.phone_number}
         title={patient.first_name + " " + patient.last_name}
         flag={patient.flag}

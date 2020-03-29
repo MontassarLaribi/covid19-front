@@ -261,7 +261,9 @@ const PatientFormModal = ({
               <Form>
                 <div
                   style={{
-                    margin: 10
+                    textAlign: "center",
+                    margin: 10,
+                    marginBottom: "30px"
                   }}
                 >
                   <Field
