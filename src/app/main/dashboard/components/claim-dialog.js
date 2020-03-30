@@ -17,12 +17,12 @@ import group from "../group.svg";
 
 const predefinedResponses = [
   {
-    title: "Cas suspect (score > 4) / urgent (rappeler le patient) :",
+    title: "Cas suspect / urgent (rappeler le patient) :",
     text:
       "Votre dossier a été envoyé au SAMU pour une meilleure prise en charge. Si un prélèvement sera jugé nécessaire, on vous contactera. Entre temps, restez dans votre chambre et évitez tout contact avec les membres de votre famille."
   },
   {
-    title: "Cas non suspect (score < 4) sans notion d’exposition :",
+    title: "Cas non suspect sans notion d’exposition :",
     text:
       "Votre état ne semble pas préoccupant. Protégez-vous et protégez les autres en restant chez vous. En cas de modification de votre état de santé veuillez nous re-contacter."
   },
