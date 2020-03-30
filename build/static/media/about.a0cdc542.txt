@@ -1,7 +1,7 @@
 <h1>Maabaadhna</h1>
 <h2>Description:</h2>
 <p>
-    “Maabaadhna” est une platforme permettant la mise en relation rapide des porteurs des symptômes du COVID-19
+    “Maabaadhna” est une plateforme permettant la mise en relation rapide des porteurs des symptômes du COVID-19
     et l’accélération de leur prise en charge par le corps médical. Elle agit comme un intermédiaire entre les
     patients et les docteurs, mais aussi entre les docteurs et le SAMU.
 </p>
