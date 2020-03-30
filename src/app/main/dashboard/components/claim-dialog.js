@@ -63,6 +63,9 @@ const ClaimDialog = ({
   const handleChange = event => {
     setResponse(event.target.value.text);
   };
+  const handleChangeText = event => {
+    setResponse(event.target.value);
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -231,7 +234,7 @@ const ClaimDialog = ({
                   rows="4"
                   variant="outlined"
                   value={response}
-                  onChange={handleChange}
+                  onChange={handleChangeText}
                 />
               </div>
               <div className="conditions">

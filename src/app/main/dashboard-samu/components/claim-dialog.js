@@ -199,11 +199,13 @@ const ClaimDialog = ({
               <div className="conditions">
                 <Button
                   variant="outlined"
-                  className={condition === "stable" ? "stable-active" : ""}
+                  className={
+                    condition === "NOT_TO_BE_TESTED" ? "stable-active" : ""
+                  }
                   onClick={() => {
-                    condition === "stable"
+                    condition === "NOT_TO_BE_TESTED"
                       ? setCondition(null)
-                      : setCondition("stable");
+                      : setCondition("NOT_TO_BE_TESTED");
                     setResponse(predefinedResponses[1].text);
                   }}
                 >
@@ -211,11 +213,13 @@ const ClaimDialog = ({
                 </Button>
                 <Button
                   variant="outlined"
-                  className={condition === "urgent" ? "critique-active" : ""}
+                  className={
+                    condition === "TO_BE_TESTED" ? "critique-active" : ""
+                  }
                   onClick={() => {
-                    condition === "urgent"
+                    condition === "TO_BE_TESTED"
                       ? setCondition(null)
-                      : setCondition("urgent");
+                      : setCondition("TO_BE_TESTED");
                     setResponse(
                       predefinedResponses[0].text.replace(
                         "xxadressexx",

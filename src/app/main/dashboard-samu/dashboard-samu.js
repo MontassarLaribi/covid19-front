@@ -6,7 +6,8 @@ import {
   getPatient,
   getPatientSingle,
   getAllPatients,
-  patchPatientBySAMU
+  patchPatientBySAMU,
+  patchPatientBySAMUTESTED
 } from "app/libs/apis";
 import Patient from "../dashboard/Patient";
 import ClaimDialog from "./components/claim-dialog";
@@ -50,25 +51,56 @@ const Dashboard = () => {
   }
 
   const renderPatients = patients => {
-    return patients.map((patient, key) => (
-      <Patient
-        key={key}
-        text={patient.phone_number}
-        guid={patient.guid}
-        title={patient.first_name + " " + patient.last_name}
-        flag={patient.flag}
-        search={search}
-        handleClick={() => {
-          if (patient.status === "CLOSED") {
-            setShow(true);
-            getPatientSingle(patient.guid).then(res => {
-              setPatient(get(res, "data.payload.patient", {}));
-            });
-            setPatient(patient);
-          }
-        }}
-      />
-    ));
+    return patients.map((patient, key) => {
+      return (
+        <Patient
+          key={key}
+          text={patient.phone_number}
+          guid={patient.guid}
+          title={patient.first_name + " " + patient.last_name}
+          flag={patient.flag}
+          search={search}
+          positive={patient.test_positive}
+          medicalStatus={patient.medical_status}
+          handleClick={() => {
+            if (patient.status === "CLOSED") {
+              setShow(true);
+              getPatientSingle(patient.guid).then(res => {
+                setPatient(get(res, "data.payload.patient", {}));
+              });
+              setPatient(patient);
+            }
+          }}
+        />
+      );
+    });
+  };
+  const renderPatientsTested = (patients, notToBeTested) => {
+    return patients.map((patient, key) => {
+      if (notToBeTested && patient.medical_status === "NOT_TO_BE_TESTED")
+        return (
+          <Patient
+            key={key}
+            text={patient.phone_number}
+            guid={patient.guid}
+            title={patient.first_name + " " + patient.last_name}
+            flag={patient.flag}
+            search={search}
+            positive={patient.test_positive}
+            medicalStatus={patient.medical_status}
+            handleClick={() => {
+              if (patient.status === "CLOSED") {
+                setShow(true);
+                getPatientSingle(patient.guid).then(res => {
+                  setPatient(get(res, "data.payload.patient", {}));
+                });
+                setPatient(patient);
+              }
+            }}
+          />
+        );
+      return <></>;
+    });
   };
 
   const handleChange = e => {
@@ -78,7 +110,17 @@ const Dashboard = () => {
   const renderColumns = () => {
     // console.log(allPatients);
     return listOfStatus.map((status, key) => {
+      let notToBeTested = false;
       const filtredByStatus = allPatients[matchStatus(status)];
+      let countToRender = filtredByStatus.count;
+      let statusToRender = status;
+      if (status === "traité") {
+        statusToRender = "A Ne pas tester";
+        notToBeTested = true;
+        countToRender = filtredByStatus.patients.filter(function(el) {
+          return el.medical_status === "NOT_TO_BE_TESTED";
+        }).length;
+      }
       return (
         <Grid key={key} item md={4} xs={12}>
           <div className={`single-column ${status.replace(/ /g, "-")}`}>
@@ -86,15 +128,72 @@ const Dashboard = () => {
               className="column-title"
               style={{ textTransform: "capitalize" }}
             >
-              {status} <span>({filtredByStatus.count})</span>
+              {statusToRender} <span>({countToRender})</span>
             </div>
             <div className="patients">
-              {renderPatients(filtredByStatus.patients)}
+              {notToBeTested
+                ? renderPatientsTested(filtredByStatus.patients, notToBeTested)
+                : renderPatients(filtredByStatus.patients)}
             </div>
           </div>
         </Grid>
       );
     });
+  };
+
+  const renderColumnsTested = () => {
+    const filtredByStatus = allPatients["CLOSED"];
+
+    const toTest = filtredByStatus.patients.filter(function(el) {
+      return el.medical_status === "TO_BE_TESTED";
+    });
+    const positive = filtredByStatus.patients.filter(function(el) {
+      return el.medical_status === "TESTED" && el.test_positive === true;
+    });
+    const negative = filtredByStatus.patients.filter(function(el) {
+      return el.medical_status === "TESTED" && el.test_positive === false;
+    });
+
+    return (
+      <>
+        <Grid item md={4} xs={12}>
+          <div className={`single-column en-cours-de-traitement`}>
+            <div
+              className="column-title "
+              style={{ textTransform: "capitalize" }}
+            >
+              A tester
+              <span>({toTest.length})</span>
+            </div>
+            <div className="patients">{renderPatients(toTest)}</div>
+          </div>
+        </Grid>
+        <Grid item md={4} xs={12}>
+          <div className={`single-column traité`}>
+            <div
+              className="column-title"
+              style={{ textTransform: "capitalize" }}
+            >
+              négatif
+              <span>({negative.length})</span>
+            </div>
+            <div className="patients">{renderPatients(negative)}</div>
+          </div>
+        </Grid>
+        <Grid item md={4} xs={12}>
+          <div className={`single-column non-traité`}>
+            <div
+              className="column-title"
+              style={{ textTransform: "capitalize" }}
+            >
+              positif
+              <span>({positive.length})</span>
+            </div>
+            <div className="patients">{renderPatients(positive)}</div>
+          </div>
+        </Grid>
+      </>
+    );
   };
 
   if (!allPatients) return <></>;
@@ -131,8 +230,16 @@ const Dashboard = () => {
             onChange={handleChange}
           />
         </header>
-        <Grid className="columns" container spacing={4}>
+        <Grid
+          className="columns"
+          style={{ justifyContent: "center" }}
+          container
+          spacing={4}
+        >
           {renderColumns()}
+        </Grid>
+        <Grid className="columns" container spacing={4}>
+          {renderColumnsTested()}
         </Grid>
         {visible && (
           <ClaimDialog
@@ -145,10 +252,10 @@ const Dashboard = () => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });
             }}
-            onSendSMS={(condition, textToSend) => {
+            onSendSMS={async (condition, textToSend) => {
               //add dynamic status flag
               setIsSent(true);
-              patchPatientBySAMU(patient.guid, textToSend);
+              await patchPatientBySAMU(patient.guid, textToSend, condition);
               getAllPatients().then(res => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });
@@ -171,6 +278,17 @@ const Dashboard = () => {
             patient={patient}
             onClose={() => {
               setShow(false);
+              getAllPatients().then(res => {
+                setAllPatients(get(res, "data.payload.patients", {}));
+              });
+            }}
+            onToTest={async positive => {
+              //add dynamic status flag
+              setIsSent(true);
+              await patchPatientBySAMUTESTED(patient.guid, positive);
+              getAllPatients().then(res => {
+                setAllPatients(get(res, "data.payload.patients", {}));
+              });
             }}
           ></PatientModal>
         )}
