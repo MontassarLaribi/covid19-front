@@ -61,7 +61,7 @@ const ClaimDialog = ({
   } = patient;
 
   const handleChange = event => {
-    setResponse(event.target.value);
+    setResponse(event.target.value.text);
   };
 
   const handleClose = () => {
