@@ -195,6 +195,7 @@ const Welcome = props => {
           question: data.extraData.id
         });
       } else {
+        newResponse[data.field].splice(findIt, 1);
         setlengthFormDynamic(lengthFormDynamic - 1);
       }
     } else {
