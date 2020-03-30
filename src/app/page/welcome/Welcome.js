@@ -228,7 +228,6 @@ const Welcome = props => {
         history.push("/envoiyer/maladie");
       })
       .catch(error => {
-        console.log(error.response);
         if (error.response.data.code === 403) {
           alert(
             error.response.data.message
@@ -254,7 +253,6 @@ const Welcome = props => {
         history.push("/envoiyer/maladie");
       })
       .catch(error => {
-        console.log(error.response);
         if (error.response.data.code === 403) {
           alert(
             error.response.data.message

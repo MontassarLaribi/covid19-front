@@ -81,6 +81,58 @@ function renderFlag(flag) {
     }
   }
 }
+function renderFlagStatus(flag, positive) {
+  if (flag) {
+    switch (flag) {
+      case "TO_BE_TESTED":
+        return (
+          <Chip
+            style={{
+              backgroundColor: "orange",
+              height: "20px",
+              fontSize: "1rem"
+            }}
+            label="à Testé"
+          />
+        );
+      case "NOT_TO_BE_TESTED":
+        return (
+          <Chip
+            color="secondary"
+            style={{ height: "20px", fontSize: "1rem" }}
+            label="Pas de test"
+          />
+        );
+      case "TESTED":
+        if (positive === false) {
+          return (
+            <Chip
+              color="secondary"
+              style={{
+                height: "20px",
+                fontSize: "1rem"
+              }}
+              label="Déjà Testé"
+            />
+          );
+        } else {
+          return (
+            <Chip
+              style={{
+                backgroundColor: "#e23b42",
+                height: "20px",
+                fontSize: "1rem"
+              }}
+              label="Déjà Testé"
+            />
+          );
+        }
+
+      default:
+        break;
+    }
+  }
+}
 
 export default function Patient({
   title,
@@ -88,10 +140,11 @@ export default function Patient({
   guid,
   flag,
   handleClick,
-  search
+  search,
+  medicalStatus,
+  positive
 }) {
   const classes = useStyles();
-
   function isSearchValid(search) {
     const searchRegex = new RegExp(`${search}`, "gi");
     return (
@@ -110,6 +163,7 @@ export default function Patient({
     <Card className={isSearchValid(search) ? classes.root : classes.hide}>
       <CardActionArea onClick={handleClick}>
         <CardContent className={classes.cardContent}>
+          {medicalStatus && renderFlagStatus(medicalStatus, positive)}
           <Typography
             gutterBottom
             variant="h5"

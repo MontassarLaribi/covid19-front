@@ -65,7 +65,7 @@ export const patchPatientByDocDenoncer = async guid => {
   }
 };
 
-export const patchPatientBySAMU = async (guid, textToSend) => {
+export const patchPatientBySAMU = async (guid, textToSend, condition) => {
   if (guid) {
     const response = await axios
       .patch(`${DOMAINE}/api/v1/secured/patient/${guid}`, {
@@ -76,8 +76,37 @@ export const patchPatientBySAMU = async (guid, textToSend) => {
         throw new Error(err);
       });
     await axios
+      .patch(`${DOMAINE}/api/v1/secured/patient-medical-status/${guid}`, {
+        medicalStatus: condition
+      })
+      .catch(err => {
+        //alert(err)
+        throw new Error(err);
+      });
+    await axios
       .post(`${DOMAINE}/api/v1/secured/sms/consultation/${guid}`, {
         content: textToSend
+      })
+      .catch(err => {
+        //alert(err)
+        throw new Error(err);
+      });
+    return response;
+  }
+};
+export const patchPatientBySAMUTESTED = async (guid, positive) => {
+  if (guid) {
+    await axios
+      .patch(`${DOMAINE}/api/v1/secured/patient-medical-status/${guid}`, {
+        medicalStatus: "TESTED"
+      })
+      .catch(err => {
+        //alert(err)
+        throw new Error(err);
+      });
+    const response = await axios
+      .patch(`${DOMAINE}/api/v1/secured/patient-test-result/${guid}`, {
+        testPositive: positive
       })
       .catch(err => {
         //alert(err)

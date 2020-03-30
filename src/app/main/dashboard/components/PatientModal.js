@@ -1,7 +1,13 @@
 import { Button, Dialog, Divider, Grid, TextField } from "@material-ui/core";
 import React from "react";
 
-const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
+const ClaimDialog = ({
+  visible = false,
+  isSent = false,
+  onClose,
+  patient,
+  onToTest
+}) => {
   const {
     first_name,
     last_name,
@@ -11,7 +17,9 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
     gender,
     audio,
     responses,
-    flag
+    flag,
+    medical_status,
+    test_positive
   } = patient;
 
   const renderClassName = value => {
@@ -37,6 +45,49 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
         return "oui";
       default:
         break;
+    }
+  };
+
+  const renderTested = () => {
+    if (medical_status === "TO_BE_TESTED") {
+      return (
+        <div className="conditions">
+          <Button
+            variant="outlined"
+            className={"stable-active"}
+            onClick={() => {
+              onToTest(false);
+              onClose();
+            }}
+          >
+            NÉGATIF
+          </Button>
+          <Button
+            variant="outlined"
+            className={"critique-active"}
+            onClick={() => {
+              onToTest(true);
+              onClose();
+            }}
+          >
+            POSITIF
+          </Button>
+        </div>
+      );
+    } else if (medical_status === "TESTED") {
+      return (
+        <div className="conditions">
+          {test_positive === false ? (
+            <Button variant="outlined" className={"stable-active"}>
+              NÉGATIF
+            </Button>
+          ) : (
+            <Button variant="outlined" className={"critique-active"}>
+              POSITIF
+            </Button>
+          )}
+        </div>
+      );
     }
   };
 
@@ -158,6 +209,9 @@ const ClaimDialog = ({ visible = false, isSent = false, onClose, patient }) => {
                   urgent
                 </Button>
               </div>
+              <Divider />
+              {renderTested()}
+              <Divider />
               <Button variant="outlined" size="small" onClick={onClose}>
                 revenir au dashboard
               </Button>
