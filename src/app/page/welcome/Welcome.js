@@ -7,7 +7,7 @@ import axios from "axios";
 import { DOMAINE } from "config";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import logo from "../../img/logo-plain.png"
+import logo from "../../img/logo-plain.png";
 import associaMed from "../../img/associaMed.png";
 import ministere from "../../img/ministere.png";
 import facebook from "../../img/social/facebook-icon.svg";
@@ -276,12 +276,7 @@ const Welcome = props => {
 
   return (
     <div className="welcome-page">
-      {about && (
-        <AboutModal
-          about={about}
-          close={() => setAbout(false) }
-        />
-      )}
+      {about && <AboutModal about={about} close={() => setAbout(false)} />}
       <div className="main-navbar">
         <div className="language-selection-container">
           <ul className="language-list">
@@ -373,12 +368,12 @@ const Welcome = props => {
         <div className="partenariat">Agréée par | En partenariat avec</div>
         <ul className="logos">
           <li>
-            <a
+            <button
               onClick={() => setAbout(true)}
-              href="javascript:;"
+              // href="javascript:;"
             >
               <img className="logo" src={logo} alt="logo" />
-            </a>
+            </button>
           </li>
           <li>
             <a
