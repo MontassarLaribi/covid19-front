@@ -126,6 +126,5 @@
   in-exactitude de vos données personnelles en nous contactant.<br />En cas de
   demande de suppression de vos données et/ou en cas d’exercice de votre droit à
   solliciter l’effacement de vos données, nous pourrons toutefois les conserver
-  sous forme d’archivage pour la durée nécessaire à satisfaire nos obligations
-  légales, comptables et fiscales.<br />
+  sous forme d’archivage pour la durée nécessaire à satisfaire nos obligations.<br />
 </p>
