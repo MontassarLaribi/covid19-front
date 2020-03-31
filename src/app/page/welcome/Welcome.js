@@ -322,6 +322,9 @@ const Welcome = props => {
       </div>
       <Grid container style={{ placeContent: "center" }}>
         <Grid item xs={9}>
+          <h3 style={{ textAlign: "center", justifyContent: "center" }}>
+            Plateforme en test / الموقع قيد الاختبار
+          </h3>
           <div className="welcome-title">
             <h1>مع بعضنا</h1>
             <h1>Ensemble</h1>
