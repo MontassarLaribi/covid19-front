@@ -301,7 +301,7 @@ const Welcome = props => {
           <ul className="social-list">
             <li>
               <a
-                href="https://www.facebook.com/maabaadhna"
+                href="https://www.facebook.com/%D9%85%D8%B9-%D8%A8%D8%B9%D8%B6%D9%86%D8%A7-Ensemble-106624560981010/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -310,7 +310,7 @@ const Welcome = props => {
             </li>
             <li>
               <a
-                href="https://www.instagram.com/maabaadhna"
+                href="https://www.instagram.com/maabaadhna/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -421,6 +421,14 @@ const Welcome = props => {
               rel="noopener noreferrer"
             >
               <img className="esprit" src={esprit} alt="esprit" />
+            </a>
+          </li>
+        </ul>
+        <div className="partenariat">Contactez Nous:</div>
+        <ul className="logos">
+          <li>
+            <a href="mailto:Maabaadhna.corona@gmail.com">
+              Maabaadhna.corona@gmail.com
             </a>
           </li>
         </ul>
