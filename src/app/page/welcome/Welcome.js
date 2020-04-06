@@ -32,20 +32,20 @@ import AboutModal from "../../../@fuse/components/aboutModal";
 //     paddingBottom: "1.2rem"
 //   }
 // });
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   arabi: {
-    flexDirection: "row-reverse"
+    flexDirection: "row-reverse",
   },
   root: {
     flexGrow: 1,
-    paddingTop: "5rem"
+    paddingTop: "5rem",
   },
   paper: {
     height: 140,
-    width: 100
+    width: 100,
   },
   control: {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   samu: {
     width: "80px",
@@ -55,13 +55,13 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     alignItems: "center",
     position: "absolute",
-    top: "50%"
+    top: "50%",
   },
   subsamu: {
-    color: "white"
-  }
+    color: "white",
+  },
 }));
-const Welcome = props => {
+const Welcome = (props) => {
   const [question, setquestion] = useState([]);
   const [lengthFormStatic, setlengthFormStatic] = useState(0);
   const [lengthFormDynamic, setlengthFormDynamic] = useState(0);
@@ -71,7 +71,7 @@ const Welcome = props => {
     address: "string",
     zipCode: 0,
     phoneNumber: 0,
-    responses: []
+    responses: [],
   });
 
   const [about, setAbout] = useState(false);
@@ -92,7 +92,7 @@ const Welcome = props => {
       src: "assets/images/welcome/sick.png",
       handleClick: () => {
         props.ModalAction("PatientForm");
-      }
+      },
     },
     {
       disabled: false,
@@ -105,9 +105,9 @@ const Welcome = props => {
       handleClick: () => {
         history.push({
           pathname: "/login",
-          state: { type: "docteur" }
+          state: { type: "docteur" },
         });
-      }
+      },
     },
 
     {
@@ -120,8 +120,8 @@ const Welcome = props => {
       src: "assets/images/welcome/inform.png",
       handleClick: () => {
         props.ModalAction("Inform");
-      }
-    }
+      },
+    },
   ];
 
   function renderSamu() {
@@ -146,7 +146,7 @@ const Welcome = props => {
     }
   }
 
-  const renderLabelCategroy = cat => {
+  const renderLabelCategroy = (cat) => {
     switch (cat) {
       case "CATEGORY_GENERAL":
         return "Questions générales";
@@ -161,7 +161,7 @@ const Welcome = props => {
   useEffect(() => {
     axios
       .get(`${DOMAINE}/api/v1/question`)
-      .then(res => {
+      .then((res) => {
         if (res && res.data && res.data.payload && res.data.payload.questions) {
           let cleanData = [];
           let currentSome = 0;
@@ -171,7 +171,7 @@ const Welcome = props => {
               section: key,
               label: renderLabelCategroy(key),
               key: key,
-              questions: res.data.payload.questions[key]
+              questions: res.data.payload.questions[key],
             });
           }
           setquestion(cleanData);
@@ -180,19 +180,19 @@ const Welcome = props => {
           setquestion([]);
         }
       })
-      .catch(err => setquestion(err));
+      .catch((err) => setquestion(err));
   }, []);
 
-  const updateResponse = data => {
+  const updateResponse = (data) => {
     const newResponse = responses;
     const findIt = newResponse[data.field].findIndex(
-      d => d.question === data.extraData.id
+      (d) => d.question === data.extraData.id
     );
     if (findIt !== -1) {
       if (data.value) {
         newResponse[data.field].splice(findIt, 1, {
           value: data.value,
-          question: data.extraData.id
+          question: data.extraData.id,
         });
       } else {
         newResponse[data.field].splice(findIt, 1);
@@ -201,22 +201,22 @@ const Welcome = props => {
     } else {
       newResponse[data.field].push({
         value: data.value,
-        question: data.extraData.id
+        question: data.extraData.id,
       });
       setlengthFormDynamic(lengthFormDynamic + 1);
     }
     setReponse(newResponse);
   };
 
-  const submitForm = data => {
+  const submitForm = (data) => {
     const number = { number: data.phoneNumber };
     setData(data);
 
     axios
       .post(`${DOMAINE}/api/v1/sms/authentication`, {
-        ...number
+        ...number,
       })
-      .then(res => {
+      .then((res) => {
         setVerificationCode(res.data.payload.verificationCode);
         props.ModalAction("sms");
       });
@@ -225,10 +225,10 @@ const Welcome = props => {
   const submitInformerAfterVerification = () => {
     axios
       .post(`${DOMAINE}/api/v1/informer`, { ...data })
-      .then(res => {
+      .then((res) => {
         history.push("/envoiyer/maladie");
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.code === 403) {
           alert(
             error.response.data.message
@@ -250,10 +250,10 @@ const Welcome = props => {
     const newData = { ...responses, ...data };
     axios
       .post(`${DOMAINE}/api/v1/patient`, { ...newData })
-      .then(res => {
+      .then((res) => {
         history.push("/envoiyer/maladie");
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.code === 403) {
           alert(
             error.response.data.message
@@ -322,9 +322,9 @@ const Welcome = props => {
       </div>
       <Grid container style={{ placeContent: "center" }}>
         <Grid item xs={9}>
-          <h3 style={{ textAlign: "center", justifyContent: "center" }}>
+          {/* <h3 style={{ textAlign: "center", justifyContent: "center" }}>
             Plateforme en test / الموقع قيد الاختبار
-          </h3>
+          </h3> */}
           <div className="welcome-title">
             <h1>مع بعضنا</h1>
             <h1>Ensemble</h1>
@@ -386,7 +386,7 @@ const Welcome = props => {
               <img className="associaMed" src={associaMed} alt="assciaMed" />
             </a>
           </li>
-          <li>
+          {/* <li>
             <a
               href="http://www.santetunisie.rns.tn/fr/"
               target="_blank"
@@ -394,7 +394,7 @@ const Welcome = props => {
             >
               <img className="ministere" src={ministere} alt="ministere" />
             </a>
-          </li>
+          </li> */}
           <li>
             <a
               href="http://www.tunisietelecom.tn"
@@ -458,7 +458,7 @@ const Welcome = props => {
               color: "#707070",
               // position: "fixed",
               bottom: "50px",
-              right: "30px"
+              right: "30px",
             }}
           >
             <Alert />
