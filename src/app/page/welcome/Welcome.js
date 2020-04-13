@@ -21,6 +21,7 @@ import Sms from "./sms";
 import { useTranslation } from "react-i18next";
 import Alert from "@material-ui/icons/AddAlert";
 import AboutModal from "../../../@fuse/components/aboutModal";
+import ReactGA from "react-ga";
 
 // const styles = theme => ({
 //   layoutRoot: {
@@ -226,10 +227,18 @@ const Welcome = (props) => {
     axios
       .post(`${DOMAINE}/api/v1/informer`, { ...data })
       .then((res) => {
+        ReactGA.event({
+          category: "Dénonciation",
+          action: "L'utilisateur a validé le formulaire de dénonciation",
+        });
         history.push("/envoiyer/maladie");
       })
       .catch((error) => {
         if (error.response.data.code === 403) {
+          ReactGA.event({
+            category: "Dénonciation",
+            action: "L'utilisateur à été bloqué il doit attendre 6H",
+          });
           alert(
             error.response.data.message
               .replace(
@@ -251,10 +260,18 @@ const Welcome = (props) => {
     axios
       .post(`${DOMAINE}/api/v1/patient`, { ...newData })
       .then((res) => {
+        ReactGA.event({
+          category: "Malade",
+          action: "L'utilisateur a validé le formulaire de malade",
+        });
         history.push("/envoiyer/maladie");
       })
       .catch((error) => {
         if (error.response.data.code === 403) {
+          ReactGA.event({
+            category: "Malade",
+            action: "L'utilisateur à été bloqué il doit attendre 6H",
+          });
           alert(
             error.response.data.message
               .replace(

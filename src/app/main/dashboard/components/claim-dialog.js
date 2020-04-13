@@ -7,9 +7,9 @@ import {
   TextField,
   Button,
   InputLabel,
-  Divider
+  Divider,
 } from "@material-ui/core";
-
+import moment from "moment";
 //STABLE / SUSPECT / URGENT
 
 import ellipse from "../ellipse.svg";
@@ -19,18 +19,18 @@ const predefinedResponses = [
   {
     title: "Cas suspect / urgent (rappeler le patient) :",
     text:
-      "Votre dossier a été envoyé au SAMU pour une meilleure prise en charge. Si un prélèvement sera jugé nécessaire, on vous contactera. Entre temps, restez dans votre chambre et évitez tout contact avec les membres de votre famille."
+      "Votre dossier a été envoyé au SAMU pour une meilleure prise en charge. Si un prélèvement sera jugé nécessaire, on vous contactera. Entre temps, restez dans votre chambre et évitez tout contact avec les membres de votre famille.",
   },
   {
     title: "Cas non suspect sans notion d’exposition :",
     text:
-      "Votre état ne semble pas préoccupant. Protégez-vous et protégez les autres en restant chez vous. En cas de modification de votre état de santé veuillez nous re-contacter."
+      "Votre état ne semble pas préoccupant. Protégez-vous et protégez les autres en restant chez vous. En cas de modification de votre état de santé veuillez nous re-contacter.",
   },
   {
     title: "Notion d’exposition sans symptômes :",
     text:
-      "Votre état ne semble pas préoccupant actuellement, toutefois une mise en quarantaine de 14 jours est nécessaire. Restez dans votre chambre et évitez tout contact avec les membres de votre famille."
-  }
+      "Votre état ne semble pas préoccupant actuellement, toutefois une mise en quarantaine de 14 jours est nécessaire. Restez dans votre chambre et évitez tout contact avec les membres de votre famille.",
+  },
 ];
 
 const ClaimDialog = ({
@@ -41,7 +41,7 @@ const ClaimDialog = ({
   onClickNext,
   onDenoncer,
   patient,
-  allPatientsCount
+  allPatientsCount,
 }) => {
   const [response, setResponse] = useState("");
   const [open, setOpen] = useState(false);
@@ -57,13 +57,15 @@ const ClaimDialog = ({
     phone_number,
     gender,
     audio,
-    responses
+    responses,
+    city,
+    created_at,
   } = patient;
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setResponse(event.target.value.text);
   };
-  const handleChangeText = event => {
+  const handleChangeText = (event) => {
     setResponse(event.target.value);
   };
 
@@ -75,7 +77,7 @@ const ClaimDialog = ({
     setOpen(true);
   };
 
-  const renderClassName = value => {
+  const renderClassName = (value) => {
     const test = String(value) === "1";
     switch (test) {
       case false:
@@ -101,7 +103,7 @@ const ClaimDialog = ({
     }
   };
 
-  const renderQuestions = cat => {
+  const renderQuestions = (cat) => {
     return responses[cat].map((q, key) => {
       return (
         <div key={key} className="single-question">
@@ -115,7 +117,7 @@ const ClaimDialog = ({
               {renderValue(q.response.value, q.question.type)}
             </Button>
           )}
-          {q.question.type === 2 && (
+          {(q.question.type === 2 || q.question.type === 3) && (
             <TextField
               className="question-textfield"
               label=""
@@ -163,7 +165,7 @@ const ClaimDialog = ({
     );
   };
 
-  const renderAudio = audio => {
+  const renderAudio = (audio) => {
     if (!audio) return "Pas d'enregistrement";
     return <audio controls src={"data:audio/mp3;base64," + audio} />;
   };
@@ -183,6 +185,10 @@ const ClaimDialog = ({
             <div className="claim-dialog-form">
               <div className="claim-dialog-user-info">
                 <p>
+                  Envoyé le:
+                  <span>{moment(created_at).format("DD/MM/YYYY HH:mm")}</span>
+                </p>
+                <p>
                   nom: <span>{last_name}</span>
                 </p>
                 <p>
@@ -190,6 +196,9 @@ const ClaimDialog = ({
                 </p>
                 <p>
                   sexe : <span>{gender === "MALE" ? "Homme" : "Femme"}</span>
+                </p>
+                <p>
+                  ville: <span>{city}</span>
                 </p>
                 <p>
                   adresse: <span>{address}</span>

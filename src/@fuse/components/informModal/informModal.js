@@ -9,25 +9,26 @@ import { withRouter } from "react-router-dom";
 import upload from "../../../app/img/upload-icon.svg";
 import LoiSnack from "../loiSnack";
 import * as yup from "yup";
+import ReactGA from "react-ga";
 
 const InformModal = ({
   modalAction,
   submitFormCallback,
   changePhoneNumber,
-  setType
+  setType,
 }) => {
-  const handleClose = id => {
+  const handleClose = (id) => {
     modalAction(id);
   };
 
   const [file, setFile] = React.useState(null);
 
-  const toBase64 = file =>
+  const toBase64 = (file) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
+      reader.onerror = (error) => reject(error);
     });
 
   const InformSchema = yup.object().shape({
@@ -41,10 +42,7 @@ const InformModal = ({
       .typeError("Zip est un nombre")
       .positive("Nombre positif")
       .integer("Nombre positif"),
-    nomDenonciateur: yup
-      .string()
-      .max(30)
-      .required("Champ nom est requis"),
+    nomDenonciateur: yup.string().max(30).required("Champ nom est requis"),
     adresseDenonciateur: yup
       .string()
       .max(120)
@@ -61,18 +59,9 @@ const InformModal = ({
       .string()
       .max(700, "Maximum 700 caracteres")
       .required("Champ commentaire est requis"),
-    nomCoupable: yup
-      .string()
-      .max(30)
-      .required("Champ nom est requis"),
-    prenomCoupable: yup
-      .string()
-      .max(30)
-      .required("Champ prenom est requis"),
-    adresseCoupable: yup
-      .string()
-      .max(120)
-      .required("Champ adresse est requis")
+    nomCoupable: yup.string().max(30).required("Champ nom est requis"),
+    prenomCoupable: yup.string().max(30).required("Champ prenom est requis"),
+    adresseCoupable: yup.string().max(120).required("Champ adresse est requis"),
   });
 
   return (
@@ -95,7 +84,7 @@ const InformModal = ({
             nomCoupable: "",
             prenomCoupable: "",
             adresseCoupable: "",
-            commentaire: ""
+            commentaire: "",
           }}
           validationSchema={InformSchema}
           onSubmit={async (values, { setSubmitting }) => {
@@ -112,7 +101,7 @@ const InformModal = ({
                 culpableLastName: values.prenomCoupable,
                 culpableAddress: values.adresseCoupable,
                 comment: values.commentaire,
-                image: base64
+                image: base64,
               };
               changePhoneNumber(values.numeroDenonciateur);
               submitFormCallback(caste);
@@ -126,7 +115,7 @@ const InformModal = ({
             submitForm,
             isSubmitting,
             values,
-            setFieldValue
+            setFieldValue,
           }) => (
             <>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -141,7 +130,7 @@ const InformModal = ({
                   <div
                     className="d-flex"
                     style={{
-                      margin: 10
+                      margin: 10,
                     }}
                   >
                     <div className="p-5">
@@ -167,7 +156,7 @@ const InformModal = ({
                   <div
                     className="d-flex"
                     style={{
-                      margin: 10
+                      margin: 10,
                     }}
                   >
                     <div className="p-5">
@@ -183,7 +172,7 @@ const InformModal = ({
                   <div
                     className="d-flex"
                     style={{
-                      margin: 10
+                      margin: 10,
                     }}
                   >
                     <div className="p-5">
@@ -210,7 +199,7 @@ const InformModal = ({
                   <div
                     className="d-flex"
                     style={{
-                      margin: 10
+                      margin: 10,
                     }}
                   >
                     <div className="p-5">
@@ -240,7 +229,7 @@ const InformModal = ({
                       label="Adresse / العنوان"
                       variant="outlined"
                       style={{
-                        width: "100%"
+                        width: "100%",
                       }}
                     />
                   </div>
@@ -253,7 +242,7 @@ const InformModal = ({
                       label="Commentaire / تعليق"
                       variant="outlined"
                       style={{
-                        width: "100%"
+                        width: "100%",
                       }}
                     />
                   </div>
@@ -271,7 +260,7 @@ const InformModal = ({
                         type="file"
                         accept="image/*"
                         style={{ display: "none" }}
-                        onChange={event => {
+                        onChange={(event) => {
                           const tmp = event.currentTarget.files[0];
                           if (tmp.type.startsWith("image")) {
                             if (tmp.size > 5 * 1024 * 1024) {
@@ -311,6 +300,11 @@ const InformModal = ({
                       disabled={isSubmitting}
                       onClick={() => {
                         //alert('Cette fonction est en cours de developpement')
+                        ReactGA.event({
+                          category: "Dénonciation",
+                          action:
+                            "L'utilisateur a rempli le formulaire et attend l'SMS",
+                        });
                         submitForm();
                         handleClose();
                       }}

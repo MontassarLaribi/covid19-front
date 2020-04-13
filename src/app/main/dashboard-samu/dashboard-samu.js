@@ -7,7 +7,7 @@ import {
   getPatientSingle,
   getAllPatients,
   patchPatientBySAMU,
-  patchPatientBySAMUTESTED
+  patchPatientBySAMUTESTED,
 } from "app/libs/apis";
 import Patient from "../dashboard/Patient";
 import ClaimDialog from "./components/claim-dialog";
@@ -26,7 +26,7 @@ const Dashboard = () => {
   const [allPatients, setAllPatients] = useState();
 
   useEffect(() => {
-    getAllPatients().then(res => {
+    getAllPatients().then((res) => {
       setAllPatients(get(res, "data.payload.patients", {}));
     });
   }, []);
@@ -50,7 +50,7 @@ const Dashboard = () => {
     return currentStatus;
   }
 
-  const renderPatients = patients => {
+  const renderPatients = (patients) => {
     return patients.map((patient, key) => {
       return (
         <Patient
@@ -61,11 +61,12 @@ const Dashboard = () => {
           flag={patient.flag}
           search={search}
           positive={patient.test_positive}
+          created_at={patient.created_at}
           medicalStatus={patient.medical_status}
           handleClick={() => {
             if (patient.status === "CLOSED") {
               setShow(true);
-              getPatientSingle(patient.guid).then(res => {
+              getPatientSingle(patient.guid).then((res) => {
                 setPatient(get(res, "data.payload.patient", {}));
               });
               setPatient(patient);
@@ -87,11 +88,12 @@ const Dashboard = () => {
             flag={patient.flag}
             search={search}
             positive={patient.test_positive}
+            created_at={patient.created_at}
             medicalStatus={patient.medical_status}
             handleClick={() => {
               if (patient.status === "CLOSED") {
                 setShow(true);
-                getPatientSingle(patient.guid).then(res => {
+                getPatientSingle(patient.guid).then((res) => {
                   setPatient(get(res, "data.payload.patient", {}));
                 });
                 setPatient(patient);
@@ -103,7 +105,7 @@ const Dashboard = () => {
     });
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setSearch(e.target.value);
   };
 
@@ -117,7 +119,7 @@ const Dashboard = () => {
       if (status === "traité") {
         statusToRender = "A Ne pas tester";
         notToBeTested = true;
-        countToRender = filtredByStatus.patients.filter(function(el) {
+        countToRender = filtredByStatus.patients.filter(function (el) {
           return el.medical_status === "NOT_TO_BE_TESTED";
         }).length;
       }
@@ -144,13 +146,13 @@ const Dashboard = () => {
   const renderColumnsTested = () => {
     const filtredByStatus = allPatients["CLOSED"];
 
-    const toTest = filtredByStatus.patients.filter(function(el) {
+    const toTest = filtredByStatus.patients.filter(function (el) {
       return el.medical_status === "TO_BE_TESTED";
     });
-    const positive = filtredByStatus.patients.filter(function(el) {
+    const positive = filtredByStatus.patients.filter(function (el) {
       return el.medical_status === "TESTED" && el.test_positive === true;
     });
-    const negative = filtredByStatus.patients.filter(function(el) {
+    const negative = filtredByStatus.patients.filter(function (el) {
       return el.medical_status === "TESTED" && el.test_positive === false;
     });
 
@@ -212,7 +214,7 @@ const Dashboard = () => {
             }
             onClick={() => {
               setVisible(true);
-              getPatient().then(res => {
+              getPatient().then((res) => {
                 setPatient(get(res, "data.payload.patient", {}));
               });
             }}
@@ -248,7 +250,7 @@ const Dashboard = () => {
             onClose={() => {
               setVisible(false);
               setIsSent(false);
-              getAllPatients().then(res => {
+              getAllPatients().then((res) => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });
             }}
@@ -256,13 +258,13 @@ const Dashboard = () => {
               //add dynamic status flag
               setIsSent(true);
               await patchPatientBySAMU(patient.guid, textToSend, condition);
-              getAllPatients().then(res => {
+              getAllPatients().then((res) => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });
             }}
             onClickNext={() => {
               setIsSent(false);
-              getPatient().then(res => {
+              getPatient().then((res) => {
                 setPatient(get(res, "data.payload.patient", {}));
               });
             }}
@@ -278,15 +280,15 @@ const Dashboard = () => {
             patient={patient}
             onClose={() => {
               setShow(false);
-              getAllPatients().then(res => {
+              getAllPatients().then((res) => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });
             }}
-            onToTest={async positive => {
+            onToTest={async (positive) => {
               //add dynamic status flag
               setIsSent(true);
               await patchPatientBySAMUTESTED(patient.guid, positive);
-              getAllPatients().then(res => {
+              getAllPatients().then((res) => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });
             }}

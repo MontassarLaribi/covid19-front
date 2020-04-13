@@ -49,6 +49,7 @@
         "react-dom": "16.8.6",
         "react-draggable": "3.3.0",
         "react-frame-component": "4.1.0",
+        "react-ga": "^2.7.0",
         "react-i18next": "^11.3.4",
         "react-jsx-highmaps": "^2.0.1",
         "react-masonry-css": "1.0.12",

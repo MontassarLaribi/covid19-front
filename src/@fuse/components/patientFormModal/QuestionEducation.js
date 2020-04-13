@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MuiTextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-const QuestionEducation = props => {
+const QuestionEducation = (props) => {
   const [error, setError] = useState(false);
   const [stateNon, setStateNon] = useState(false);
   const [stateOui, setStateOui] = useState(false);
@@ -16,7 +16,7 @@ const QuestionEducation = props => {
       value: "1",
       stateOui,
       title: props.title,
-      extraData: props
+      extraData: props,
     });
   };
   const handleClickNon = () => {
@@ -27,12 +27,12 @@ const QuestionEducation = props => {
       value: "0",
       stateNon,
       title: props.title,
-      extraData: props
+      extraData: props,
     });
   };
 
   function renderTextField(props) {
-    if (props.title.indexOf("âge") > -1) {
+    if (props.type === 3 && props.title.indexOf("âge") > -1) {
       return (
         <>
           <p>{props.textField}</p>
@@ -43,11 +43,11 @@ const QuestionEducation = props => {
             variant="outlined"
             value={extraField}
             id="filled-basic"
-            onChange={v => handleText(v.target.value)}
+            onChange={(v) => handleText(v.target.value)}
           />
         </>
       );
-    } else if (props.title.indexOf("temperature")) {
+    } else if (props.type === 3 && props.title.indexOf("temperature")) {
       return (
         <>
           <p>{props.textField}</p>
@@ -58,7 +58,21 @@ const QuestionEducation = props => {
             variant="outlined"
             value={extraField}
             id="filled-basic"
-            onChange={v => handleText(v.target.value)}
+            onChange={(v) => handleText(v.target.value)}
+          />
+        </>
+      );
+    } else if (props.type === 2) {
+      return (
+        <>
+          <p>{props.textField}</p>
+          <MuiTextField
+            fullWidth
+            error={error}
+            variant="outlined"
+            value={extraField}
+            id="filled-basic"
+            onChange={(v) => handleText(v.target.value)}
           />
         </>
       );
@@ -67,24 +81,26 @@ const QuestionEducation = props => {
         <>
           <p>{props.textField}</p>
           <MuiTextField
+            type="number"
+            inputProps={{ min: "35", max: "50", step: "0.1" }}
             error={error}
             variant="outlined"
             value={extraField}
             id="filled-basic"
-            onChange={v => handleText(v.target.value)}
+            onChange={(v) => handleText(v.target.value)}
           />
         </>
       );
     }
   }
 
-  const handleText = data => {
+  const handleText = (data) => {
     props.getState({
       field: "responses",
       value: data,
       stateNon,
       title: props.title,
-      extraData: props
+      extraData: props,
     });
     setExtraField(data);
     setError(false);
@@ -94,7 +110,7 @@ const QuestionEducation = props => {
     <div className="question-item">
       <h5>{props.title}</h5>
       <p className="arabic-question">{props.description}</p>
-      {(props.type === 1 || props.type === 3) && (
+      {props.type === 1 && (
         <div>
           <Button
             className=""
@@ -106,7 +122,7 @@ const QuestionEducation = props => {
               backgroundColor: stateOui ? "#11B683" : "white",
               color: stateOui ? "white" : "#11B683",
               boxShadow: stateOui ? "none" : "none",
-              padding: "8px 28px"
+              padding: "8px 28px",
             }}
             color="primary"
             onClick={handleClickOui}
@@ -124,7 +140,7 @@ const QuestionEducation = props => {
               backgroundColor: stateNon ? "#E23B42" : "white",
               color: stateNon ? "white" : "#E23B42",
               boxShadow: stateNon ? "none" : "none",
-              padding: "8px 28px"
+              padding: "8px 28px",
             }}
             onClick={handleClickNon}
           >

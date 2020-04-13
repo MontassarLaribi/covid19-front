@@ -3,18 +3,19 @@ import React, { useState } from "react";
 //STABLE / SUSPECT / URGENT
 import ellipse from "../ellipse.svg";
 import group from "../group.svg";
+import moment from "moment";
 
 const predefinedResponses = [
   {
     title: "Dossier traité et accepté :",
     text:
-      "Votre dossier a été traité par l'équipe SAMU.  Un prélèvement est jugé nécessaire, notre équipe SAMU se déplacera vers xxadressexx. Entre temps, restez dans votre chambre et évitez tout contact avec les membres de votre famille."
+      "Votre dossier a été traité par l'équipe SAMU.  Un prélèvement est jugé nécessaire, notre équipe SAMU se déplacera vers xxadressexx. Entre temps, restez dans votre chambre et évitez tout contact avec les membres de votre famille.",
   },
   {
     title: "Dossier traité et refusé :",
     text:
-      "L'équipe SAMU vous informe que votre état ne semble pas préoccupant.Protégez-vous et protégez les autres en restant chez vous. En cas de modification de votre état de santé veuillez nous re-contacter."
-  }
+      "L'équipe SAMU vous informe que votre état ne semble pas préoccupant.Protégez-vous et protégez les autres en restant chez vous. En cas de modification de votre état de santé veuillez nous re-contacter.",
+  },
 ];
 
 const ClaimDialog = ({
@@ -24,7 +25,7 @@ const ClaimDialog = ({
   onSendSMS,
   onClickNext,
   patient,
-  allPatientsCount
+  allPatientsCount,
 }) => {
   const [response, setResponse] = useState("");
   // const [open, setOpen] = useState(false);
@@ -40,10 +41,12 @@ const ClaimDialog = ({
     phone_number,
     gender,
     audio,
-    responses
+    responses,
+    city,
+    created_at,
   } = patient;
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setResponse(event.target.value);
   };
 
@@ -55,7 +58,7 @@ const ClaimDialog = ({
   //   setOpen(true);
   // };
 
-  const renderClassName = value => {
+  const renderClassName = (value) => {
     const test = String(value) === "1";
     switch (test) {
       case false:
@@ -81,7 +84,7 @@ const ClaimDialog = ({
     }
   };
 
-  const renderQuestions = cat => {
+  const renderQuestions = (cat) => {
     return responses[cat].map((q, key) => {
       return (
         <div key={key} className="single-question">
@@ -143,7 +146,7 @@ const ClaimDialog = ({
     );
   };
 
-  const renderAudio = audio => {
+  const renderAudio = (audio) => {
     if (!audio) return "Pas d'enregistrement";
     return <audio controls src={"data:audio/mp3;base64," + audio} />;
   };
@@ -163,6 +166,10 @@ const ClaimDialog = ({
             <div className="claim-dialog-form">
               <div className="claim-dialog-user-info">
                 <p>
+                  Envoyé le:{" "}
+                  <span>{moment(created_at).format("DD/MM/YYYY HH:mm")}</span>
+                </p>
+                <p>
                   nom: <span>{last_name}</span>
                 </p>
                 <p>
@@ -173,6 +180,9 @@ const ClaimDialog = ({
                 </p>
                 <p>
                   adresse: <span>{address}</span>
+                </p>
+                <p>
+                  ville: <span>{city}</span>
                 </p>
                 <p>
                   code postal: <span>{zip_code}</span>
