@@ -14,6 +14,7 @@ import * as yup from "yup";
 import CharteSnack from "../charteSnack";
 import LoiSnack from "../loiSnack";
 import QuestionEducation from "./QuestionEducation";
+import ReactGA from "react-ga";
 
 const PatientSchema = yup.object().shape({
   mytel: yup
@@ -30,7 +31,8 @@ const PatientSchema = yup.object().shape({
   adresse: yup.string().required("Champ adresse est requis"),
   prenom: yup.string().required("Champ prenom est requis"),
   sexe: yup.string().required("Champ sexe est requis"),
-  acceptTerms: yup.bool().oneOf([true], "Champ requis")
+  acceptTerms: yup.bool().oneOf([true], "Champ requis"),
+  comment: yup.string().max(1500),
 });
 
 const Mp3Recorder = new MicRecorder({ bitRate: 128 });
@@ -43,7 +45,7 @@ const PatientFormModal = ({
   submitFormCallback,
   updateResponse,
   changePhoneNumber,
-  setType
+  setType,
 }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [blobURL, setBlobURL] = useState("");
@@ -69,18 +71,18 @@ const PatientFormModal = ({
         axios({
           method: "get",
           url: blobURL,
-          responseType: "blob"
-        }).then(function(response) {
+          responseType: "blob",
+        }).then(function (response) {
           var reader = new FileReader();
           reader.readAsDataURL(response.data);
-          reader.onloadend = function() {
+          reader.onloadend = function () {
             var base64data = reader.result;
             base64data = base64data.split(",")[1];
             setbase64Audio(base64data);
           };
         });
       })
-      .catch(e => console.log(e));
+      .catch((e) => console.log(e));
   };
 
   const start = () => {
@@ -90,7 +92,7 @@ const PatientFormModal = ({
         setplay(false);
         setstopRecord(true);
       })
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   };
   // TIMER START
   const [charte, setCharte] = useState(false);
@@ -110,7 +112,7 @@ const PatientFormModal = ({
     let interval = null;
     if (isActive && mSeconds < 30) {
       interval = setInterval(() => {
-        setMSeconds(mSeconds => mSeconds + 1);
+        setMSeconds((mSeconds) => mSeconds + 1);
       }, 1000);
     } else if (!isActive && mSeconds !== 0) {
       clearInterval(interval);
@@ -123,11 +125,11 @@ const PatientFormModal = ({
     return () => clearInterval(interval);
   }, [isActive, mSeconds]);
 
-  const handleClose = id => {
+  const handleClose = (id) => {
     modalAction(id);
   };
 
-  const getAllState = data => {
+  const getAllState = (data) => {
     updateResponse(data);
   };
 
@@ -218,10 +220,11 @@ const PatientFormModal = ({
             adresse: "",
             mytel: "",
             zipcode: "",
-            sexe: "MALE"
+            sexe: "MALE",
+            city: "ARIANA",
           }}
           validationSchema={PatientSchema}
-          onSubmit={values => {
+          onSubmit={(values) => {
             const caste = {
               // acceptTerms: values.acceptTerms,
               firstName: values.prenom,
@@ -230,7 +233,9 @@ const PatientFormModal = ({
               zipCode: values.zipcode,
               phoneNumber: values.mytel,
               gender: values.sexe,
-              audio: base64Audio
+              audio: base64Audio,
+              city: values.city,
+              comment: values.comment,
             };
             setType("patient");
             changePhoneNumber(values.mytel);
@@ -241,7 +246,7 @@ const PatientFormModal = ({
             submitForm,
             isSubmitting,
             values,
-            setFieldValue
+            setFieldValue,
           }) => (
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <Form>
@@ -249,7 +254,7 @@ const PatientFormModal = ({
                   style={{
                     textAlign: "center",
                     margin: 10,
-                    marginBottom: "30px"
+                    marginBottom: "30px",
                   }}
                 >
                   <Field
@@ -277,12 +282,12 @@ const PatientFormModal = ({
                             </button>
                           </h5>
                         </div>
-                      )
+                      ),
                     }}
                     name="acceptTerms"
                     variant="outlined"
                     style={{
-                      margin: "0 12px"
+                      margin: "0 12px",
                     }}
                   />
                   <ErrorMessage
@@ -293,7 +298,7 @@ const PatientFormModal = ({
                 </div>
                 <div
                   style={{
-                    margin: 10
+                    margin: 10,
                   }}
                 >
                   <Field
@@ -304,7 +309,7 @@ const PatientFormModal = ({
                     value={values.nom}
                     variant="outlined"
                     style={{
-                      margin: "0 12px"
+                      margin: "0 12px",
                     }}
                   />
                   <Field
@@ -315,13 +320,13 @@ const PatientFormModal = ({
                     value={values.prenom}
                     variant="outlined"
                     style={{
-                      margin: "0 12px"
+                      margin: "0 12px",
                     }}
                   />
                 </div>
                 <div
                   style={{
-                    margin: 10
+                    margin: 10,
                   }}
                 >
                   <Field
@@ -332,7 +337,7 @@ const PatientFormModal = ({
                     value={values.adresse}
                     variant="outlined"
                     style={{
-                      margin: "0 12px"
+                      margin: "0 12px",
                     }}
                   />
                   <Field
@@ -343,7 +348,7 @@ const PatientFormModal = ({
                     fullwidth="true"
                     style={{
                       margin: "0 12px",
-                      minWidth: "150px"
+                      minWidth: "150px",
                     }}
                     name="sexe"
                     id="sexe"
@@ -355,7 +360,52 @@ const PatientFormModal = ({
                 </div>
                 <div
                   style={{
-                    margin: 10
+                    margin: 10,
+                  }}
+                >
+                  <Field
+                    select
+                    component={TextField}
+                    label="Ville / المدينة"
+                    variant="outlined"
+                    fullwidth="true"
+                    style={{
+                      margin: "0 12px",
+                      minWidth: "150px",
+                    }}
+                    name="city"
+                    id="city"
+                    value={values.city}
+                  >
+                    <MenuItem value={"ARIANA"}>ARIANA</MenuItem>
+                    <MenuItem value={"BEJA"}>BEJA</MenuItem>
+                    <MenuItem value={"BEN AROUS"}>BEN AROUS</MenuItem>
+                    <MenuItem value={"BIZERTE"}>BIZERTE</MenuItem>
+                    <MenuItem value={"GABES"}>GABES</MenuItem>
+                    <MenuItem value={"GAFSA"}>GAFSA</MenuItem>
+                    <MenuItem value={"JENDOUBA"}>JENDOUBA</MenuItem>
+                    <MenuItem value={"KAIROUAN"}>KAIROUAN</MenuItem>
+                    <MenuItem value={"KASSERINE"}>KASSERINE</MenuItem>
+                    <MenuItem value={"KEBILI"}>KEBILI</MenuItem>
+                    <MenuItem value={"KEF"}>KEF</MenuItem>
+                    <MenuItem value={"MAHDIA"}>MAHDIA</MenuItem>
+                    <MenuItem value={"MANOUBA"}>MANOUBA</MenuItem>
+                    <MenuItem value={"MEDENINE"}>MEDENINE</MenuItem>
+                    <MenuItem value={"MONASTIR"}>MONASTIR</MenuItem>
+                    <MenuItem value={"NABEUL"}>NABEUL</MenuItem>
+                    <MenuItem value={"SFAX"}>SFAX</MenuItem>
+                    <MenuItem value={"SIDI BOUZID"}>SIDI BOUZID</MenuItem>
+                    <MenuItem value={"SILIANA"}>SILIANA</MenuItem>
+                    <MenuItem value={"SOUSSE"}>SOUSSE</MenuItem>
+                    <MenuItem value={"TATAOUINE"}>TATAOUINE</MenuItem>
+                    <MenuItem value={"TOZEUR"}>TOZEUR</MenuItem>
+                    <MenuItem value={"TUNIS"}>TUNIS</MenuItem>
+                    <MenuItem value={"ZAGHOUAN"}>ZAGHOUAN</MenuItem>
+                  </Field>
+                </div>
+                <div
+                  style={{
+                    margin: 10,
                   }}
                 >
                   <Field
@@ -366,7 +416,7 @@ const PatientFormModal = ({
                     value={values.mytel}
                     variant="outlined"
                     style={{
-                      margin: "0 12px"
+                      margin: "0 12px",
                     }}
                   />
 
@@ -378,7 +428,28 @@ const PatientFormModal = ({
                     value={values.zipcode}
                     variant="outlined"
                     style={{
-                      margin: "0 12px"
+                      margin: "0 12px",
+                    }}
+                  />
+                </div>
+                <div
+                  style={{
+                    margin: 10,
+                  }}
+                >
+                  <Field
+                    component={TextField}
+                    type="text"
+                    label="Autres commentaires / تعليقات أخرى"
+                    name="comment"
+                    multiline
+                    rows="8"
+                    fullwidth
+                    value={values.comment}
+                    variant="outlined"
+                    style={{
+                      margin: "0 12px",
+                      width: "100%",
                     }}
                   />
                 </div>
@@ -403,6 +474,11 @@ const PatientFormModal = ({
                     disabled={isSubmitting}
                     onClick={() => {
                       if (staticCount === dynamicCount) {
+                        ReactGA.event({
+                          category: "Malade",
+                          action:
+                            "L'utilisateur a rempli le formulaire et attend l'SMS",
+                        });
                         submitForm();
                       } else {
                         alert("Merci de répondre à toutes les questions");

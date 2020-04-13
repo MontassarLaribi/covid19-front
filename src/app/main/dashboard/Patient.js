@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
 import { CardActions } from "@material-ui/core";
+import moment from "moment";
 
 const useStyles = makeStyles({
   root: {
@@ -15,20 +16,20 @@ const useStyles = makeStyles({
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: "5px",
-    marginBottom: "5px"
+    marginBottom: "5px",
   },
   iconContainer: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     marginLeft: "auto",
-    marginRight: "auto"
+    marginRight: "auto",
   },
   hide: {
-    display: "none"
+    display: "none",
   },
   text: {
-    textAlign: "center"
+    textAlign: "center",
   },
   title: {
     textAlign: "center",
@@ -38,9 +39,9 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     color: "#596377",
     fontFamily: "Manrope",
-    letterSpacing: ".425px"
+    letterSpacing: ".425px",
   },
-  button: {}
+  button: {},
 });
 
 function renderFlag(flag) {
@@ -52,7 +53,7 @@ function renderFlag(flag) {
             style={{
               backgroundColor: "orange",
               height: "20px",
-              fontSize: "1rem"
+              fontSize: "1rem",
             }}
             label={flag}
           />
@@ -71,7 +72,7 @@ function renderFlag(flag) {
             style={{
               backgroundColor: "#e23b42",
               height: "20px",
-              fontSize: "1rem"
+              fontSize: "1rem",
             }}
             label={flag}
           />
@@ -90,7 +91,7 @@ function renderFlagStatus(flag, positive) {
             style={{
               backgroundColor: "orange",
               height: "20px",
-              fontSize: "1rem"
+              fontSize: "1rem",
             }}
             label="à Testé"
           />
@@ -110,7 +111,7 @@ function renderFlagStatus(flag, positive) {
               color="secondary"
               style={{
                 height: "20px",
-                fontSize: "1rem"
+                fontSize: "1rem",
               }}
               label="Déjà Testé"
             />
@@ -121,7 +122,7 @@ function renderFlagStatus(flag, positive) {
               style={{
                 backgroundColor: "#e23b42",
                 height: "20px",
-                fontSize: "1rem"
+                fontSize: "1rem",
               }}
               label="Déjà Testé"
             />
@@ -142,7 +143,8 @@ export default function Patient({
   handleClick,
   search,
   medicalStatus,
-  positive
+  positive,
+  created_at,
 }) {
   const classes = useStyles();
   function isSearchValid(search) {
@@ -164,6 +166,14 @@ export default function Patient({
       <CardActionArea onClick={handleClick}>
         <CardContent className={classes.cardContent}>
           {medicalStatus && renderFlagStatus(medicalStatus, positive)}
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            component="p"
+            className={classes.text}
+          >
+            {moment(created_at).format("DD/MM/YYYY HH:mm")}
+          </Typography>
           <Typography
             gutterBottom
             variant="h5"

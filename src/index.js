@@ -4,19 +4,19 @@
 // https://github.com/facebook/create-react-app/tree/master/packages/react-app-polyfill
 // import 'react-app-polyfill/ie11';
 // import 'react-app-polyfill/stable';
-import 'typeface-muli';
-import './react-table-defaults';
-import './react-chartjs-2-defaults';
-import './styles/index.css';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import * as serviceWorker from './serviceWorker';
-import App from 'app/App';
+import "typeface-muli";
+import "./react-table-defaults";
+import "./react-chartjs-2-defaults";
+import "./styles/index.css";
+import React from "react";
+import ReactDOM from "react-dom";
+import * as serviceWorker from "./serviceWorker";
+import App from "app/App";
+import ReactGA from "react-ga";
 
-ReactDOM.render(
-    <App/>,
-    document.getElementById('root')
-);
+const trackingId = "UA-163422239-1"; // Replace with your Google Analytics tracking ID
+ReactGA.initialize(trackingId);
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

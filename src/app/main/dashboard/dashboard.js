@@ -7,7 +7,7 @@ import {
   getPatientSingle,
   getAllPatients,
   patchPatientByDoc,
-  patchPatientByDocDenoncer
+  patchPatientByDocDenoncer,
 } from "app/libs/apis";
 import Patient from "./Patient";
 import ClaimDialog from "./components/claim-dialog";
@@ -26,7 +26,7 @@ const Dashboard = () => {
   const [allPatients, setAllPatients] = useState();
 
   useEffect(() => {
-    getAllPatients().then(res => {
+    getAllPatients().then((res) => {
       setAllPatients(get(res, "data.payload.patients", {}));
     });
   }, []);
@@ -50,7 +50,7 @@ const Dashboard = () => {
     return currentStatus;
   }
 
-  const renderPatients = patients => {
+  const renderPatients = (patients) => {
     return patients.map((patient, key) => (
       <Patient
         key={key}
@@ -58,11 +58,12 @@ const Dashboard = () => {
         text={patient.phone_number}
         title={patient.first_name + " " + patient.last_name}
         flag={patient.flag}
+        created_at={patient.created_at}
         search={search}
         handleClick={() => {
           if (patient.status === "CLOSED") {
             setShow(true);
-            getPatientSingle(patient.guid).then(res => {
+            getPatientSingle(patient.guid).then((res) => {
               setPatient(get(res, "data.payload.patient", {}));
             });
             setPatient(patient);
@@ -94,7 +95,7 @@ const Dashboard = () => {
     });
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setSearch(e.target.value);
   };
 
@@ -114,7 +115,7 @@ const Dashboard = () => {
             }
             onClick={() => {
               setVisible(true);
-              getPatient().then(res => {
+              getPatient().then((res) => {
                 setPatient(get(res, "data.payload.patient", {}));
               });
             }}
@@ -142,7 +143,7 @@ const Dashboard = () => {
             onClose={() => {
               setVisible(false);
               setIsSent(false);
-              getAllPatients().then(res => {
+              getAllPatients().then((res) => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });
             }}
@@ -154,20 +155,20 @@ const Dashboard = () => {
                 patient.guid,
                 textToSend
               );
-              getAllPatients().then(res => {
+              getAllPatients().then((res) => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });
             }}
             onDenoncer={() => {
               setIsSent(true);
               patchPatientByDocDenoncer(patient.guid);
-              getAllPatients().then(res => {
+              getAllPatients().then((res) => {
                 setAllPatients(get(res, "data.payload.patients", {}));
               });
             }}
             onClickNext={() => {
               setIsSent(false);
-              getPatient().then(res => {
+              getPatient().then((res) => {
                 setPatient(get(res, "data.payload.patient", {}));
               });
             }}
