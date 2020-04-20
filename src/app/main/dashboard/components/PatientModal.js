@@ -6,7 +6,7 @@ const ClaimDialog = ({
   isSent = false,
   onClose,
   patient,
-  onToTest
+  onToTest,
 }) => {
   const {
     first_name,
@@ -19,10 +19,10 @@ const ClaimDialog = ({
     responses,
     flag,
     medical_status,
-    test_positive
+    test_positive,
   } = patient;
 
-  const renderClassName = value => {
+  const renderClassName = (value) => {
     const test = String(value) === "1";
     switch (test) {
       case false:
@@ -91,8 +91,8 @@ const ClaimDialog = ({
     }
   };
 
-  const renderQuestions = cat => {
-    const newArray = responses.filter(function(resp) {
+  const renderQuestions = (cat) => {
+    const newArray = responses.filter(function (resp) {
       return resp.question.category === cat;
     });
     return newArray.map((q, key) => {
@@ -143,7 +143,7 @@ const ClaimDialog = ({
     );
   };
 
-  const renderAudio = audio => {
+  const renderAudio = (audio) => {
     if (!audio) return "Pas d'enregistrement";
     return <audio controls src={"data:audio/mp3;base64," + audio} />;
   };

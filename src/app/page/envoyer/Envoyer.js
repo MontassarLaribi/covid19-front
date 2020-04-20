@@ -2,9 +2,9 @@ import React from "react";
 
 import group from "./Group40.svg";
 
-import "./envoiyer.css";
+import "./envoyer.css";
 
-const Envoiyer = props => {
+const Envoyer = (props) => {
   return (
     <>
       <button className="send">
@@ -34,4 +34,4 @@ const Envoiyer = props => {
   );
 };
 
-export default Envoiyer;
+export default Envoyer;

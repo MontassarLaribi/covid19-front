@@ -302,7 +302,7 @@ const ClaimDialog = ({
                 >
                   Envoyer SMS Et Valider
                 </Button>
-                <Button
+                {/* <Button
                   variant="outlined"
                   size="large"
                   onClick={() => {
@@ -312,7 +312,7 @@ const ClaimDialog = ({
                   }}
                 >
                   Dénoncer patient
-                </Button>
+                </Button> */}
               </div>
             </div>
           </Grid>

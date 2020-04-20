@@ -6,7 +6,7 @@ import { Register2PageConfig } from "app/page/register/Register2PageConfig";
 import { WelcomeConfig } from "app/page/welcome/WelcomeConfig";
 import { BoardConfig } from "app/main/dashboard/dashboard-config";
 import { BoardSamuConfig } from "app/main/dashboard-samu/dashboard-config";
-import { EnvoiyerConfig } from "app/page/envoiyer/EnvoiyerConfig";
+import { EnvoyerConfig } from "app/page/envoyer/EnvoyerConfig";
 
 const routeConfigs = [
   ExampleConfig,
@@ -14,15 +14,15 @@ const routeConfigs = [
   WelcomeConfig,
   BoardConfig,
   BoardSamuConfig,
-  EnvoiyerConfig
+  EnvoyerConfig,
 ];
 
 const routes = [
   ...FuseUtils.generateRoutesFromConfigs(routeConfigs),
   {
     path: "/",
-    component: () => <Redirect to="/welcome" />
-  }
+    component: () => <Redirect to="/welcome" />,
+  },
 ];
 
 export default routes;
