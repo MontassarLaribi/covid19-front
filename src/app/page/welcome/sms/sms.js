@@ -14,7 +14,7 @@ const Sms = ({
   submitFinal,
   data,
   type,
-  submitFinalPatient
+  submitFinalPatient,
 }) => {
   const [code, setCode] = React.useState("");
   const [error, setError] = React.useState(false);
@@ -39,7 +39,7 @@ const Sms = ({
       <div className="modal-content"></div>
       <img className="Ellipse" src={elilpse} alt="ellipse" />
       {/* <button
-        onClick={() => history.push("/envoiyer/maladie")}
+        onClick={() => history.push("/envoyer/maladie")}
         className="send"
       >
       </button> */}
@@ -48,31 +48,37 @@ const Sms = ({
       </div>
 
       <div className="jumbotron jumbotron-fluid text-center ">
-        <h1>SMS envoyé</h1>
-        <p className="lead">
+        <h1>SMS envoyé / SMSتم إرسال ال</h1>
+        <p style={{ color: "red" }} className="lead">
           Nous venons d'envoyer un code à six chiffres au &nbsp;
-          <strong> {tel} </strong>. Entrez le code reçu ci-dessous <br /> pour
+          <strong> {tel} </strong>. Entrez le code reçu ci-dessous pour
           confirmer votre identité
+        </p>
+        <p className="lead" style={{ marginTop: "20px", color: "red" }}>
+          لقد أرسلنا رمزًا مكونًا من ستة أرقام إلى &nbsp;
+          <strong> {tel} </strong>. أدخل الرمز المستلم أدناه لتأكيد هويتك
         </p>
 
         <div className="sms-verification-simple">
           {!error ? (
             <input
+              id="code"
               style={{
                 color: "black",
                 border: "2px solid",
-                textAlign: "center"
+                textAlign: "center",
               }}
               type="text"
               className="form-control"
               maxLength="6"
-              placeholder=""
+              placeholder="000000"
               value={code}
               onChange={handleInputChange}
               aria-describedby="basic-addon1"
             />
           ) : (
             <input
+              id="code"
               style={{ color: "red", border: "2px solid", textAlign: "center" }}
               type="text"
               className="form-control"

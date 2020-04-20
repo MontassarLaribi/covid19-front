@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import logo from "../../img/logo-plain.png";
 import associaMed from "../../img/associaMed.png";
-import ministere from "../../img/ministere.png";
+// import ministere from "../../img/ministere.png";
 import facebook from "../../img/social/facebook-icon.svg";
 import samu from "../../img/samu.png";
 import instagram from "../../img/social/instagram-icon.svg";
@@ -231,7 +231,7 @@ const Welcome = (props) => {
           category: "Dénonciation",
           action: "L'utilisateur a validé le formulaire de dénonciation",
         });
-        history.push("/envoiyer/maladie");
+        history.push("/envoyer/maladie");
       })
       .catch((error) => {
         if (error.response.data.code === 403) {
@@ -264,7 +264,7 @@ const Welcome = (props) => {
           category: "Malade",
           action: "L'utilisateur a validé le formulaire de malade",
         });
-        history.push("/envoiyer/maladie");
+        history.push("/envoyer/maladie");
       })
       .catch((error) => {
         if (error.response.data.code === 403) {
@@ -311,6 +311,9 @@ const Welcome = (props) => {
               >
                 FR
               </span>
+            </li>
+            <li>
+              <span onClick={() => props.ModalAction("sms")}>sms</span>
             </li>
           </ul>
         </div>
