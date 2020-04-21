@@ -47,7 +47,7 @@ const ClaimDialog = ({
   const [open, setOpen] = useState(false);
   const [condition, setCondition] = useState(null);
 
-  console.log("patient", patient);
+  // console.log("patient", patient);
 
   const {
     first_name,
@@ -59,6 +59,7 @@ const ClaimDialog = ({
     audio,
     responses,
     city,
+    comment,
     created_at,
   } = patient;
 
@@ -222,6 +223,9 @@ const ClaimDialog = ({
                 </p>
                 <p>
                   numéro de téléphone: <span>{phone_number}</span>
+                </p>
+                <p>
+                  commentaire: <span>{comment}</span>
                 </p>
                 <p>{renderAudio(audio)}</p>
               </div>

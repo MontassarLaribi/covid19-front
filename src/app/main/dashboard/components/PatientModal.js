@@ -20,6 +20,7 @@ const ClaimDialog = ({
     flag,
     medical_status,
     test_positive,
+    comment,
   } = patient;
 
   const renderClassName = (value) => {
@@ -193,6 +194,9 @@ const ClaimDialog = ({
                 </p>
                 <p>
                   numéro de téléphone: <span>{phone_number}</span>
+                </p>
+                <p>
+                  commentaire: <span>{comment}</span>
                 </p>
                 <p>{renderAudio(audio)}</p>
               </div>

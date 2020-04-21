@@ -44,6 +44,7 @@ const ClaimDialog = ({
     responses,
     city,
     created_at,
+    comment,
   } = patient;
 
   const handleChange = (event) => {
@@ -203,6 +204,9 @@ const ClaimDialog = ({
                 </p>
                 <p>
                   numéro de téléphone: <span>{phone_number}</span>
+                </p>
+                <p>
+                  commentaire: <span>{comment}</span>
                 </p>
                 <p>{renderAudio(audio)}</p>
               </div>
