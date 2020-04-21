@@ -109,6 +109,20 @@ const ClaimDialog = ({
             </Button>
           )}
           {q.question.type === 2 && (
+            <>
+              <TextField
+                className="question-textfield"
+                label=""
+                disabled
+                multiline
+                fullWidth
+                rows={4}
+                variant="outlined"
+                value={q.value}
+              />
+            </>
+          )}
+          {q.question.type === 3 && (
             <TextField
               className="question-textfield"
               label=""
