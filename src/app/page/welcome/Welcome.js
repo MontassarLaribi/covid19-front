@@ -1,11 +1,11 @@
-import { InformModal, PatientFormModal, WelcomeCard } from "@fuse";
+import { InformModal, WelcomeCard } from "@fuse";
 import history from "@history";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { addInformer, ModalAction } from "app/store/actions";
 import axios from "axios";
 import { DOMAINE } from "config";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import logo from "../../img/logo-plain.png";
 import associaMed from "../../img/associaMed.png";
@@ -23,16 +23,6 @@ import Alert from "@material-ui/icons/AddAlert";
 import AboutModal from "../../../@fuse/components/aboutModal";
 import ReactGA from "react-ga";
 
-// const styles = theme => ({
-//   layoutRoot: {
-//     height: "100vh",
-//     // paddingTop: "5rem",
-//     textAlign: "center"
-//   },
-//   title: {
-//     paddingBottom: "1.2rem"
-//   }
-// });
 const useStyles = makeStyles((theme) => ({
   arabi: {
     flexDirection: "row-reverse",
@@ -63,18 +53,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Welcome = (props) => {
-  const [question, setquestion] = useState([]);
-  const [lengthFormStatic, setlengthFormStatic] = useState(0);
-  const [lengthFormDynamic, setlengthFormDynamic] = useState(0);
-  const [responses, setReponse] = useState({
-    firstName: "string",
-    lastName: "string",
-    address: "string",
-    zipCode: 0,
-    phoneNumber: 0,
-    responses: [],
-  });
-
   const [about, setAbout] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
@@ -92,7 +70,9 @@ const Welcome = (props) => {
       buttonContent: "CARD_PATIENT_BTN",
       src: "assets/images/welcome/sick.png",
       handleClick: () => {
-        props.ModalAction("PatientForm");
+        history.push({
+          pathname: "/formulaire",
+        });
       },
     },
     {
@@ -147,68 +127,6 @@ const Welcome = (props) => {
     }
   }
 
-  const renderLabelCategroy = (cat) => {
-    switch (cat) {
-      case "CATEGORY_GENERAL":
-        return "Questions générales";
-      case "CATEGORY_SYMPTOMS":
-        return "Les symptômes";
-      case "CATEGORY_ANTECEDENT":
-        return "Questions médicales";
-      default:
-        break;
-    }
-  };
-  useEffect(() => {
-    axios
-      .get(`${DOMAINE}/api/v1/question`)
-      .then((res) => {
-        if (res && res.data && res.data.payload && res.data.payload.questions) {
-          let cleanData = [];
-          let currentSome = 0;
-          for (let key in res.data.payload.questions) {
-            currentSome = currentSome + res.data.payload.questions[key].length;
-            cleanData.push({
-              section: key,
-              label: renderLabelCategroy(key),
-              key: key,
-              questions: res.data.payload.questions[key],
-            });
-          }
-          setquestion(cleanData);
-          setlengthFormStatic(currentSome);
-        } else {
-          setquestion([]);
-        }
-      })
-      .catch((err) => setquestion(err));
-  }, []);
-
-  const updateResponse = (data) => {
-    const newResponse = responses;
-    const findIt = newResponse[data.field].findIndex(
-      (d) => d.question === data.extraData.id
-    );
-    if (findIt !== -1) {
-      if (data.value) {
-        newResponse[data.field].splice(findIt, 1, {
-          value: data.value,
-          question: data.extraData.id,
-        });
-      } else {
-        newResponse[data.field].splice(findIt, 1);
-        setlengthFormDynamic(lengthFormDynamic - 1);
-      }
-    } else {
-      newResponse[data.field].push({
-        value: data.value,
-        question: data.extraData.id,
-      });
-      setlengthFormDynamic(lengthFormDynamic + 1);
-    }
-    setReponse(newResponse);
-  };
-
   const submitForm = (data) => {
     const number = { number: data.phoneNumber };
     setData(data);
@@ -255,39 +173,6 @@ const Welcome = (props) => {
       });
   };
 
-  const submitPatientAfterVerification = () => {
-    const newData = { ...responses, ...data };
-    axios
-      .post(`${DOMAINE}/api/v1/patient`, { ...newData })
-      .then((res) => {
-        ReactGA.event({
-          category: "Malade",
-          action: "L'utilisateur a validé le formulaire de malade",
-        });
-        history.push("/envoyer/maladie");
-      })
-      .catch((error) => {
-        if (error.response.data.code === 403) {
-          ReactGA.event({
-            category: "Malade",
-            action: "L'utilisateur à été bloqué il doit attendre 6H",
-          });
-          alert(
-            error.response.data.message
-              .replace(
-                "Patient with phone number",
-                "Nous avons déjà reçu un formulaire avec ce numéro"
-              )
-              .replace(
-                "can submit again in",
-                "vous serez en mesure d'en renvoyer un autre que dans"
-              )
-          );
-          window.location.reload();
-        }
-      });
-  };
-
   const { t, i18n } = useTranslation("welcome");
 
   return (
@@ -311,9 +196,6 @@ const Welcome = (props) => {
               >
                 FR
               </span>
-            </li>
-            <li>
-              <span onClick={() => props.ModalAction("sms")}>sms</span>
             </li>
           </ul>
         </div>
@@ -342,9 +224,6 @@ const Welcome = (props) => {
       </div>
       <Grid container style={{ placeContent: "center" }}>
         <Grid item xs={9}>
-          <h3 style={{ textAlign: "center", justifyContent: "center" }}>
-            Plateforme en test / الموقع قيد الاختبار
-          </h3>
           <div className="welcome-title">
             <h1>مع بعضنا</h1>
             <h1>Ensemble</h1>
@@ -357,7 +236,6 @@ const Welcome = (props) => {
         </Grid>
       </Grid>
 
-      {/*  <GroupedWelcomeCards/> */}
       <div className="card-wrapper">
         <Grid container className={classes.root} spacing={2}>
           <Grid item xs={12}>
@@ -386,14 +264,10 @@ const Welcome = (props) => {
             </Grid>
           </Grid>
         </Grid>
-        {/* <div className=""> */}
         <div className="partenariat">Agréée par | En partenariat avec</div>
         <ul className="logos">
           <li>
-            <button
-              onClick={() => setAbout(true)}
-              // href="javascript:;"
-            >
+            <button onClick={() => setAbout(true)}>
               <img className="logo" src={logo} alt="logo" />
             </button>
           </li>
@@ -488,19 +362,7 @@ const Welcome = (props) => {
           </span>
           <span className="MuiTouchRipple-root"></span>
         </button>
-        {/* </div> */}
-        {lengthFormStatic !== 0 && (
-          <PatientFormModal
-            updateResponse={updateResponse}
-            changePhoneNumber={setPhoneNumber}
-            dataModal={question ? question : []}
-            modalAction={props.ModalAction}
-            submitFormCallback={submitForm}
-            staticCount={lengthFormStatic}
-            dynamicCount={lengthFormDynamic}
-            setType={setType}
-          />
-        )}
+
         <InformModal
           changePhoneNumber={setPhoneNumber}
           modalAction={props.ModalAction}
@@ -513,7 +375,6 @@ const Welcome = (props) => {
           history={history}
           data={data}
           submitFinal={submitInformerAfterVerification}
-          submitFinalPatient={submitPatientAfterVerification}
           modalAction={props.ModalAction}
           verificationCode={verificationCode}
         />
