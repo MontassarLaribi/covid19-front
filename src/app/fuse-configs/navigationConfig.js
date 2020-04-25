@@ -1,20 +1,20 @@
 const navigationConfig = [
-    {
-        'id'      : 'applications',
-        'title'   : 'Applications',
-        'type'    : 'group',
-        'icon'    : 'apps',
-        'children': [
-            {
-                'id'   : 'board-component',
-                'title': 'Board',
-                'type' : 'item',
-                'icon' : 'whatshot',
-                'url'  : '/dashboard'
-            }
-        ]
-    },
-/*     {
+  {
+    id: "applications",
+    title: "Applications",
+    type: "group",
+    icon: "apps",
+    children: [
+      {
+        id: "board-component",
+        title: "Dashboard",
+        type: "item",
+        icon: "whatshot",
+        url: "/docteur",
+      },
+    ],
+  },
+  /*     {
         'id'      : 'applications',
         'title'   : 'Applications',
         'type'    : 'group',
@@ -29,7 +29,6 @@ const navigationConfig = [
             }
         ]
     }, */
-    
 ];
 
 export default navigationConfig;

@@ -133,7 +133,6 @@ const PatientFormModal = ({
     updateResponse(data);
   };
 
-  // console.log("dynamicCount,  staticCount,", dynamicCount, staticCount);
   return (
     <Modal className="patientForm" id="PatientForm" ModalAction={modalAction}>
       <LoiSnack />

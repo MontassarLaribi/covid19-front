@@ -107,7 +107,7 @@ const QuestionEducation = (props) => {
   };
 
   return (
-    <div className="question-item">
+    <div className="question-item" style={props.style}>
       <h5>{props.title}</h5>
       <p className="arabic-question">{props.description}</p>
       {props.type === 1 && (

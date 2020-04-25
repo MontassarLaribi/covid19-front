@@ -17,6 +17,7 @@ import { connect } from "react-redux";
 import "./dashboard.scss";
 import PatientDashboardFormModal from "@fuse/components/patientFormModal/PatientDashboardFormModal";
 import { ModalAction } from "app/store/actions";
+import history from "@history";
 
 const listOfStatus = ["non-traité", "en cours de traitement", "traité"];
 
@@ -225,7 +226,8 @@ const Dashboard = (props) => {
             style={{ marginLeft: "32px" }}
             variant="outlined"
             onClick={() => {
-              props.ModalAction("PatientForm");
+              history.push("/dossier");
+              // props.ModalAction("PatientForm");
             }}
           >
             Ajouter un dossier
