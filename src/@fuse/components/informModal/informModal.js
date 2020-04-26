@@ -121,7 +121,7 @@ const InformModal = ({
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Form
                   onSubmit={() => {
-                    submitForm(values);
+                    submitForm(values, 2);
                   }}
                 >
                   <h4 className="form-title">

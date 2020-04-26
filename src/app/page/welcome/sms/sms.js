@@ -10,7 +10,7 @@ const Sms = ({
   modalAction,
   history,
   tel,
-  verificationCode,
+  // verificationCode,
   submitFinal,
   data,
   type,
@@ -18,18 +18,28 @@ const Sms = ({
 }) => {
   const [code, setCode] = React.useState("");
   const [error, setError] = React.useState(false);
+  const [disabled, setDisabled] = React.useState(false);
 
-  function handleInputChange(e) {
+  async function handleInputChange(e) {
     const value = e.target.value;
     setCode(value);
-    if (value !== verificationCode) {
+    if (value.length !== 6) {
       setError(true);
+      setDisabled(false);
     } else {
+      setDisabled(true);
       setError(false);
       if (type === "informer") {
-        submitFinal();
+        const response = await submitFinal(value);
+        if (response === 404) {
+          setCode("");
+        }
       } else {
-        submitFinalPatient();
+        const response = await submitFinalPatient(value);
+        if (response === 404) {
+          setDisabled(false);
+          setCode("");
+        }
       }
     }
   }
@@ -70,6 +80,7 @@ const Sms = ({
               }}
               type="text"
               className="form-control"
+              disabled={disabled}
               maxLength="6"
               placeholder="000000"
               value={code}
@@ -83,6 +94,7 @@ const Sms = ({
               type="text"
               className="form-control"
               maxLength="6"
+              disabled={disabled}
               placeholder=""
               value={code}
               onChange={handleInputChange}

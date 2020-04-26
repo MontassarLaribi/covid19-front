@@ -92,7 +92,7 @@ const Formulaire = (props) => {
 
   const [about, setAbout] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [verificationCode, setVerificationCode] = useState("");
+  // const [verificationCode, setVerificationCode] = useState("");
   const [data, setData] = useState({});
 
   const classes = useStyles();
@@ -159,23 +159,22 @@ const Formulaire = (props) => {
     setReponse(newResponse);
   };
 
-  const submitForm = (data) => {
-    const number = { number: data.phoneNumber };
+  const submitForm = (data, type) => {
+    const body = { number: data.phoneNumber, type: type };
     setData(data);
 
     axios
       .post(`${DOMAINE}/api/v1/sms/authentication`, {
-        ...number,
+        ...body,
       })
       .then((res) => {
-        setVerificationCode(res.data.payload.verificationCode);
+        // setVerificationCode(res.data.payload.verificationCode);
         props.ModalAction("sms");
       });
   };
 
-  const submitPatientAfterVerification = () => {
-    const newData = { ...responses, ...data };
-    console.log(newData);
+  const submitPatientAfterVerification = (pinCode) => {
+    const newData = { ...responses, ...data, ...{ pinCode } };
     axios
       .post(`${DOMAINE}/api/v1/patient`, { ...newData })
       .then((res) => {
@@ -203,6 +202,14 @@ const Formulaire = (props) => {
               )
           );
           window.location.reload();
+        }
+        if (error.response.data.code === 404) {
+          ReactGA.event({
+            category: "Malade",
+            action: "L'utilisateur à entré un code erroné",
+          });
+          alert("Code erroné veuillez ressayer!");
+          return 404;
         }
       });
   };
@@ -396,7 +403,7 @@ const Formulaire = (props) => {
             };
             setPhoneNumber(values.mytel);
             setData(caste);
-            submitForm(caste);
+            submitForm(caste, 1);
           }}
           render={({
             resetForm,
@@ -470,6 +477,8 @@ const Formulaire = (props) => {
                       <div
                         style={{
                           margin: 10,
+                          display: "flex",
+                          placeContent: "center",
                         }}
                       >
                         <Field
@@ -481,15 +490,9 @@ const Formulaire = (props) => {
                           variant="outlined"
                           style={{
                             margin: "0 12px",
-                            width: "100%",
+                            width: "40%",
                           }}
                         />
-                      </div>
-                      <div
-                        style={{
-                          margin: 10,
-                        }}
-                      >
                         <Field
                           component={TextField}
                           type="text"
@@ -499,13 +502,15 @@ const Formulaire = (props) => {
                           variant="outlined"
                           style={{
                             margin: "0 12px",
-                            width: "100%",
+                            width: "40%",
                           }}
                         />
                       </div>
                       <div
                         style={{
                           margin: 10,
+                          display: "flex",
+                          placeContent: "center",
                         }}
                       >
                         <Field
@@ -517,13 +522,27 @@ const Formulaire = (props) => {
                           variant="outlined"
                           style={{
                             margin: "0 12px",
-                            width: "100%",
+                            width: "60%",
+                          }}
+                        />
+                        <Field
+                          component={TextField}
+                          type="text"
+                          label="Code Postal / رقم البريد"
+                          name="zipcode"
+                          value={values.zipcode}
+                          variant="outlined"
+                          style={{
+                            margin: "0 12px",
+                            width: "20%",
                           }}
                         />
                       </div>
                       <div
                         style={{
                           margin: 10,
+                          display: "flex",
+                          placeContent: "center",
                         }}
                       >
                         <Field
@@ -535,7 +554,7 @@ const Formulaire = (props) => {
                           style={{
                             margin: "0 12px",
                             minWidth: "150px",
-                            width: "100%",
+                            width: "20%",
                           }}
                           name="sexe"
                           id="sexe"
@@ -544,12 +563,6 @@ const Formulaire = (props) => {
                           <MenuItem value={"MALE"}>Homme</MenuItem>
                           <MenuItem value={"FEMALE"}>Femme</MenuItem>
                         </Field>
-                      </div>
-                      <div
-                        style={{
-                          margin: 10,
-                        }}
-                      >
                         <Field
                           select
                           component={TextField}
@@ -559,7 +572,7 @@ const Formulaire = (props) => {
                           style={{
                             margin: "0 12px",
                             minWidth: "150px",
-                            width: "100%",
+                            width: "20%",
                           }}
                           name="city"
                           id="city"
@@ -590,12 +603,6 @@ const Formulaire = (props) => {
                           <MenuItem value={"TUNIS"}>TUNIS</MenuItem>
                           <MenuItem value={"ZAGHOUAN"}>ZAGHOUAN</MenuItem>
                         </Field>
-                      </div>
-                      <div
-                        style={{
-                          margin: 10,
-                        }}
-                      >
                         <Field
                           component={TextField}
                           type="text"
@@ -605,31 +612,15 @@ const Formulaire = (props) => {
                           variant="outlined"
                           style={{
                             margin: "0 12px",
-                            width: "100%",
+                            width: "37%",
                           }}
                         />
                       </div>
                       <div
                         style={{
                           margin: 10,
-                        }}
-                      >
-                        <Field
-                          component={TextField}
-                          type="text"
-                          label="Code Postal / رقم البريد"
-                          name="zipcode"
-                          value={values.zipcode}
-                          variant="outlined"
-                          style={{
-                            margin: "0 12px",
-                            width: "100%",
-                          }}
-                        />
-                      </div>
-                      <div
-                        style={{
-                          margin: 10,
+                          display: "flex",
+                          placeContent: "center",
                         }}
                       >
                         <Field
@@ -644,7 +635,7 @@ const Formulaire = (props) => {
                           variant="outlined"
                           style={{
                             margin: "0 12px",
-                            width: "100%",
+                            width: "84%",
                           }}
                         />
                       </div>
@@ -894,7 +885,7 @@ const Formulaire = (props) => {
           data={data}
           submitFinalPatient={submitPatientAfterVerification}
           modalAction={props.ModalAction}
-          verificationCode={verificationCode}
+          // verificationCode={verificationCode}
         />
       </div>
     </div>

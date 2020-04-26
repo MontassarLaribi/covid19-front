@@ -14,6 +14,7 @@ import facebook from "../../img/social/facebook-icon.svg";
 import samu from "../../img/samu.png";
 import instagram from "../../img/social/instagram-icon.svg";
 import tunisieTelecom from "../../img/tunisieTelecom.png";
+import couffin from "../../img/couffin-du-tunisien.jpg";
 import beecoop from "../../img/beecoop.png";
 import esprit from "../../img/esprit.png";
 import "../../scss/welcome_page.scss";
@@ -55,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const Welcome = (props) => {
   const [about, setAbout] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [verificationCode, setVerificationCode] = useState("");
+  // const [verificationCode, setVerificationCode] = useState("");
   const [data, setData] = useState({});
   const [type, setType] = useState("");
 
@@ -127,23 +128,23 @@ const Welcome = (props) => {
     }
   }
 
-  const submitForm = (data) => {
-    const number = { number: data.phoneNumber };
+  const submitForm = (data, type) => {
+    const body = { number: data.phoneNumber, type: type };
     setData(data);
 
     axios
       .post(`${DOMAINE}/api/v1/sms/authentication`, {
-        ...number,
+        ...body,
       })
       .then((res) => {
-        setVerificationCode(res.data.payload.verificationCode);
+        // setVerificationCode(res.data.payload.verificationCode);
         props.ModalAction("sms");
       });
   };
 
-  const submitInformerAfterVerification = () => {
+  const submitInformerAfterVerification = (pinCode) => {
     axios
-      .post(`${DOMAINE}/api/v1/informer`, { ...data })
+      .post(`${DOMAINE}/api/v1/informer`, { ...data, ...{ pinCode } })
       .then((res) => {
         ReactGA.event({
           category: "Dénonciation",
@@ -169,6 +170,14 @@ const Welcome = (props) => {
               )
           );
           window.location.reload();
+        }
+        if (error.response.data.code === 404) {
+          ReactGA.event({
+            category: "Dénonciation",
+            action: "L'utilisateur à entré un code erroné",
+          });
+          alert("Code erroné veuillez ressayer!");
+          return 404;
         }
       });
   };
@@ -329,39 +338,76 @@ const Welcome = (props) => {
             </a>
           </li>
         </ul>
-
-        <button
-          onClick={() =>
-            (window.location.href = "https://api.maabaadhna.com/admin/login")
-          }
-          style={{ display: "flex", marginLeft: "auto" }}
-          className="MuiButtonBase-root MuiButton-root makeStyles-button-877 MuiButton-textPrimary MuiButton-text MuiButton-sizeSmall"
-          tabIndex="0"
-          type="button"
-        >
-          <span
-            className="MuiButton-label"
-            style={{
-              fontSize: "1em",
-              display: "table",
-              width: "auto",
-              border: "1px solid #707070",
-              padding: "12px 15px",
-              borderRadius: "50px",
-              margin: "10px",
-              color: "#707070",
-              // position: "fixed",
-              bottom: "50px",
-              right: "30px",
-            }}
+        <div style={{ display: "flex", marginLeft: "auto" }}>
+          <button
+            onClick={() =>
+              (window.location.href =
+                "https://www.cha9a9a.tn/fund/detail/le-couffin-du-tunisien-covid-19-792537")
+            }
+            style={{ marginLeft: "auto" }}
+            className="MuiButtonBase-root MuiButton-root makeStyles-button-877 MuiButton-textPrimary MuiButton-text MuiButton-sizeSmall"
+            tabIndex="0"
+            type="button"
           >
-            <Alert />
-            <span style={{ verticalAlign: "super" }}>
-              {t("ESPACE_SHOC_ROOM")}
+            <span
+              className="MuiButton-label"
+              style={{
+                fontSize: "1em",
+                display: "flex",
+                flexDirection: "column",
+                width: "auto",
+                padding: "12px 15px",
+                margin: "10px",
+                color: "#707070",
+                // position: "fixed",
+                bottom: "50px",
+                right: "30px",
+              }}
+            >
+              <img
+                src={couffin}
+                alt="le couffin du tunisien"
+                style={{ maxWidth: "100px" }}
+              />
+              <span style={{ verticalAlign: "super" }}>
+                Pour soutenir la cause du couffin du Tunisien <br />
+                cliquez ici
+              </span>
             </span>
-          </span>
-          <span className="MuiTouchRipple-root"></span>
-        </button>
+            <span className="MuiTouchRipple-root"></span>
+          </button>
+          <button
+            onClick={() =>
+              (window.location.href = "https://api.maabaadhna.com/admin/login")
+            }
+            className="MuiButtonBase-root MuiButton-root makeStyles-button-877 MuiButton-textPrimary MuiButton-text MuiButton-sizeSmall"
+            tabIndex="0"
+            type="button"
+          >
+            <span
+              className="MuiButton-label"
+              style={{
+                fontSize: "1em",
+                display: "table",
+                width: "auto",
+                border: "1px solid #707070",
+                padding: "12px 15px",
+                borderRadius: "50px",
+                margin: "10px",
+                color: "#707070",
+                // position: "fixed",
+                bottom: "50px",
+                right: "30px",
+              }}
+            >
+              <Alert />
+              <span style={{ verticalAlign: "super" }}>
+                {t("ESPACE_SHOC_ROOM")}
+              </span>
+            </span>
+            <span className="MuiTouchRipple-root"></span>
+          </button>
+        </div>
 
         <InformModal
           changePhoneNumber={setPhoneNumber}
@@ -376,7 +422,7 @@ const Welcome = (props) => {
           data={data}
           submitFinal={submitInformerAfterVerification}
           modalAction={props.ModalAction}
-          verificationCode={verificationCode}
+          // verificationCode={verificationCode}
         />
       </div>
     </div>
