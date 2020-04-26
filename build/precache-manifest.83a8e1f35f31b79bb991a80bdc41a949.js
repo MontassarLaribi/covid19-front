@@ -1,43 +1,43 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ddc7727b69d9c6d42f8dd0762ef46588",
+    "revision": "65ed730c7a3058d68ee9c021e14dce4f",
     "url": "/index.html"
   },
   {
-    "revision": "9a8c6a0e5d24be7d8790",
+    "revision": "8f9da6445cab8288ad02",
     "url": "/static/css/2.eb777b3d.chunk.css"
   },
   {
-    "revision": "f2a1371e56dc7c111822",
+    "revision": "c8dc9090a3c7f4d6a091",
     "url": "/static/css/3.9ad6f431.chunk.css"
   },
   {
-    "revision": "9448ab204554a694c65b",
+    "revision": "2a1d60a7bacdc96920a2",
     "url": "/static/css/4.fb888df0.chunk.css"
   },
   {
-    "revision": "6d911a6fd774d0ec4047",
+    "revision": "4044d846908dec9bd7c3",
     "url": "/static/css/main.2dd437f4.chunk.css"
   },
   {
-    "revision": "9a8c6a0e5d24be7d8790",
-    "url": "/static/js/2.d9818639.chunk.js"
+    "revision": "8f9da6445cab8288ad02",
+    "url": "/static/js/2.e373d84b.chunk.js"
   },
   {
-    "revision": "f2a1371e56dc7c111822",
-    "url": "/static/js/3.c6fd7a4c.chunk.js"
+    "revision": "c8dc9090a3c7f4d6a091",
+    "url": "/static/js/3.3e7b32bc.chunk.js"
   },
   {
-    "revision": "9448ab204554a694c65b",
-    "url": "/static/js/4.8804743a.chunk.js"
+    "revision": "2a1d60a7bacdc96920a2",
+    "url": "/static/js/4.caf82864.chunk.js"
   },
   {
-    "revision": "6d911a6fd774d0ec4047",
-    "url": "/static/js/main.f376b8fa.chunk.js"
+    "revision": "4044d846908dec9bd7c3",
+    "url": "/static/js/main.bbd39a68.chunk.js"
   },
   {
-    "revision": "ea5190624b4ed212482d",
-    "url": "/static/js/runtime~main.b381ba5b.js"
+    "revision": "79f592aeebea8299d6fe",
+    "url": "/static/js/runtime~main.2dbcb98d.js"
   },
   {
     "revision": "c1d6ac056d5d415e1b5065acf8632508",
@@ -54,6 +54,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "bd53449b5472f2df57a5268b1a51327c",
     "url": "/static/media/charte.bd53449b.txt"
+  },
+  {
+    "revision": "53db816b72aa551c931a702b70241092",
+    "url": "/static/media/couffin-du-tunisien.53db816b.jpg"
   },
   {
     "revision": "c1d6ac056d5d415e1b5065acf8632508",
