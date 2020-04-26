@@ -58,7 +58,6 @@ const Welcome = (props) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   // const [verificationCode, setVerificationCode] = useState("");
   const [data, setData] = useState({});
-  const [type, setType] = useState("");
 
   const classes = useStyles();
   const cardProps = [
@@ -413,11 +412,10 @@ const Welcome = (props) => {
           changePhoneNumber={setPhoneNumber}
           modalAction={props.ModalAction}
           submitFormCallback={submitForm}
-          setType={setType}
         />
         <Sms
           tel={phoneNumber}
-          type={type}
+          type={"informer"}
           history={history}
           data={data}
           submitFinal={submitInformerAfterVerification}
