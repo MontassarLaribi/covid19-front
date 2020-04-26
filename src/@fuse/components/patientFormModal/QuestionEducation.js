@@ -8,6 +8,12 @@ const QuestionEducation = (props) => {
   const [stateOui, setStateOui] = useState(false);
   const [extraField, setExtraField] = useState("");
 
+  const removeExponent = (e) => {
+    if (e.which === 69) {
+      e.preventDefault();
+    }
+  };
+
   const handleClickOui = () => {
     setStateOui(true);
     setStateNon(false);
@@ -38,6 +44,7 @@ const QuestionEducation = (props) => {
           <p>{props.textField}</p>
           <MuiTextField
             type="number"
+            onKeyDown={removeExponent}
             inputProps={{ min: "0", max: "120", step: "1" }}
             error={error}
             variant="outlined"
@@ -53,6 +60,7 @@ const QuestionEducation = (props) => {
           <p>{props.textField}</p>
           <MuiTextField
             type="number"
+            onKeyDown={removeExponent}
             inputProps={{ min: "35", max: "50", step: "0.1" }}
             error={error}
             variant="outlined"
