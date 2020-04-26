@@ -104,8 +104,8 @@ const InformModal = ({
                 image: base64,
               };
               changePhoneNumber(values.numeroDenonciateur);
-              submitFormCallback(caste, 2);
               setType("informer");
+              submitFormCallback(caste, 2);
             } else {
               alert("Le fichier de preuve est requis! ملف الأدلة مطلوب");
             }

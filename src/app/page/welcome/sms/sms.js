@@ -32,6 +32,7 @@ const Sms = ({
       if (type === "informer") {
         const response = await submitFinal(value);
         if (response === 404) {
+          setDisabled(false);
           setCode("");
         }
       } else {
