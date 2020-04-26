@@ -1,5 +1,5 @@
 import DateFnsUtils from "@date-io/date-fns";
-import QuestionEducation from "@fuse/components/patientFormModal/QuestionEducation";
+import QuestionEducationDoctor from "@fuse/components/patientFormModal/QuestionEducationDoctor";
 import { Button, Container, MenuItem } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
@@ -182,7 +182,7 @@ const FormulaireMedecin = (props) => {
           </header>
         </Container>
       </div>
-      <div className="welcome-page">
+      <div className="welcome-page" style={{ marginBottom: "50px" }}>
         <div className="card-wrapper">
           <Formik
             initialValues={{
@@ -220,14 +220,14 @@ const FormulaireMedecin = (props) => {
               values,
               setFieldValue,
             }) => (
-              <Grid container className={classes.root} spacing={2}>
+              <Grid container className={classes.root}>
                 <Grid
                   item
                   xs={12}
                   style={{ display: "flex", justifyContent: "center" }}
                   container
                 >
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={3}>
                     <h2
                       className="personnal-question-title"
                       style={{ textAlign: "center" }}
@@ -250,7 +250,7 @@ const FormulaireMedecin = (props) => {
                             variant="outlined"
                             style={{
                               margin: "0 12px",
-                              width: "100%",
+                              width: "90%",
                             }}
                           />
                         </div>
@@ -268,7 +268,7 @@ const FormulaireMedecin = (props) => {
                             variant="outlined"
                             style={{
                               margin: "0 12px",
-                              width: "100%",
+                              width: "90%",
                             }}
                           />
                         </div>
@@ -286,7 +286,7 @@ const FormulaireMedecin = (props) => {
                             variant="outlined"
                             style={{
                               margin: "0 12px",
-                              width: "100%",
+                              width: "90%",
                             }}
                           />
                         </div>
@@ -304,7 +304,7 @@ const FormulaireMedecin = (props) => {
                             style={{
                               margin: "0 12px",
                               minWidth: "150px",
-                              width: "100%",
+                              width: "90%",
                             }}
                             name="sexe"
                             id="sexe"
@@ -328,7 +328,7 @@ const FormulaireMedecin = (props) => {
                             style={{
                               margin: "0 12px",
                               minWidth: "150px",
-                              width: "100%",
+                              width: "90%",
                             }}
                             name="city"
                             id="city"
@@ -376,7 +376,7 @@ const FormulaireMedecin = (props) => {
                             variant="outlined"
                             style={{
                               margin: "0 12px",
-                              width: "100%",
+                              width: "90%",
                             }}
                           />
                         </div>
@@ -394,7 +394,7 @@ const FormulaireMedecin = (props) => {
                             variant="outlined"
                             style={{
                               margin: "0 12px",
-                              width: "100%",
+                              width: "90%",
                             }}
                           />
                         </div>
@@ -415,72 +415,37 @@ const FormulaireMedecin = (props) => {
                             variant="outlined"
                             style={{
                               margin: "0 12px",
-                              width: "100%",
+                              width: "90%",
                             }}
                           />
                         </div>
                       </Form>
                     </MuiPickersUtilsProvider>
                   </Grid>
-                  <Grid
+                  {/* <Grid
                     item
                     xs={12}
-                    md={6}
+                    md={9}
                     style={{ textAlign: "-webkit-center" }}
-                  >
-                    {question &&
-                      question
-                        .filter((q) => {
-                          return q.section === "CATEGORY_GENERAL";
-                        })
-                        .map((el, key) => {
-                          return (
-                            <Grid
-                              item
-                              xs={12}
-                              md={6}
-                              key={key}
-                              className="question-list"
-                              style={{ textAlign: "center" }}
-                            >
-                              <h2 style={{ marginBottom: "50px" }}>
-                                {el.label}
-                              </h2>
-                              {el.questions.map((elem, i) => (
-                                <QuestionEducation
-                                  index={i}
-                                  key={i}
-                                  getState={getAllState}
-                                  title={elem.fr_value}
-                                  description={elem.ar_value}
-                                  {...elem}
-                                  style={{ marginBottom: "20px" }}
-                                />
-                              ))}
-                            </Grid>
-                          );
-                        })}
-                  </Grid>
-                </Grid>
-                <Grid item xs={12} spacing={2} container>
+                  > */}
                   {question &&
                     question
-                      .filter((q) => {
-                        return q.section !== "CATEGORY_GENERAL";
-                      })
+                      // .filter((q) => {
+                      //   return q.section === "CATEGORY_GENERAL";
+                      // })
                       .map((el, key) => {
                         return (
                           <Grid
                             item
                             xs={12}
-                            md={6}
+                            md={3}
                             key={key}
                             className="question-list"
                             style={{ textAlign: "center" }}
                           >
                             <h2 style={{ marginBottom: "50px" }}>{el.label}</h2>
                             {el.questions.map((elem, i) => (
-                              <QuestionEducation
+                              <QuestionEducationDoctor
                                 index={i}
                                 key={i}
                                 getState={getAllState}
@@ -493,6 +458,7 @@ const FormulaireMedecin = (props) => {
                           </Grid>
                         );
                       })}
+                  {/* </Grid> */}
                 </Grid>
                 <Grid
                   item
