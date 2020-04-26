@@ -104,7 +104,7 @@ const InformModal = ({
                 image: base64,
               };
               changePhoneNumber(values.numeroDenonciateur);
-              submitFormCallback(caste);
+              submitFormCallback(caste, 2);
               setType("informer");
             } else {
               alert("Le fichier de preuve est requis! ملف الأدلة مطلوب");
@@ -121,7 +121,7 @@ const InformModal = ({
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Form
                   onSubmit={() => {
-                    submitForm(values, 2);
+                    submitForm(values);
                   }}
                 >
                   <h4 className="form-title">
