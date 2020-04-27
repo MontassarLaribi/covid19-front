@@ -175,6 +175,7 @@ const Formulaire = (props) => {
 
   const submitPatientAfterVerification = async (pinCode) => {
     const newData = { ...responses, ...data, ...{ pinCode } };
+    let isPinError = 0;
     await axios
       .post(`${DOMAINE}/api/v1/patient`, { ...newData })
       .then((res) => {
@@ -209,9 +210,10 @@ const Formulaire = (props) => {
             action: "L'utilisateur à entré un code erroné",
           });
           alert("Code erroné veuillez ressayer!");
-          return 404;
+          isPinError = 404;
         }
       });
+    return isPinError;
   };
 
   const { i18n } = useTranslation("welcome");
