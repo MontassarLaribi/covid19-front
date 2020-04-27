@@ -127,11 +127,10 @@ const Welcome = (props) => {
     }
   }
 
-  const submitForm = (data, type) => {
+  const submitForm = async (data, type) => {
     const body = { number: data.phoneNumber, type: type };
     setData(data);
-
-    axios
+    await axios
       .post(`${DOMAINE}/api/v1/sms/authentication`, {
         ...body,
       })
@@ -142,6 +141,7 @@ const Welcome = (props) => {
   };
 
   const submitInformerAfterVerification = async (pinCode) => {
+    let isPinError = 0;
     await axios
       .post(`${DOMAINE}/api/v1/informer`, { ...data, ...{ pinCode } })
       .then((res) => {
@@ -176,9 +176,10 @@ const Welcome = (props) => {
             action: "L'utilisateur à entré un code erroné",
           });
           alert("Code erroné veuillez ressayer!");
-          return 404;
+          isPinError = 404;
         }
       });
+    return isPinError;
   };
 
   const { t, i18n } = useTranslation("welcome");
@@ -201,6 +202,14 @@ const Welcome = (props) => {
               <span
                 className={i18n.language === "fr" ? "selected" : ""}
                 onClick={() => i18n.changeLanguage("fr")}
+              >
+                FR
+              </span>
+            </li>
+            <li>
+              <span
+                className={i18n.language === "fr" ? "selected" : ""}
+                onClick={() => props.ModalAction("sms")}
               >
                 FR
               </span>
