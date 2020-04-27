@@ -206,14 +206,6 @@ const Welcome = (props) => {
                 FR
               </span>
             </li>
-            <li>
-              <span
-                className={i18n.language === "fr" ? "selected" : ""}
-                onClick={() => props.ModalAction("sms")}
-              >
-                FR
-              </span>
-            </li>
           </ul>
         </div>
         <div className="social-container">
