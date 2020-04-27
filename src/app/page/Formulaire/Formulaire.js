@@ -173,9 +173,9 @@ const Formulaire = (props) => {
       });
   };
 
-  const submitPatientAfterVerification = (pinCode) => {
+  const submitPatientAfterVerification = async (pinCode) => {
     const newData = { ...responses, ...data, ...{ pinCode } };
-    axios
+    await axios
       .post(`${DOMAINE}/api/v1/patient`, { ...newData })
       .then((res) => {
         ReactGA.event({

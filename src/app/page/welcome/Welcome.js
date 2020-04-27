@@ -141,8 +141,8 @@ const Welcome = (props) => {
       });
   };
 
-  const submitInformerAfterVerification = (pinCode) => {
-    axios
+  const submitInformerAfterVerification = async (pinCode) => {
+    await axios
       .post(`${DOMAINE}/api/v1/informer`, { ...data, ...{ pinCode } })
       .then((res) => {
         ReactGA.event({
