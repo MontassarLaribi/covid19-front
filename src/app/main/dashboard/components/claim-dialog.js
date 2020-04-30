@@ -128,7 +128,7 @@ const ClaimDialog = ({
                 fullWidth
                 rows={4}
                 variant="outlined"
-                value={q.value}
+                value={q.response.value}
               />
             </>
           )}
@@ -138,7 +138,7 @@ const ClaimDialog = ({
               label=""
               disabled
               variant="outlined"
-              value={q.value}
+              value={q.response.value}
             />
           )}
         </div>
