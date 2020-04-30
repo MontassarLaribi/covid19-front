@@ -94,6 +94,7 @@ const Formulaire = (props) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   // const [verificationCode, setVerificationCode] = useState("");
   const [data, setData] = useState({});
+  const [error, setError] = useState(null);
 
   const classes = useStyles();
 
@@ -158,6 +159,18 @@ const Formulaire = (props) => {
     }
     setReponse(newResponse);
   };
+
+  useEffect(() => {
+    if (error) {
+      const y = error.getBoundingClientRect().top + window.scrollY;
+      window.focus();
+      document.body.scrollTop = 0;
+      window.scroll({
+        top: y,
+        behavior: "smooth",
+      });
+    }
+  }, [error]);
 
   const submitForm = (data, type) => {
     const body = { number: data.phoneNumber, type: type };
@@ -390,6 +403,14 @@ const Formulaire = (props) => {
             sexe: "MALE",
             city: "ARIANA",
           }}
+          validate={async (values) => {
+            try {
+              PatientSchema.validateSync(values);
+            } catch (e) {
+              const element = document.getElementsByName(e.path);
+              setError(element[0]);
+            }
+          }}
           validationSchema={PatientSchema}
           onSubmit={(values) => {
             const caste = {
@@ -472,6 +493,7 @@ const Formulaire = (props) => {
                         />
                         <ErrorMessage
                           component="p"
+                          style={{ color: "red" }}
                           name="acceptTerms"
                           className="invalid-acceptTerms"
                         />
