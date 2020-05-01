@@ -37,10 +37,15 @@ const InformModal = ({
       .required("Champ téléphone requis"),
     codePostalDenonciateur: yup
       .number("Nombre positif")
-      .required("Champ age est requis")
+      .required("Champ code postal est requis")
       .typeError("Zip est un nombre")
       .positive("Nombre positif")
-      .integer("Nombre positif"),
+      .integer("Nombre positif")
+      .test(
+        "len",
+        "Doit être 4 chiffres",
+        (val) => val && val.toString().length === 4
+      ),
     nomDenonciateur: yup.string().max(30).required("Champ nom est requis"),
     adresseDenonciateur: yup
       .string()

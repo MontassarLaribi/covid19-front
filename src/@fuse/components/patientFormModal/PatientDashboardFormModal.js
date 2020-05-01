@@ -17,10 +17,15 @@ const PatientSchema = yup.object().shape({
     .required("Champ téléphone requis"),
   zipcode: yup
     .number("Nombre positif")
-    .required("Champ age est requis")
+    .required("Champ code postal est requis")
     .typeError("Zip est un nombre")
     .positive("Nombre positif")
-    .integer("Nombre positif"),
+    .integer("Nombre positif")
+    .test(
+      "len",
+      "Doit être 4 chiffres",
+      (val) => val && val.toString().length === 4
+    ),
   nom: yup.string().required("Champ nom est requis"),
   adresse: yup.string().required("Champ adresse est requis"),
   prenom: yup.string().required("Champ prenom est requis"),
