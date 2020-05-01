@@ -197,6 +197,13 @@ const ClaimDialog = ({
       {!isSent && (
         <Grid container spacing={0}>
           <Grid item md={6} xs={12}>
+            <Button
+              type="button"
+              style={{ marginLeft: "15px", marginTop: "10px", color: "red" }}
+              onClick={onClose}
+            >
+              Fermer
+            </Button>
             <div className="claim-dialog-form">
               <div className="claim-dialog-user-info">
                 <p>
